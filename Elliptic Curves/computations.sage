@@ -1,8 +1,8 @@
 from itertools import product
 
-n = 5
+n = 3
 F = GF(n)
-non_square_residues = [2, 3]
+non_square_residues = [0, 2]
 A = Matrix(F, n, 3)
 for i in range(n):
     for j in range(3):

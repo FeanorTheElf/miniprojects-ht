@@ -191,9 +191,9 @@ This gives the following condition.
     Let $p \in \{3, 5, 7\}$.
     Then there is no $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ if and only if
     \begin{align*}
-        p = 3 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 2 \mod 3 \\
-        p = 5 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 2, 3 \mod 5 \\
-        p = 7 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 3, 5, 6 \mod 7
+        p = 3 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 0, 2 \mod 3 \\
+        p = 5 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 0, 2, 3 \mod 5 \\
+        p = 7 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 0, 3, 5, 6 \mod 7
     \end{align*}
     for all $n \in \Z$.
     
@@ -215,31 +215,36 @@ This gives the following condition.
         \text{$n$ quadratic residue modulo $5$} \ &\Leftrightarrow \ n \equiv 0, 1, 4 \mod 5 \\
         \text{$n$ quadratic residue modulo $7$} \ &\Leftrightarrow \ n \equiv 0, 1, 4, 2 \mod 7
     \end{align*}
-    These cases have been excluded by assumption.
+    Except for $n \equiv 0 \mod p$, these cases have been excluded by assumption.
+    However we assumed that $y \not\equiv 0 \mod p$, so $y^2 \not\equiv 0 \mod p$ and the claim follows.
 
     The other direction follows by reversing the above computation.
     The claim now follows from Proposition~\ref{prop:p_adic_points_techniques}.
 \end{proof}
 However, there is one problem here.
-Using a computer, it is easy to see that the linear equations
-\begin{equation*}
-    \forall n \in \F_7: \ f_0 + f_1 n + f_2 n^2 + n^3 \equiv 3, 5, 6 \mod 7
-\end{equation*}
+Using a computer, one can easily find (e.g. by trying all possibilities) that there are no $f_0, f_1, f_2 \in \Z$ such that the above conditions are (simultaneously) fulfilled for $3$, $5$ and $7$.
 This seems to indicate that I have indeed misunderstood the task, and we only look for Elliptic Curves $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ such that there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for every $p \neq 3, 5, 7$, and do not require further properties for $E(\Z_3), E(\Z_5)$ and $E(\Z_7)$.
 
-So instead consider a strengthening of Proposition~\ref{prop:p_adic_points_techniques} part four.
+So instead consider a strengthening of the last part of Proposition~\ref{prop:p_adic_points_techniques}.
 \begin{prop}
-    Let $p \geq 5$ be a prime and $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ an Elliptic Curve with $f_0, f_1, f_2 \in \Z$.
+    \label{prop:points_in_EZp}
+    Let $p \geq 11$ be a prime and $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ an Elliptic Curve with $f_0, f_1, f_2 \in \Z$.
     Then there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$.
 \end{prop}
 \begin{proof}
     If $p \geq 11$ and $p \notdivides \Delta(E)$ then $\tilde{E}$ is an Elliptic Curve over $\F_p$ and the claim follows from Proposition~\ref{prop:p_adic_points_techniques}.
-    Using a computer, it is easy to check that the claim holds for $p = 5$ and $p = 7$ (there are only $5^5$ resp. $7^7$ different combinations of $f_0, f_1, f_2, x, y \in \F_5$ resp. $\F_7$).
-
+    
     So assume now that $p \divides \Delta(E)$, hence $x^3 + f_2 x^2 + f_1 x + f_0$ factors as
     \begin{equation*}
-        x^3 + f_2 x^2 + f_1 x + f_0 \equiv (x - \alpha)^2(x - \beta) \mod p
+        x^3 + \tilde{f}_2 x^2 + \tilde{f}_1 x + \tilde{f}_0 \equiv (x - \alpha)^2(x - \beta)
     \end{equation*}
+    with $\alpha, \beta \in \bar{\F}_p$.
+    However, note that $\F_p$ is perfect, so $(x - \alpha)^2(x - \beta)$ cannot be irreducible over $\F_p$, otherwise $\F_p[x] / \langle(x - \alpha)^2(x - \beta)\rangle$ would be a non-separable field extension of $\F_p$.
+    Thus, either $\alpha \in \F_p$ or $\beta \in \F_p$.
+    If $\alpha \in \F_p$, then clearly also $\beta = -2\alpha - \tilde{f}_2 \in \F_p$.
+    If $\beta \in \F_p$, then also $(x - \alpha)^2 \in \F_p[x]$ and again by perfectness of $\F_p$, note that $\alpha \in \F_p$.
+    So $\alpha, \beta \in \F_p$.
+
     Now note that for $t \in \F_p$ have
     \begin{equation*}
         \left( t^2 + \beta, \ t (t^2 + \beta - \alpha) \right) \in \tilde{E}
@@ -250,13 +255,38 @@ So instead consider a strengthening of Proposition~\ref{prop:p_adic_points_techn
     \end{equation*}
     If there is $\gamma \in \F_p$ with $\gamma^2 = \alpha - \beta$, then 
     \begin{equation*}
-        \restr{\phi}{\F_p \setminus \{-\gamma\}}
+        \restr{\phi}{\F_p \setminus \{-\gamma\}}: \F_p \setminus \{-\gamma\} \to \tilde{E}(\F_p)
     \end{equation*}
     is injective, otherwise $\phi$ is injective.
     Hence, we see that $\#(\tilde{E}(\F_p) \setminus \{\O\}) \geq \#\F_p - 1 \geq 4$ and so $\#\tilde{E}(\F_p) \geq 5$.
     It follows that there is $(\tilde{x}, \tilde{y}) \in \tilde{E}(\F_p)$ with $\tilde{y} \neq 0$.
     By a Hensel-lifting argument as in Proposition~\ref{prop:p_adic_points_techniques}, we now see that there is $\gamma \in \Z_p$ with $(x, \gamma) \in E(\Z_p)$ and $|\gamma|_p = 1$.
 \end{proof}
+The above proposition shows that constructing Elliptic Curves $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ such that there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for all primes $p \neq 3, 5, 7$ is indeed quite simple, as almost all curves satisfy this.
+This only case that can fail is $p = 2$, but here, the condition is fulfilled quite often, so we can just try different choices.
+\begin{example}
+    Let
+    \begin{align*}
+        E_1: \ &y^2 = x^3 + 2 x \\
+        E_2: \ &y^2 = x^3 + 2 x^2 + 6 x + 5\\
+        E_3: \ &y^2 = x^3 + 6x + 1
+    \end{align*}
+    Note that
+    \begin{align*}
+        1^2 &\equiv 3^3 + 2 \cdot 3 = 33 \mod 8 \\
+        1^2 &\equiv 2^3 + 2 \cdot 2^2 + 6 \cdot 2 + 5 = 33 \mod 8 \\
+        1^2 &\equiv 4^3 + 6 \cdot 4 + 1 = 89 \mod 8
+    \end{align*}
+    so Hensel's Lemma yields points $(x, y) \in E_i(\Z_2)$ with $|y|_2 = 1$ for $i \in \{1, 2, 3\}$.
+    By Proposition~\ref{prop:points_in_EZp}, we have points $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for all $p \geq 11$.
 
+    Finally, note that trying all points shows
+    \begin{align*}
+        \tilde{E}_1(\F_3) &= \{ (0, 0), (1, 0), (2, 0), \O \} \\
+        \tilde{E}_1(\F_5) &= \{ (0, 0), \O \} \\
+        \tilde{E}_2(\F_7) &= \{ (1, 0), (5, 0), (6, 0), \O \}
+    \end{align*}
+    so there is no point $(x, y) \in E_i(\Z_p)$ with $|y|_p = 1$ for $p \in \{3, 5, 7\}$ and a suitable $i$. 
+\end{example}
 \printbibliography
 \end{document}
