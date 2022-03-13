@@ -288,5 +288,51 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
     \end{align*}
     so there is no point $(x, y) \in E_i(\Z_p)$ with $|y|_p = 1$ for $p \in \{3, 5, 7\}$ and a suitable $i$. 
 \end{example}
+
+\section{Question 2}
+\begin{example}[2(i)]
+    Consider the Elliptic Curve $E: y^2 = x(x + 1)(x + 4)$ defined over $\Q$.
+    Have
+    \begin{equation*}
+        x(x + 1)(x + 4) = x^3 + 5x^2 + 4x = \left( x + \frac 5 3 \right)^3 - \frac {13} 3 \left( x + \frac 5 3 \right) + \frac {70} {27}
+    \end{equation*}
+    So $E$ is isomorphic to $E': y^2 = x^3 - \frac {13} 3 x + \frac {70} {27}$ via
+    \begin{equation*}
+        \psi: E \to E', \quad (x, y) \mapsto \left( x + \frac 5 3, y \right)
+    \end{equation*}
+    This isomorphism preserves the group structure\footnote{It is a general result that all isogenies are group homomorphisms, but in this case, it is also directly obvious as the isomorphism is linear, hence maps lines to lines.}, and so $E'_{\mathrm{tors}} \cong E_{\mathrm{tors}}$.
+    Have
+    \begin{equation*}
+        \Delta(E') = 4 \left( -\frac {13} 3 \right)^3 + 27 \left( \frac {70} {27} \right)^2 = -144 = \Delta(E)
+    \end{equation*}
+    Consider now any prime $p \neq 2, 3$.
+    Then the isomorphism $\psi: E \to E'$ induces an isomorphism $\tilde{\psi}: \tilde{E} \to \tilde{E}'$ between the reductions modulo $p$.
+    Note that $\tilde{E}, \tilde{E}'$ are still Elliptic Curves.
+
+    Hence, we can use results from the lecture on the reduction modulo $p \neq 2, 3$ for the curve $E$, even though it is not given by an equation of the form $y^2 = x^3 + Ax + B$, as all these statements are preserved under isomorphism.
+    In particular, we see that the kernel of reduction $E_1(\Q_5)$ has no torsion and so there is an embedding
+    \begin{equation*}
+        E_{\mathrm{tors}}(\Q) \hookrightarrow \tilde{E}(\F_5)
+    \end{equation*}
+    Note that
+    \begin{equation*}
+        \tilde{E}(\F_5) = \{ (0, 0), (1, 0), (2, 1), (2, 4), (3, 2), (3, 3), (4, 0), \O \}
+    \end{equation*}
+    has order 8.
+    Clearly
+    \begin{equation*}
+        (0, 0), (-1, 0), (-4, 0), \O \in E_{\mathrm{tors}}(\Q)
+    \end{equation*}
+    So the only remaining question is whether this is all the torsion (i.e. $\#E_{\mathrm{tors}}(\Q) = 4$) or there are more points (i.e. $\#E_{\mathrm{tors}}(\Q) = 8$).
+
+    Consider now $P = (-2, 2) \in E$.
+    The tangent at $P$ is given by $y = -x$ and the third point of intersection with $E$ is thus $(0, 0)$.
+    Hence $P + P = (0, 0)$ and so $[4]P = \O$.
+    It follows that $\#E_{\mathrm{tors}}(\Q) = 8$ and furthermore that 
+    \begin{equation*}
+        E_{\mathrm{tors}}(E) = \langle P, (-1, 0) \rangle \cong \Z/4\Z \oplus \Z/2\Z
+    \end{equation*}
+\end{example}
+
 \printbibliography
 \end{document}
