@@ -100,9 +100,10 @@
 \end{example}
 For the next exercises, we will slightly abuse notation and write
 \begin{equation*}
-    E(R) := \{ (x, y) \in E \ | \ x, y \in R \}
+    E(R) := \{ (x, y) \in E(\bar{k}) \ | \ x, y \in R \} \cup \{\O\}
 \end{equation*}
-for an Elliptic Curve $E$ defined over $k$ and any ring $R$ contained in some extension field of $k$.
+for an Elliptic Curve $E$ defined over $k$ and any ring $R$ contained in the algebraic closure $\bar{k}$.
+Note that this is usually not a group anymore, and does not have a lot of nice structure.
 \begin{prop}[1(iii)]
     Consider the Elliptic Curve $E: y^2 = x^3 + 2x + 2$ defined over $\Z$.
     Then $E(\Z) = \{ \O \}$ and
@@ -333,6 +334,67 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
         E_{\mathrm{tors}}(E) = \langle P, (-1, 0) \rangle \cong \Z/4\Z \oplus \Z/2\Z
     \end{equation*}
 \end{example}
+\begin{example}
+    Consider the Elliptic Curve $E: y^2 = x(x + 1)(x - 8)$.
+    Note that we have an isomorphism
+    \begin{equation*}
+        \psi: E \to E', \quad (x, y) \mapsto \left( x - \frac 7 3, y \right)
+    \end{equation*}
+    to the Elliptic Curve $E': y^2 = x^3 - \frac {73} 3 x - \frac {1190} {27}$ defined over $\Q$.
+    Have that
+    \begin{equation*}
+        \Delta(E) = -72^2 = -5184 = \Delta(E')
+    \end{equation*}
+    Note that this has only the prime factors $2$ and $3$.
+    As before, this shows that all the results from the lecture on the reduction modulo $p \neq 2, 3$ are also valid for the curve $E$, even though it is not defined by an equation of the form $y^2 = x^3 + Ax + B$.
+    We see that
+    \begin{equation*}
+        \tilde{E}(\F_7) = \{ (0, 0), (1, 0), (4, 2), (4, 5), (5, 1), (5, 6), (6, 0), \O \}
+    \end{equation*}
+    and thus has order 8.
+    As before, we this only leaves two possible cases, either the obvious 2-torsion points are all torsion points (i.e. $\#E_{\mathrm{tors}}(\Q) = 4$) or each of the points $\tilde{E}(\F_5)$ lifts to a torsion point (i.e. $\#E_{\mathrm{tors}}(\Q) = 8$).
 
-\printbibliography
+    Unlike the previous example however, this time the former is the case.
+    To see this, we use the Nagell-Lutz theorem.
+    Assume $(x, y) \in E_{\mathrm{tors}}(\Q)$ with $y \neq 0$.
+    Then it yields that $y^2 \divides \Delta(E) = -72^2$ and so $y \divides 72$.
+    So
+    \begin{equation*}
+        y \in \{ \pm 1, \pm 2, \pm 4, \pm 8, \pm 3 \pm 6, \pm 12, \pm 24, \pm 9, \pm 18, \pm 36, \pm 72 \}
+    \end{equation*}
+    Furthermore $y \not\equiv 0 \mod 7$ and since $(\tilde{x}, \tilde{y}) \in \tilde{E}(\F_7)$, it follows that
+    \begin{equation*}
+        (\tilde{x}, \tilde{y}) \in \{ (4, \pm 2), (5, \pm 1) \} \ \Rightarrow \ \tilde{y} \in \{ \pm 1, \pm 2 \}
+    \end{equation*}
+    Thus we only have the possibilities
+    \begin{equation*}
+        y \in \{ \pm 1, \pm 2, \pm 8, \pm 6, \pm 12, \pm 9, \pm 36, \pm 72 \}
+    \end{equation*}
+    Furthermore, observe that
+    \begin{equation*}
+        \tilde{E}(\F_{11}) = \{ (0, 0), (5, 3), (5, 8), (6, 2), (6, 9), (8, 0), (10, 0), \O \}
+    \end{equation*}
+    and so it follows by the same argument that
+    \begin{equation*}
+        \tilde{y} \in \{ \pm 2, \pm 3 \}
+    \end{equation*}
+    This further restricts the possibilities to
+    \begin{equation*}
+        y \in \{ \pm 2, \pm 8, \pm 12, \pm 9 \}
+    \end{equation*}
+    Finally, observe that none of the equations
+    \begin{align*}
+        4 &= x^3 - 7x^2 - 8x \\
+        64 &= x^3 - 7x^2 - 8x \\
+        144 &= x^3 - 7x^2 - 8x \\
+        81 &= x^3 - 7x^2 - 8x
+    \end{align*}
+    has a solution in $\Q$.
+    To see this, use e.g. the rational root theorem and some computation:
+
+    The only factors of $4$ are $\pm 1, \pm 2, \pm 4$ and none solves $4 = x^3 + 7x^2 - 8x$.
+    The only factors of $64$ are $\pm 1, \pm 2, \pm 4, \pm 8, \pm 16, \pm 32, \pm 64$ and none solves $64 = x^3 - 7x^2 - 8x$.
+    The only factors of $144$ are $\pm 1, \pm 2, \pm 4, \pm 8, \pm 16, \pm 3, \pm 6, \pm 12, \pm 24, \pm 48, \pm 9, \pm 18, \pm 36, \pm 72, \pm 144$ and none solves $144 = x^3 - 7x^2 - 8x$.
+    The only factors of $81$ are $\pm 1, \pm 3, \pm 9, \pm 27, \pm 81$ and none solves $81 = x^3 - 7x^2 - 8x$.
+\end{example}
 \end{document}
