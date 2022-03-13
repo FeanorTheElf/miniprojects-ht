@@ -397,4 +397,72 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
     The only factors of $144$ are $\pm 1, \pm 2, \pm 4, \pm 8, \pm 16, \pm 3, \pm 6, \pm 12, \pm 24, \pm 48, \pm 9, \pm 18, \pm 36, \pm 72, \pm 144$ and none solves $144 = x^3 - 7x^2 - 8x$.
     The only factors of $81$ are $\pm 1, \pm 3, \pm 9, \pm 27, \pm 81$ and none solves $81 = x^3 - 7x^2 - 8x$.
 \end{example}
+\begin{prop}
+    \label{prop:duplication_formula}
+    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve over a field $k$.
+    For a point $P \in E$ with $P \neq \O$ denote by $x(P)$ its (affine) $x$-coordinate.
+    Then have for all $P \in E$ with $P \neq -P$ that
+    \begin{equation*}
+        x([2]P) = \frac {x(P)^4 - 2a_4 x(P)^2 - 8a_6x(P) + a_4^2 - 4a_2a_6} {4(x(P)^3 + a_2 x(P)^2 + a_4 x(P) + a_6)}
+    \end{equation*}  
+\end{prop}
+\begin{prop}
+    Let $E: y^2 = x(x + 1)(x - 8)$ be the Elliptic Curve from the previous example.
+    The for each prime $p \geq 5$, have that $\Z/4\Z \oplus \Z/2\Z$ is a subgroup of $\tilde{E}(\F_p)$.
+\end{prop}
+\begin{proof}
+    First of all, note that the duplication formula from Proposition~\ref{prop:duplication_formula} has the form
+    \begin{equation*}
+        x([2]P) = \frac {x(P)^4 + 16 x(P) + 64} {4 x(P)^3 - 28 x(P)^2 - 32 x(P)}
+    \end{equation*}
+    Consider any prime $p \geq 5$.
+    Clearly there are the 2-torsion points
+    \begin{equation*}
+        (0, 0), (-1, 0), (8, 0) \in \tilde{E}(\F_p)
+    \end{equation*}
+
+    \paragraph{Case 1} If $-1$ is a quadratic residue modulo $p$, then there is $\beta \in \F_p$ with $\beta^2 = -36$.
+    Have then that $(2, \beta) \in \tilde{E}(\F_p)$ and
+    \begin{equation*}
+        x([2](2, \beta)) = \frac {2^4 + 16 \cdot 2^2 + 64} {4 \cdot 2^3 - 28 \cdot 2^2 - 32 \cdot 2} = \frac {144} {-144} = -1
+    \end{equation*}
+    and so $[2](2, \beta) = (-1, 0)$ is a 2-torsion point.
+    Thus $(2, \beta)$ has order $4$ and we see that
+    \begin{equation*}
+        \langle (2, \beta), (0, 0) \rangle \cong \Z/4\Z \oplus \Z/2\Z
+    \end{equation*}
+
+    \paragraph{Case 2} If $-2$ is a quadratic residue modulo $p$, then there is $\alpha \in \F_p$ with $\alpha^2 = -8$.
+    Then
+    \begin{equation*}
+        (\alpha - 8)^2 = (\alpha^2 + \alpha)(\alpha - 8) = \alpha(\alpha + 1)(\alpha - 8)
+    \end{equation*}
+    With $\beta := \alpha - 8$ we now find $(\alpha, \beta) \in \tilde{E}(\F_p)$ and
+    \begin{equation*}
+        x([2](\alpha, \beta)) = \frac {\alpha^4 + 16 \alpha^2 + 64} {4 \alpha^3 - 28 \alpha^2 - 32 \alpha} = \frac {(\alpha^2 + 8)^2} {4 \alpha^3 - 28 \alpha^2 - 32 \alpha} = 0
+    \end{equation*}
+    and so $[2](\alpha, \beta) = (0, 0)$ is a 2-torsion point.
+    Hence, $(\alpha, \beta)$ has order $4$ and thus
+    \begin{equation*}
+        \langle (\alpha, \beta), (-1, 0) \rangle \cong \Z/4\Z \oplus \Z/2\Z
+    \end{equation*}
+
+    \paragraph{Case 3} If $2$ is a quadratic residue modulo $p$, then there is $\alpha' \in \F_p$ with $(\alpha')^2 = 72$ and so there is $\alpha = \alpha' + 8$ with $\alpha^2 - 16\alpha - 8 = 0$.
+    Note that $\alpha^2 = 16\alpha + 8$ and thus
+    \begin{equation*}
+        (9\alpha - 24)^2 = 81 \cdot 16 \alpha + 81 \cdot 8 - 432 \alpha + 576 = 1224 + 864\alpha = \alpha^3 - 7\alpha^2 - 8\alpha= \alpha (\alpha + 1) (\alpha - 8)
+    \end{equation*}
+    With $\beta := 9\alpha - 24$ we now find $(\alpha, \beta) \in \tilde{E}(\F_p)$ and
+    \begin{align*}
+        x([2](\alpha, \beta)) =& \frac {\alpha^4 + 16 \alpha^2 + 64} {4\alpha^3 - 28\alpha^2 - 32\alpha} = \frac {(\alpha^2 + 8)^2} {4\alpha(\alpha + 1)(\alpha - 8)} \\
+        =& \frac {16^2(\alpha + 1)^2} {4\alpha(\alpha + 1)(\alpha - 8)} = \frac {64 (\alpha + 1)} {(\alpha^2 - 8\alpha)} = \frac {64 (\alpha + 1)} {16\alpha + 8 - 8\alpha} = 8
+    \end{align*}
+    and so $[2](\alpha, \beta) = (8, 0)$ is a 2-torsion point.
+    Hence $(\alpha, \beta)$ has order $4$ and thus
+    \begin{equation*}
+        \langle (\alpha, \beta), (0, 0) \rangle \cong \Z/4\Z \oplus \Z/2\Z
+    \end{equation*}
+
+    Since the Legendre symbol is multiplicative and $(-2)(-1) = 2$, these cases are exhaustive.
+\end{proof}
 \end{document}
