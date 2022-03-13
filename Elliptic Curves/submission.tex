@@ -334,7 +334,8 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
         E_{\mathrm{tors}}(E) = \langle P, (-1, 0) \rangle \cong \Z/4\Z \oplus \Z/2\Z
     \end{equation*}
 \end{example}
-\begin{example}
+\begin{example}[2(ii)]
+    \label{ex:2ii}
     Consider the Elliptic Curve $E: y^2 = x(x + 1)(x - 8)$.
     Note that we have an isomorphism
     \begin{equation*}
@@ -396,7 +397,12 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
     The only factors of $64$ are $\pm 1, \pm 2, \pm 4, \pm 8, \pm 16, \pm 32, \pm 64$ and none solves $64 = x^3 - 7x^2 - 8x$.
     The only factors of $144$ are $\pm 1, \pm 2, \pm 4, \pm 8, \pm 16, \pm 3, \pm 6, \pm 12, \pm 24, \pm 48, \pm 9, \pm 18, \pm 36, \pm 72, \pm 144$ and none solves $144 = x^3 - 7x^2 - 8x$.
     The only factors of $81$ are $\pm 1, \pm 3, \pm 9, \pm 27, \pm 81$ and none solves $81 = x^3 - 7x^2 - 8x$.
+
+    Note that the usual approach to bound the size of $E_{\mathrm{tors}}(\Q)$ is use to the theorem that this embeds into $\tilde{E}(\F_p)$ whenever $\tilde{E}$ is an Elliptic Curve.
+    However, for this example, this was not sufficient, as we could not find a prime such that the group $\Z/4\Z \oplus \Z/2\Z$ does not embed into $\tilde{E}(\F_p)$.
+    In the next part, we want to study this phenomenon more carefully and indeed see that there is no such prime, i.e. just considering reduction modulo $p$ is not sufficient to compute the torsion group of $E$.
 \end{example}
+First, it is convenient to have a closed formula for the $x$-coordinate of $[2]P$ for a point $P$ on an Elliptic Curve.
 \begin{prop}
     \label{prop:duplication_formula}
     Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve over a field $k$.
@@ -416,10 +422,6 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
         x([2]P) = \frac {x(P)^4 + 16 x(P) + 64} {4 x(P)^3 - 28 x(P)^2 - 32 x(P)}
     \end{equation*}
     Consider any prime $p \geq 5$.
-    Clearly there are the 2-torsion points
-    \begin{equation*}
-        (0, 0), (-1, 0), (8, 0) \in \tilde{E}(\F_p)
-    \end{equation*}
 
     \paragraph{Case 1} If $-1$ is a quadratic residue modulo $p$, then there is $\beta \in \F_p$ with $\beta^2 = -36$.
     Have then that $(2, \beta) \in \tilde{E}(\F_p)$ and
