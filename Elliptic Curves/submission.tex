@@ -400,7 +400,7 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
 
     Note that the usual approach to bound the size of $E_{\mathrm{tors}}(\Q)$ is use to the theorem that this embeds into $\tilde{E}(\F_p)$ whenever $\tilde{E}$ is an Elliptic Curve.
     However, for this example, this was not sufficient, as we could not find a prime such that the group $\Z/4\Z \oplus \Z/2\Z$ does not embed into $\tilde{E}(\F_p)$.
-    In the next part, we want to study this phenomenon more carefully and indeed see that there is no such prime, i.e. just considering reduction modulo $p$ is not sufficient to compute the torsion group of $E$.
+    In the next part, we want to study this phenomenon more carefully and indeed see that there is no such prime, i.e. it is impossible to show that $\#E_{\mathrm{tors}}(\Q) \neq 8$ by just considering the reductions modulo $p$.
 \end{example}
 First, it is convenient to have a closed formula for the $x$-coordinate of $[2]P$ for a point $P$ on an Elliptic Curve.
 \begin{prop}
@@ -466,5 +466,69 @@ First, it is convenient to have a closed formula for the $x$-coordinate of $[2]P
     \end{equation*}
 
     Since the Legendre symbol is multiplicative and $(-2)(-1) = 2$, these cases are exhaustive.
+\end{proof}
+To find more examples, it might be a good idea to use the structure from the previous theorem, but take another set of exhaustive cases.
+So consider an Elliptic Curve
+\begin{equation*}
+    E: y^2 = x(x - \alpha)(x - \beta) = x^3 - (\alpha + \beta)x^2 + \alpha \beta x
+\end{equation*}
+with 3 nontrivial torsion points $(\alpha, 0), (\beta, 0), (0, 0)$ over $\Q$.
+We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
+\begin{lemma}
+    Let $E: y^2 = x(x - \alpha)(x - \beta)$ be an Elliptic Curve over a field $k$ of characteristic $\neq 2$.
+    Then there exists $P \in E(k)$ of order 4 if and only if $k$ has a root of
+    \begin{equation*}
+        \left(\mu^4 + 2(\alpha + \beta)\mu^2 + (\alpha - \beta)^2\right)\left(\mu^4 + (2\beta - 4\alpha)\mu^2 + \beta^2\right)\left(\mu^4 + (2\alpha - 4\beta)\mu^2 + \alpha^2\right)
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    The duplication formula for $E$ gives with $x = x(P)$ that
+    \begin{equation*}
+        x([2]P) = d(x) := \frac {x^4 - 2 \alpha \beta x^2 + \alpha^2 \beta^2} {4x^3 - 4(\alpha + \beta) x^2 + 4 \alpha \beta x}
+    \end{equation*}
+
+    \paragraph{Case 1} If there is $\mu \in \F_p$ with $\mu^4 + 2(\alpha + \beta)\mu^2 + (\alpha - \beta)^2 = 0$.
+
+    Then note that there is $\gamma := \frac 1 2 (\mu^2 - \alpha - \beta)$ such that $\gamma^2 = \alpha\beta$.
+    Thus
+    \begin{equation*}
+        d(\gamma) = \frac {\gamma^4 - 2\alpha\beta\gamma^2 + \alpha^2\beta^2} {4\gamma^3 - 4(\alpha + \beta) \gamma^2 + 4 \alpha \beta \gamma} = \frac 0 {4\gamma^3 - 4(\alpha + \beta) \gamma^2 + 4 \alpha \beta \gamma} = 0
+    \end{equation*}
+    Note further that
+    \begin{equation*}
+        \gamma^3 - (\alpha + \beta)\gamma^2 + \alpha\beta\gamma = 2\alpha\beta\gamma - \alpha\beta(\alpha + \beta) = \alpha\beta(2\gamma - \alpha - \beta) = \gamma^2 \mu^2
+    \end{equation*}
+    since $\mu^2 = 2\gamma - \alpha - \beta$.
+    So there is a point $(\gamma, \gamma\mu) \in E(k)$ with $[2](\gamma, \mu) = (0, 0)$.
+
+    \paragraph{Case 2} If there is $\mu \in k$ with $\mu^4 + (2\beta - 4\alpha)\mu^2 + \beta^2 = 0$.
+
+    Then note that there is $\gamma := \frac 1 2 (\mu^2 + \beta)$ such that $\gamma^2 - 2\alpha\gamma + \alpha\beta = 0$.
+    Thus
+    \begin{align*}
+        &\gamma^4 - 2 \alpha \beta \gamma^2 + \alpha^2 \beta^2 = 4\alpha \gamma^3 - 4\alpha(\alpha + \beta) \gamma^2 + 4 \alpha^2 \beta \gamma \\
+        =& \gamma^4 - 4\alpha \gamma^3 + (4\alpha^2 + 4\alpha\beta - 2\alpha\beta)\gamma^2 - 4\alpha^2\beta \gamma + \alpha^2\beta^2 \\
+        =& \gamma^4 - 4\alpha \gamma^3 + 2\alpha(2\alpha + \beta)\gamma^2 - 4\alpha^2\beta \gamma + \alpha^2\beta^2 \\
+        =& (\gamma^2 - 2\alpha \gamma + \alpha \beta)^2 = 0^2 = 0
+    \end{align*}
+    and so
+    \begin{equation*}
+        \gamma^4 - 2 \alpha \beta \gamma^2 + \alpha^2 \beta^2 = \alpha(4\gamma^3 - 4(\alpha + \beta) \gamma^2 + 4 \alpha \beta \gamma)
+    \end{equation*}
+    It follows that
+    \begin{equation*}
+        d(\gamma) = \frac {\gamma^4 - 2 \alpha \beta \gamma^2 + \alpha^2 \beta^2} {4\gamma^3 - 4(\alpha + \beta) \gamma^2 + 4 \alpha \beta \gamma} = \alpha
+    \end{equation*}
+    Furthermore note that
+    \begin{align*}
+        \gamma^3 - (\alpha + \beta)\gamma^2 + \alpha\beta\gamma =& \gamma(2\alpha\gamma - \alpha\beta) - (2\alpha\gamma - \alpha\beta)(\alpha + \beta) + \alpha\beta\gamma \\
+        =& 2\alpha(2\alpha\gamma - \alpha\beta) - 2\alpha^2\gamma - 2\alpha\beta\gamma + \alpha^2\beta + \alpha\beta^2 \\
+        =& \gamma(4\alpha^2 - 2\alpha^2 - 2\alpha\beta) + \alpha^2\beta + \alpha\beta^2 - 2\alpha^2\beta \\
+        =& 2\alpha\gamma(\alpha - \beta) + \alpha\beta(\beta - \alpha) = \alpha(\alpha - \beta)(2\gamma - \beta) = (\gamma - \alpha)^2\mu^2
+    \end{align*}
+    as $\mu^2 = 2\gamma - \beta$ and $(\gamma - \alpha)^2 = 2\alpha\gamma - \alpha\beta - 2\gamma\alpha + \alpha^2 = \alpha(\alpha - \beta)$.
+    So there is a point $(\gamma, (\gamma - \alpha)\mu) \in E(k)$ with $[2](\gamma, (\gamma - \alpha)\mu) = (\alpha, 0)$.
+
+    \paragraph{Case 3} Similarly, if there is $\mu \in k$ with $\mu^4 + (2\alpha - 4\beta)\mu^2 + \alpha^2 = 0$, then there is a point $P \in E(k)$ with $[2]P = (\beta, 0)$
 \end{proof}
 \end{document}
