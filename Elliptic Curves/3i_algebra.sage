@@ -1,3 +1,6 @@
+# (a, b, c) = (a_2, a_4, a_6),
+# y = beta, 
+# (u, v) = (alpha_2, beta_2)
 R.<a,b,c,y,u,v> = PolynomialRing(QQ, 6)
 
 # slope of the tangent at (0,y)

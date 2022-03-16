@@ -16,6 +16,8 @@ I = ideal(
     -y * line2_den + v * line2_den - u * line2_num, # [2](u, v) = (0, -y)
 )
 
+print(I.elimination_ideal([a, b, c]))
+
 # slope of line through (0, -y) and (u, v)
 line3_num = v + y
 line3_den = u
@@ -30,15 +32,11 @@ def j_inv(a1, a2, a3, a4, a6):
     D = -b2**2*b8 - 8*b4**3 - 27*b6**2 + 9*b2*b4*b6
     return (c4**3, D)
 
-print(I.gens())
-print()
 
 j_inv_E1_num, j_inv_E1_den = j_inv(0, a, 0, b, c)
 j_inv_E2_num, j_inv_E2_den = j_inv(V + 1, V, V, 0, 0)
 
 statement = j_inv_E1_num * j_inv_E2_den - j_inv_E1_den * j_inv_E2_num
-
-print(statement)
 
 I = ideal([-b^6 + 12*a*b^4*c - 48*a^2*b^2*c^2 + 64*a^3*c^3 + 32*b^3*c^2 - 128*a*b*c^3 + 256*c^4])
 J = ideal([*I.gens(), statement])

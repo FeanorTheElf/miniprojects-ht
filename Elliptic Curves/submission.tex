@@ -547,51 +547,30 @@ A necessary condition for that is that $G(T)$ has a root modulo any prime $p$, w
 is a quadratic residue modulo $p$, for any prime $p$.
 
 \section*{Question 3}
-\begin{prop}
-    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve with $a_2, a_4, a_6 \in \Z$ and $P = (\alpha, \beta) \in E$ a point of order 5 with $\alpha = 0$.
-\end{prop}
-\begin{proof}
-    Let $(\alpha_2, \beta_2) = [2]P$.
-    First note that by assumption have
-    \begin{align*}
-        [3]P = (\alpha_2, -\beta_2), \quad [4]P = (0, -\beta), \quad [5]P = \O
-    \end{align*}
-    Further, by the Nagell-Lutz theorem, we know that $\beta, \alpha_2, \beta_2 \in \Z$.
-    Applying the duplication formula shows
-    \begin{equation*}
-        \alpha_2 = \frac {a_4^2} {4a_6} - a_2 \in \Z
-    \end{equation*}
-    and so $2\beta \divides a_4$.
-    Now apply the duplication formula twice, and see that
-    \begin{align*}
-        x([4]P) = \frac {f(x)x} {g(x)} + \frac 1 {g(x)} \Bigl( &a_4^8 - 16a_2a_4^6a_6 + 96a_2^2a_4^4a_6^2 - 256a_2^3a_4^2a_6^3 + 256a_2^4a_6^4 - 32a_4^5a_6^2 \\
-        &+ 256a_2a_4^3a_6^3 - 512a_2^2a_4a_6^4 - 256a_4^2a_6^4 + 1024a_2a_6^5 \Bigr)
-    \end{align*}
-    with polynomials $f, g \in k[x]$.
-    Since $[4]P = -P = (0, -\beta)$ by assumption, we see that
-    \begin{align*}
-        0 = &a_4^8 - 16a_2a_4^6a_6 + 96a_2^2a_4^4a_6^2 - 256a_2^3a_4^2a_6^3 + 256a_2^4a_6^4 - 32a_4^5a_6^2 \\
-        &+ 256a_2a_4^3a_6^3 - 512a_2^2a_4a_6^4 - 256a_4^2a_6^4 + 1024a_2a_6^5 := F
-    \end{align*}
-    Note that $F$ factors as
-    \begin{align*}
-        F =& (-a_4^2 + 4a_2a_6) \cdot \\
-        &(\underbrace{-a_4^6 + 12a_2a_4^4a_6 - 48a_2^2a_4^2a_6^2 + 64a_2^3a_6^3 + 32a_4^3a_6^2 - 128a_2a_4a_6^3 + 256a_6^4}_{=: G})
-    \end{align*}
-    \paragraph{If $4a_2a_6 = a_4^2$} As $\alpha_2 = \frac 1 4 a_4^2/a_6 - a_2$ it follows that $\alpha_2 = 0$, a contradiction ($\alpha_2 = 0$ would imply $[2]P = P$ or $[2]P = -P$, both contradicting the assumption that $\mathrm{ord}(P) = 5$).
-    \paragraph{If $G = 0$} Have for any prime $p \divides a_4$
-\end{proof}
-\begin{prop}
-    Let $E: y^2 + (v + 1) x y + v y = x^3 + v x^2$ be an Elliptic Curve and $P = (x_1, y_1), Q = (x_2, y_2) \in E$ with $x_1 \neq x_2$.
+\begin{lemma}
+    \label{prop:relation_y_uv}
+    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
+    Suppose that $E$ has a nontrivial 5-torsion point $P = (\alpha_1, \beta_1) \in E(k)$.
+    wlog $\alpha_1 = 0$.
+    Let further $(\alpha_2, \beta_2) = [2](0, \beta)$.
     Then
     \begin{equation*}
-        x(P + Q) = -x_1 - x_2 + m^2 + m(v + 1) - v
+        \alpha_2^3 = -4\beta\beta_2
     \end{equation*}
-    where
-    \begin{equation*}
-        m = \frac {y_2 - y_1} {x_2 - x_1}
-    \end{equation*}
-\end{prop}
+\end{lemma}
+\begin{proof}
+    Consider the following SAGE script:
+    \lstinputlisting[language = python]{./3i_algebra.sage}
+    The output shows that $\alpha_2^3 = -4 \beta \beta_2$ already follows from the facts
+    \begin{align*}
+        &(0, \beta) \in E, \\
+        &(\alpha_2, \beta_2) \in E, \\
+        &[2](0, \beta) = (\alpha_2, \beta_2), \\
+        &[2](\alpha_2, \beta_2) = (0, -\beta)
+    \end{align*}
+    which hold by assumption that $(0, \beta)$ has order $5$.
+    The claim follows.
+\end{proof}
 \begin{prop}
     Let
     \begin{equation*}
@@ -632,16 +611,17 @@ is a quadratic residue modulo $p$, for any prime $p$.
     Thus by linear algebra, find that $E = E'$.
 \end{proof}
 \begin{prop}[3(i)]
-    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$ and $P = (\alpha_1, \beta_1) \in E(k)$ a (nontrivial) 5-torsion point.
+    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
+    Suppose that $E$ has a nontrivial 5-torsion point $P = (\alpha_1, \beta_1) \in E(k)$.
     wlog $\alpha_1 = 0$.
     Let further $[2]P = (\alpha_2, \beta_2)$ and note that $\alpha_1 = 0 \neq \alpha_2$.
     Then there exists a birational equivalence $E \to E'$ where $E': y^2 + (1 + v) x y + v y = x^3 + v x^2$ given by
     \begin{equation*}
         \psi: E \to E', \quad (x, y) \mapsto (u^2 x, u^3 y + u^2 s x + t)
     \end{equation*}
-    where
+    with
     \begin{equation*}
-        v = \frac {\beta_2} {\beta}, \quad t = -\frac {\beta_2} {2\beta}, \quad u^3 = \frac {\beta_2} {2\beta^2}, \quad s = \frac {u} {\alpha_2} ( \beta_2 + \beta )
+        v = \frac {\beta_2} {\beta}, \quad t = -\frac {\beta_2} {2\beta}, \quad u = -\frac {\alpha_2} {2\beta}, \quad s = \frac {u} {\alpha_2} ( \beta_2 + \beta )
     \end{equation*}
 \end{prop}
 \begin{proof}
@@ -651,43 +631,30 @@ is a quadratic residue modulo $p$, for any prime $p$.
         &[1](0, \beta) = (0, \beta), \quad [2](0, \beta) = (\alpha_2, \beta_2), \\
         &[3](0, \beta) = -[2](0, \beta) = (\alpha_2, -\beta_2), \quad [4](0, \beta) = -[1](0, \beta) = (0, -\beta)
     \end{align*}
-    Assume for now that $u^2 \alpha_2 = -v$.
-    Under $\psi$, we see that
+    By Lemma~\ref{prop:relation_y_uv} we have that $\alpha_2^3 = -4\beta\beta_2$ and so
     \begin{equation*}
-        (0, \beta) \mapsto (0, u^3 \beta + t) = \left( 0, \frac {\beta} {2\beta_2} - \frac {\beta} {2\beta_2} \right) = (0, 0) \in E'
+        u^3 = \left( -\frac {\alpha_2} {2\beta} \right)^3 = -\frac {\alpha_2^3} {8\beta^3} = \frac {4\beta\beta_2} {8\beta^3} = \frac {\beta_2} {2\beta^2}
+    \end{equation*}
+
+    Under $\psi$, we now see that
+    \begin{equation*}
+        (0, \ \beta) \mapsto (0, u^3 \beta + t) = \left( 0, \ \frac {\beta} {2\beta_2} - \frac {\beta} {2\beta_2} \right) = (0, 0) \in E'
     \end{equation*}
     and
     \begin{align*}
-        (\alpha_2, \beta_2) \mapsto (u^2 \alpha_2, u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(-v, \frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
-        &= \left( -v, \frac {\beta_2^2} {\beta^2} \right) = (-v, v^2) \in E'
+        (\alpha_2, \ \beta_2) \mapsto (u^2 \alpha_2, \ u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(\frac {\alpha_2^3} {4\beta^2}, \ \frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
+        &= \left( -\frac {\beta_2} {\beta}, \ \frac {\beta_2^2} {\beta^2} \right) = (-v, \ v^2) \in E'
     \end{align*}
     and
     \begin{align*}
-        (\alpha_2, \beta_2) \mapsto (u^2 \alpha_2, -u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(-v, -\frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
-        &= (-v, 0) \in E'
+        (\alpha_2, \beta_2) \mapsto (u^2 \alpha_2, \ -u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(\frac {\alpha_2^3} {4\beta^2}, \ -\frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
+        &= ( -\frac {\beta_2} {\beta}, \ 0) = (-v, \ 0) \in E'
     \end{align*}
     and
     \begin{align*}
-        (0, -\beta) \mapsto (0, -u^3 \beta + t) = \left( 0, -\frac {\beta_2} {2\beta} - \frac {\beta_2} {2\beta} \right) = (0, -v) \in E'
+        (0, \ -\beta) \mapsto (0, -u^3 \beta + t) = \left( 0, \ -\frac {\beta_2} {2\beta} - \frac {\beta_2} {2\beta} \right) = (0, \ -v) \in E'
     \end{align*}
     and of course $\O \mapsto \O$.
     Hence we have $\#(E' \cap E'') \geq 5$ and by the previous proposition we see that $E' = E''$.
-    
-    So it is left to show that $\beta_2/(2\beta^2)$ has a third root in $\Q$ and that $u^2 \alpha_2 = -v$.
-    First, note that $u^2 \alpha_2 = -v$ is equivalent to $u^6 \alpha_2 = -v^3$ (since there is only one cubic root in $\Q$).
-    Have
-    \begin{equation*}
-        u^4 \alpha_2 = -v^3 \ \Leftrightarrow \ \frac {\beta_2^2} {4\beta^4} \alpha_2^3 = -\frac {\beta_2^3} {\beta^3} \ \Leftrightarrow \ \alpha_2^3 = -4 \beta \beta_2
-    \end{equation*}
-    Consider the following SAGE script:
-    \lstinputlisting[language = python]{./3i_algebra.sage}
-    The output shows that $\alpha_2^3 = -4 \beta \beta_2$ already follows from the facts
-    \begin{align*}
-        &(0, \beta) \in E, \\
-        &(\alpha_2, \beta_2) \in E, \\
-        &[2](0, \beta) = (\alpha_2, \beta_2), \\
-        &[2](\alpha_2, \beta_2) = (0, -\beta)
-    \end{align*}
-    Hence it suffices to show that $\beta_2/(2\beta^2)$ has a third root in $\Q$.
 \end{proof}
 \end{document}
