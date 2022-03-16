@@ -476,9 +476,9 @@ with 3 nontrivial torsion points $(\alpha, 0), (\beta, 0), (0, 0)$ over $\Q$.
 We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
 \begin{lemma}
     Let $E: y^2 = x(x - \alpha)(x - \beta)$ be an Elliptic Curve over a field $k$ of characteristic $\neq 2$.
-    Then there exists $P \in E(k)$ of order 4 if and only if $k$ has a root of
+    Then there exists $P \in E(k)$ of order 4 if and only if $k$ has a root of the polynomial $F(T)$ given by
     \begin{equation*}
-        \left(\mu^4 + 2(\alpha + \beta)\mu^2 + (\alpha - \beta)^2\right)\left(\mu^4 + (2\beta - 4\alpha)\mu^2 + \beta^2\right)\left(\mu^4 + (2\alpha - 4\beta)\mu^2 + \alpha^2\right)
+        \left(T^4 + 2(\alpha + \beta)T^2 + (\alpha - \beta)^2\right)\left(T^4 + (2\beta - 4\alpha)T^2 + \beta^2\right)\left(T^4 + (2\alpha - 4\beta)T^2 + \alpha^2\right)
     \end{equation*}
 \end{lemma}
 \begin{proof}
@@ -524,11 +524,155 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
         \gamma^3 - (\alpha + \beta)\gamma^2 + \alpha\beta\gamma =& \gamma(2\alpha\gamma - \alpha\beta) - (2\alpha\gamma - \alpha\beta)(\alpha + \beta) + \alpha\beta\gamma \\
         =& 2\alpha(2\alpha\gamma - \alpha\beta) - 2\alpha^2\gamma - 2\alpha\beta\gamma + \alpha^2\beta + \alpha\beta^2 \\
         =& \gamma(4\alpha^2 - 2\alpha^2 - 2\alpha\beta) + \alpha^2\beta + \alpha\beta^2 - 2\alpha^2\beta \\
-        =& 2\alpha\gamma(\alpha - \beta) + \alpha\beta(\beta - \alpha) = \alpha(\alpha - \beta)(2\gamma - \beta) = (\gamma - \alpha)^2\mu^2
+        =& 2\alpha\gamma(\alpha - \beta) + \alpha\beta(\beta - \alpha) \\
+        =& \alpha(\alpha - \beta)(2\gamma - \beta) \\
+        =& (\gamma - \alpha)^2\mu^2
     \end{align*}
     as $\mu^2 = 2\gamma - \beta$ and $(\gamma - \alpha)^2 = 2\alpha\gamma - \alpha\beta - 2\gamma\alpha + \alpha^2 = \alpha(\alpha - \beta)$.
     So there is a point $(\gamma, (\gamma - \alpha)\mu) \in E(k)$ with $[2](\gamma, (\gamma - \alpha)\mu) = (\alpha, 0)$.
 
     \paragraph{Case 3} Similarly, if there is $\mu \in k$ with $\mu^4 + (2\alpha - 4\beta)\mu^2 + \alpha^2 = 0$, then there is a point $P \in E(k)$ with $[2]P = (\beta, 0)$
+\end{proof}
+Hence, we just have to find $\alpha, \beta \in \Q$ such that the polynomial $F$ has no root in $\Q$ and a root in every $\F_p$ (where $p$ is a prime of good reduction).
+First, note that $F(T) = G(T^2)$ where
+\begin{equation*}
+    G(T) = \left( T^2 + 2(\alpha + \beta)T + (\alpha - \beta)^2 \right)\left( T^2 + (2\beta - 4\alpha)T + \beta^2 \right)\left( T^2 + (2\alpha - \beta)T + \alpha^2 \right)
+\end{equation*}
+Since the cases where this has a root in $\Q$ are clearly a Zariski-closed condition on $(\alpha, \beta)$, we see that ``most'' value of $\alpha, \beta$ will result in no root of $F(T)$.
+Hence, we focus on finding $\alpha, \beta \in \Z$ such that $F(T)$ has a root modulo any prime $p$ (of good reduction).
+A necessary condition for that is that $G(T)$ has a root modulo any prime $p$, which in turn is equivalent that any of the discriminants (scaled by squares)
+\begin{equation*}
+    \alpha\beta, \ (\alpha - 3\beta)(\alpha - \beta), \ (\beta - 3\alpha)(\beta - \alpha)
+\end{equation*}
+is a quadratic residue modulo $p$, for any prime $p$.
+
+\section*{Question 3}
+\begin{prop}
+    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve with $a_2, a_4, a_6 \in \Z$ and $P = (\alpha, \beta) \in E$ a point of order 5 with $\alpha = 0$.
+\end{prop}
+\begin{proof}
+    Let $(\alpha_2, \beta_2) = [2]P$.
+    First note that by assumption have
+    \begin{align*}
+        [3]P = (\alpha_2, -\beta_2), \quad [4]P = (0, -\beta), \quad [5]P = \O
+    \end{align*}
+    Further, by the Nagell-Lutz theorem, we know that $\beta, \alpha_2, \beta_2 \in \Z$.
+    Applying the duplication formula shows
+    \begin{equation*}
+        \alpha_2 = \frac {a_4^2} {4a_6} - a_2 \in \Z
+    \end{equation*}
+    and so $2\beta \divides a_4$.
+    Now apply the duplication formula twice, and see that
+    \begin{align*}
+        x([4]P) = \frac {f(x)x} {g(x)} + \frac 1 {g(x)} \Bigl( &a_4^8 - 16a_2a_4^6a_6 + 96a_2^2a_4^4a_6^2 - 256a_2^3a_4^2a_6^3 + 256a_2^4a_6^4 - 32a_4^5a_6^2 \\
+        &+ 256a_2a_4^3a_6^3 - 512a_2^2a_4a_6^4 - 256a_4^2a_6^4 + 1024a_2a_6^5 \Bigr)
+    \end{align*}
+    with polynomials $f, g \in k[x]$.
+    Since $[4]P = -P = (0, -\beta)$ by assumption, we see that
+    \begin{align*}
+        0 = &a_4^8 - 16a_2a_4^6a_6 + 96a_2^2a_4^4a_6^2 - 256a_2^3a_4^2a_6^3 + 256a_2^4a_6^4 - 32a_4^5a_6^2 \\
+        &+ 256a_2a_4^3a_6^3 - 512a_2^2a_4a_6^4 - 256a_4^2a_6^4 + 1024a_2a_6^5 := F
+    \end{align*}
+    Note that $F$ factors as
+    \begin{align*}
+        F =& (-a_4^2 + 4a_2a_6) \cdot \\
+        &(\underbrace{-a_4^6 + 12a_2a_4^4a_6 - 48a_2^2a_4^2a_6^2 + 64a_2^3a_6^3 + 32a_4^3a_6^2 - 128a_2a_4a_6^3 + 256a_6^4}_{=: G})
+    \end{align*}
+    \paragraph{If $4a_2a_6 = a_4^2$} As $\alpha_2 = \frac 1 4 a_4^2/a_6 - a_2$ it follows that $\alpha_2 = 0$, a contradiction ($\alpha_2 = 0$ would imply $[2]P = P$ or $[2]P = -P$, both contradicting the assumption that $\mathrm{ord}(P) = 5$).
+    \paragraph{If $G = 0$} Have for any prime $p \divides a_4$
+\end{proof}
+\begin{prop}
+    Let $E: y^2 + (v + 1) x y + v y = x^3 + v x^2$ be an Elliptic Curve and $P = (x_1, y_1), Q = (x_2, y_2) \in E$ with $x_1 \neq x_2$.
+    Then
+    \begin{equation*}
+        x(P + Q) = -x_1 - x_2 + m^2 + m(v + 1) - v
+    \end{equation*}
+    where
+    \begin{equation*}
+        m = \frac {y_2 - y_1} {x_2 - x_1}
+    \end{equation*}
+\end{prop}
+\begin{prop}
+    Let
+    \begin{equation*}
+        E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6    
+    \end{equation*}
+    and
+    \begin{equation*}
+        E': y^2 + a'_1 x y + a'_3 y = x^3 + a'_2 x^2 + a'_4 x + a'_6    
+    \end{equation*}
+    be Elliptic Curves.
+    If there are five distinct points $P_1, ..., P_5 \in E \cap E'$ in ``sufficiently independent position'', then $E = E'$ (meaning $a_i = a'_i$).
+
+    To be completely precise, there is a fixed 1-dimensional algebraic curve $C \subseteq \mathbb{A}^{10}$ (that does not depend on $E$, $E'$ or $P_1, ..., P_5$) of degree $6$ such that if there are five points $P_1 = (x_1, y_1), ..., P_5 = (x_5, y_5) \in E \cap E'$ with
+    \begin{equation*}
+        (x_1, ..., x_5, y_1, ..., y_5) \notin C
+    \end{equation*}
+    then $E = E'$.
+\end{prop}
+\begin{proof}
+    Consider the matrix $A = (a_{ij}) \in k[x_1, ..., x_5, y_1, ..., y_5]^{5 \times 5}$ given by
+    \begin{equation*}
+        a_{ij} = \begin{cases}
+            x_i^{j - 1} & \text{if $j \leq 3$} \\
+            -x_iy_i & \text{if $j = 4$} \\
+            -y_i & \text{if $j = 5$}
+        \end{cases}
+    \end{equation*}
+    Let $C = \V(\det(A))$ and assume there are five points $P_1 = (x_1, y_1), ..., P_5(x_5, y_5) \in E \cap E'$.
+    Then the matrix $A_P := A(x_1, ..., x_5, y_1, ..., y_5) \in k^{5 \times 5}$ is regular.
+    Since $P_1, ..., P_5 \in E \cap E'$, see that
+    \begin{equation*}
+        A_P (a_6 \ \ a_4 \ \ a_2 \ \ a_1 \ \ a_3)^T = (y_1^2 x_1^3 \ \ ... \ \ y_5^2 x_5^3)^T
+    \end{equation*}
+    and
+    \begin{equation*}
+        A_P (a'_6 \ \ a'_4 \ \ a'_2 \ \ a'_1 \ \ a'_3)^T = (y_1^2 x_1^3 \ \ ... \ \ y_5^2 x_5^3)^T
+    \end{equation*}
+    Thus by linear algebra, find that $E = E'$.
+\end{proof}
+\begin{prop}[3(i)]
+    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$ and $P = (\alpha_1, \beta_1) \in E(k)$ a (nontrivial) 5-torsion point.
+    wlog $\alpha_1 = 0$.
+    Let further $[2]P = (\alpha_2, \beta_2)$ and note that $\alpha_1 = 0 \neq \alpha_2$.
+    Then there exists a birational equivalence $E \to E'$ where $E': y^2 + (1 + v) x y + v y = x^3 + v x^2$ given by
+    \begin{equation*}
+        \psi: E \to E', \quad (x, y) \mapsto (u^2 x, u^3 y + u^2 s x + t)
+    \end{equation*}
+    where
+    \begin{equation*}
+        v = \frac {\beta_2} {\beta}, \quad t = -\frac {\beta_2} {2\beta}, \quad u^3 = \frac {\beta_2} {2\beta^2}, \quad s = \frac {u} {\alpha_2} ( \beta_2 + \beta )
+    \end{equation*}
+\end{prop}
+\begin{proof}
+    Clearly $\psi$ maps $E$ to an Elliptic Curve $E''$.
+    Note that by assumption, we have
+    \begin{align*}
+        &[1](0, \beta) = (0, \beta), \quad [2](0, \beta) = (\alpha_2, \beta_2), \\
+        &[3](0, \beta) = -[2](0, \beta) = (\alpha_2, -\beta_2), \quad [4](0, \beta) = -[1](0, \beta) = (0, -\beta)
+    \end{align*}
+    Assume for now that $u^2 \alpha_2 = -v$.
+    Under $\psi$, we see that
+    \begin{equation*}
+        (0, \beta) \mapsto (0, u^3 \beta + t) = \left( 0, \frac {\beta} {2\beta_2} - \frac {\beta} {2\beta_2} \right) = (0, 0) \in E'
+    \end{equation*}
+    and
+    \begin{align*}
+        (\alpha_2, \beta_2) \mapsto (u^2 \alpha_2, u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(-v, \frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
+        &= \left( -v, \frac {\beta_2^2} {\beta^2} \right) = (-v, v^2) \in E'
+    \end{align*}
+    and
+    \begin{align*}
+        (\alpha_2, \beta_2) \mapsto (u^2 \alpha_2, -u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(-v, -\frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
+        &= (-v, 0) \in E'
+    \end{align*}
+    and
+    \begin{align*}
+        (0, -\beta) \mapsto (0, -u^3 \beta + t) = \left( 0, -\frac {\beta_2} {2\beta} - \frac {\beta_2} {2\beta} \right) = (0, -v) \in E'
+    \end{align*}
+    and of course $\O \mapsto \O$.
+    Hence we have $\#(E' \cap E'') \geq 5$ and by the previous proposition we see that $E' = E''$.
+    
+    So it is left to show that $\beta/(2\beta^2)$ has a third root in $\Q$ and that $u^2 \alpha_2 = -v$.
 \end{proof}
 \end{document}
