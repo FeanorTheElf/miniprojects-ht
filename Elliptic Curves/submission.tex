@@ -673,6 +673,21 @@ is a quadratic residue modulo $p$, for any prime $p$.
     and of course $\O \mapsto \O$.
     Hence we have $\#(E' \cap E'') \geq 5$ and by the previous proposition we see that $E' = E''$.
     
-    So it is left to show that $\beta/(2\beta^2)$ has a third root in $\Q$ and that $u^2 \alpha_2 = -v$.
+    So it is left to show that $\beta_2/(2\beta^2)$ has a third root in $\Q$ and that $u^2 \alpha_2 = -v$.
+    First, note that $u^2 \alpha_2 = -v$ is equivalent to $u^6 \alpha_2 = -v^3$ (since there is only one cubic root in $\Q$).
+    Have
+    \begin{equation*}
+        u^4 \alpha_2 = -v^3 \ \Leftrightarrow \ \frac {\beta_2^2} {4\beta^4} \alpha_2^3 = -\frac {\beta_2^3} {\beta^3} \ \Leftrightarrow \ \alpha_2^3 = -4 \beta \beta_2
+    \end{equation*}
+    Consider the following SAGE script:
+    \lstinputlisting[language = python]{./3i_algebra.sage}
+    The output shows that $\alpha_2^3 = -4 \beta \beta_2$ already follows from the facts
+    \begin{align*}
+        &(0, \beta) \in E, \\
+        &(\alpha_2, \beta_2) \in E, \\
+        &[2](0, \beta) = (\alpha_2, \beta_2), \\
+        &[2](\alpha_2, \beta_2) = (0, -\beta)
+    \end{align*}
+    Hence it suffices to show that $\beta_2/(2\beta^2)$ has a third root in $\Q$.
 \end{proof}
 \end{document}

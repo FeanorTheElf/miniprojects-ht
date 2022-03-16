@@ -19,7 +19,7 @@ I = ideal(
 # slope of line through (0, -y) and (u, v)
 line3_num = v + y
 line3_den = u
-assert (u * line3_den^2 + a * line3_den^2 - line3_num^2) in I
+#assert (u * line3_den^2 + a * line3_den^2 - line3_num^2) in I
 
 def j_inv(a1, a2, a3, a4, a6):
     b2 = a1^2 + 4*a2
@@ -30,22 +30,18 @@ def j_inv(a1, a2, a3, a4, a6):
     D = -b2**2*b8 - 8*b4**3 - 27*b6**2 + 9*b2*b4*b6
     return (c4**3, D)
 
+print(I.gens())
+print()
+
 j_inv_E1_num, j_inv_E1_den = j_inv(0, a, 0, b, c)
 j_inv_E2_num, j_inv_E2_den = j_inv(V + 1, V, V, 0, 0)
 
 statement = j_inv_E1_num * j_inv_E2_den - j_inv_E1_den * j_inv_E2_num
 
+print(statement)
+
 I = ideal([-b^6 + 12*a*b^4*c - 48*a^2*b^2*c^2 + 64*a^3*c^3 + 32*b^3*c^2 - 128*a*b*c^3 + 256*c^4])
 J = ideal([*I.gens(), statement])
-
-var("u","s","t","b","a2","b2","v")
-print(solve([
-    u^3 * b + t,
-    u^2 * a2 + v,
-    u^3 * (-b) + t - v,
-    u^3 * b2 + u^2 * s * a2 + t - v^2,
-    u^3 * (-b2) + u^2 * s * a2 + t
-], [v, s, t, b]))
 
 exit()
 
