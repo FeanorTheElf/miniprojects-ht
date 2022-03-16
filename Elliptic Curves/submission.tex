@@ -571,7 +571,7 @@ is a quadratic residue modulo $p$, for any prime $p$.
     which hold by assumption that $(0, \beta)$ has order $5$.
     The claim follows.
 \end{proof}
-\begin{prop}
+\begin{lemma}
     Let
     \begin{equation*}
         E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6    
@@ -588,7 +588,7 @@ is a quadratic residue modulo $p$, for any prime $p$.
         (x_1, ..., x_5, y_1, ..., y_5) \notin C
     \end{equation*}
     then $E = E'$.
-\end{prop}
+\end{lemma}
 \begin{proof}
     Consider the matrix $A = (a_{ij}) \in k[x_1, ..., x_5, y_1, ..., y_5]^{5 \times 5}$ given by
     \begin{equation*}
@@ -610,11 +610,11 @@ is a quadratic residue modulo $p$, for any prime $p$.
     \end{equation*}
     Thus by linear algebra, find that $E = E'$.
 \end{proof}
-\begin{prop}[3(i)]
+\begin{prop}
+    \label{prop:characterization_5_torsion}
     Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
-    Suppose that $E$ has a nontrivial 5-torsion point $P = (\alpha_1, \beta_1) \in E(k)$.
-    wlog $\alpha_1 = 0$.
-    Let further $[2]P = (\alpha_2, \beta_2)$ and note that $\alpha_1 = 0 \neq \alpha_2$.
+    Suppose that $E$ has a nontrivial 5-torsion point $P = (0, \beta) \in E(k)$.
+    Let further $[2]P = (\alpha_2, \beta_2)$ and note that $0 \neq \alpha_2$.
     Then there exists a birational equivalence $E \to E'$ where $E': y^2 + (1 + v) x y + v y = x^3 + v x^2$ given by
     \begin{equation*}
         \psi: E \to E', \quad (x, y) \mapsto (u^2 x, u^3 y + u^2 s x + t)
@@ -656,5 +656,136 @@ is a quadratic residue modulo $p$, for any prime $p$.
     \end{align*}
     and of course $\O \mapsto \O$.
     Hence we have $\#(E' \cap E'') \geq 5$ and by the previous proposition we see that $E' = E''$.
+\end{proof}
+\begin{corollary}
+    Let $E$ be an Elliptic Curve defined over $\Q$.
+    Then $E(\Q)$ has a nontrivial 5-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
+    \begin{equation*}
+        y^2 + (v + 1)x y + v y = x^3 + v x^2
+    \end{equation*}
+\end{corollary}
+In the lecture, it was mentioned that a theorem of Mazur states that the torsion group of an Elliptic Curve $E$ defined over $\Q$ has one of the following forms
+\begin{itemize}
+    \item $\Z/n\Z$ for $n \in \{ 1, ..., 10, 12 \}$
+    \item $\Z/n\Z \oplus \Z/2\Z$ for $n \in \{ 2, 4, 6, 8 \}$
+\end{itemize}
+Hence, we are quite limited for $N$ a similar idea can work.
+First, note that the case $N = 2$ is easy.
+\begin{prop}
+    Let $E$ be an Elliptic Curve defined over $\Q$.
+    Then $E(\Q)$ has a nontrivial 2-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
+    \begin{equation*}
+        y^2 = x^3 + a_2 x^2 + a_4 x
+    \end{equation*}
+\end{prop}
+\begin{proof}
+    Assume $E: y^2 = x^3 + a_2 x^2 + a_4 x$ is an Elliptic Curve.
+    Then clearly $(0, 0) \in E(\Q)$ and $(0, 0) = -(0, 0)$, so $(0, 0)$ is nontrival 2-torsion point.
+    Hence, there is a nontrivial 2-torsion point in $E'(\Q)$ for all Elliptic Curves $E'$ that are isomorphic (over $\Q$) to $E$.
+
+    Conversely, let $E$ be an Elliptic Curve with a nontrivial 2-torsion point in $E(\Q)$.
+    Note that $E$ is isomorphic to an Elliptic Curve 
+    \begin{equation*}
+        E': y^2 = x^3 + a_2 x^2 + a_4 x + a_6
+    \end{equation*}
+    as this holds for every Elliptic Curve.
+    Now let $(\alpha, \beta) \in E'(\Q)$ be a nontrival 2-torsion point.
+    Thus $-(\alpha, \beta) = (\alpha, \beta)$, so $\beta = 0$ and $\alpha^3 + a_2 \alpha^2 + a_4 \alpha + a_6 = 0$.
+    Now consider the isomorphism
+    \begin{equation*}
+        E' \to E'', \quad (x, y) \mapsto (x - \alpha, y)
+    \end{equation*}
+    where
+    \begin{equation*}
+        E'': y^2 = x^3 + (3\alpha + a_2) x^2 + (3\alpha^2 + 2\alpha a_2 + a_4)x + \underbrace{\alpha^3 + \alpha^2a_2 + \alpha a_4 + a_6}_{= 0}
+    \end{equation*}
+    Observe that $E''$ is of the described form, and the claim follows. 
+\end{proof}
+The case $N = 3$ is slightly more interesting.
+For this, we first look at some basic transformations we can do to Weierstraß equations.
+\begin{prop}
+    \label{prop:weierstrass_transformations}
+    Let $E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
+    There are three nice types of transformations
+    \begin{description}
+        \item[Translation] Let $P = (s, t) \in E(k)$ be a point. Then the isomorphism
+        \begin{equation*}
+            E \to E', \quad (x, y) \mapsto (x - s, y - t)
+        \end{equation*}
+        maps $P$ to $(0, 0)$ and the curve $E$ to an Elliptic Curve
+        \begin{equation*}
+            E': y^2 + a_1 x y + (a_3 + 2t + a_1 s) y = x^3 + (a_2 + 3 s) x^2 + (a_4 - 3 s^2 + 2 a_2 s - a_1 t) x
+        \end{equation*}
+        This is very useful to clear $a_6$ and continue working with the point $(0, 0)$.
+        \item[Shearing] Let $r \in k$. Then the isomorphism
+        \begin{equation*}
+            E \to E', \quad (x, y) \mapsto (x, y - r x)
+        \end{equation*}
+        preserves $(0, 0)$ and maps $E$ to an Elliptic Curve
+        \begin{equation*}
+            E': y^2 + (a_1 + 2r) x y + a_3 y = x^3 + (a_2 + r^2 - a_1 r) x^2 + (a_4 - r a_3) x + a_6
+        \end{equation*}
+        This is very useful, as it does not change $a_3$ and $a_6$.
+        \item[Scaling] Let $u \in k^*$. Then the isomorphism
+        \begin{equation*}
+            E \to E', \quad (x, y) \mapsto (u^2 x, y^3 y)
+        \end{equation*}
+        preserves $(0, 0)$ and maps $E$ to an Elliptic Curve
+        \begin{equation*}
+            E': y^2 + \frac {a_1} u x y + \frac {a_3} {u^3} = x^3 + \frac {a_2} {u^2} x^2 + \frac {a_4} {u^4} x + \frac {a_6} {u^6}
+        \end{equation*}
+        This is very useful, as it does not change which of the $a_1, ..., a_4, a_6$ are zero.
+    \end{description}
+\end{prop}
+Now we can find a nice form for Elliptic Curves with a (nontrivial) 3-torsion point by the following step:
+\begin{itemize}
+    \item Apply a translation to get an isomorphic curve whose (nontrivial) 3-torsion point is $(0, 0)$.
+    \item Observe that $(0, 0)$ being a 3-torsion point is equivalent to the fact that the tangent at $E$ through $(0, 0)$ meets $E$ at $(0, 0)$ with multiplicity three.
+    \item Apply clever shearing and scaling to get a nice form. Note that this does not destroy the fact $a_6 = 0$.
+\end{itemize}
+Now we get
+\begin{prop}
+    Let $E$ be an Elliptic Curve defined over $\Q$.
+    Then $E(\Q)$ has a nontrivial 3-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
+    \begin{equation*}
+        y^2 + x y + v y = x^3
+    \end{equation*}
+\end{prop}
+\begin{proof}
+    By Proposition~\ref{prop:weierstrass_transformations} we can assume wlog that
+    \begin{equation*}
+        E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x
+    \end{equation*}
+    and $(0, 0) \in E(\Q)$ is a nontrivial 3-torsion point.
+    Now a shearing with $r = a_4 / a_3$ transforms $E$ into an Elliptic Curve
+    \begin{equation*}
+        E': y^2 + a'_1 x y + a'_3 y = x^3 + a'_2 x^2
+    \end{equation*}
+    Observe that $(0, 0)$ is still a nontrivial 3-torsion point of $E'(\Q)$.
+
+    Now note that the tangent at $(0, 0)$ has slope $m = a'_4/a'_3 = 0$.
+    Hence, since $-[2](0, 0) = (0, 0)$ is the third point of intersection of $E'$ and the tangent, we see that the tangent meets $E'$ at $(0, 0)$ with multiplicity three.
+    Thus
+    \begin{equation*}
+        x^3 + a'_2 x^2 
+    \end{equation*}
+    must already be $x^3$ and thus have $a'_2 = 0$.
+    Finally, apply a scaling with $u = a'_1$ (note that $a'_1 \neq 0$, otherwise the curve would be singular) and find that $E$ is isomorphic to the curve
+    \begin{equation*}
+        E'': y^2 + x y + v y = x^3
+    \end{equation*}
+    where $v = a'_3 / (a'_1)^3$.
+
+    Conversely, assume that $E$ is isomorphic to an Elliptic Curve of the above form, so wlog
+    \begin{equation*}
+        E: y^2 + x y + v y = x^3
+    \end{equation*}
+    We show that $(0, 0) \in E(\Q)$ has order 3.
+    The tangent at $(0, 0)$ has slope $0$, so is given by the line $y = 0$.
+    Plugging this in yields $x^3 = 0$, and so the third point of intersection with $E$ is $(0, 0)$.
+    
+    Now consider the line through $\O$ and $(0, 0)$, which is given by $x = 0$.
+    Plugging this in yields $y^2 + v y = 0$ and so the third point of intersection is $(0, -v)$.
+    Now note that $(0, 0)$, $(0, -v)$ and $\O$ are colinear, so $(0, 0) + (0, -v) + \O = \O$, hence $(0, 0) = -[2](0, 0)$ has order 3.
 \end{proof}
 \end{document}
