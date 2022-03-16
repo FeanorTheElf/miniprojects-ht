@@ -60,17 +60,18 @@
     \right|_{#2}
 }}
 
-\newtheorem{prop}{Proposition}
-\newtheorem{theorem}[prop]{Theorem}
-\newtheorem{lemma}[prop]{Lemma}
-\newtheorem{corollary}[prop]{Corollary}
-
 \theoremstyle{definition}
-\newtheorem{problem}[prop]{Problem}
-\newtheorem{alg}[prop]{Algorithm}
-\newtheorem{definition}[prop]{Definition}
-\newtheorem{example}[prop]{Example}
-\newtheorem{remark}[prop]{Remark}
+
+\newtheorem{prop}[subsection]{Proposition}
+\newtheorem{theorem}[subsection]{Theorem}
+\newtheorem{lemma}[subsection]{Lemma}
+\newtheorem{corollary}[subsection]{Corollary}
+
+\newtheorem{problem}[subsection]{Problem}
+\newtheorem{alg}[subsection]{Algorithm}
+\newtheorem{definition}[subsection]{Definition}
+\newtheorem{example}[subsection]{Example}
+\newtheorem{remark}[subsection]{Remark}
 
 \begin{document}
 \maketitle
@@ -403,7 +404,7 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
     In the next part, we want to study this phenomenon more carefully and indeed see that there is no such prime, i.e. it is impossible to show that $\#E_{\mathrm{tors}}(\Q) \neq 8$ by just considering the reductions modulo $p$.
 \end{example}
 First, it is convenient to have a closed formula for the $x$-coordinate of $[2]P$ for a point $P$ on an Elliptic Curve.
-\begin{prop}
+\begin{prop}[Duplication Formula]
     \label{prop:duplication_formula}
     Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve over a field $k$.
     For a point $P \in E$ with $P \neq \O$ denote by $x(P)$ its (affine) $x$-coordinate.
@@ -546,7 +547,7 @@ A necessary condition for that is that $G(T)$ has a root modulo any prime $p$, w
 \end{equation*}
 is a quadratic residue modulo $p$, for any prime $p$.
 
-\section*{Question 3}
+\section{Question 3}
 \begin{lemma}
     \label{prop:relation_y_uv}
     Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
@@ -657,13 +658,36 @@ is a quadratic residue modulo $p$, for any prime $p$.
     and of course $\O \mapsto \O$.
     Hence we have $\#(E' \cap E'') \geq 5$ and by the previous proposition we see that $E' = E''$.
 \end{proof}
-\begin{corollary}
+\begin{corollary}[3(i)]
     Let $E$ be an Elliptic Curve defined over $\Q$.
     Then $E(\Q)$ has a nontrivial 5-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
     \begin{equation*}
         y^2 + (v + 1)x y + v y = x^3 + v x^2
     \end{equation*}
 \end{corollary}
+\begin{proof}
+    Note that $E$ is isomorphic (over $\Q$) to an Elliptic Curve defined by a Weierstraß equation, so assume wlog
+    \begin{equation*}
+        E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6
+    \end{equation*}
+    Now let $P = (\alpha, \beta)$ be a nontrivial 5-torsion point.
+    Then $E$ is isomorphic via $(x, y) \mapsto (x - \alpha, \beta)$ to an Elliptic Curve
+    \begin{equation*}
+        E': y^2 = x^3 + a'_2 x^2 + a'_4 x
+    \end{equation*}
+    and $(0, \beta)$ is a nontrivial 5-torsion point of $E'$.
+    The claim follows now by Proposition~\ref{prop:characterization_5_torsion}.
+
+    Conversely, assume that
+    \begin{equation*}
+        E: y^2 + (v + 1) x y + v y = x^3 + v x^2
+    \end{equation*}
+    For example by the duplication formula~\ref{prop:duplication_formula} find that
+    \begin{equation*}
+        [2](0, 0) = (-v, v^2), \quad [2](-v, v^2) = (0, -v)
+    \end{equation*}
+    and thus $[4](0, 0) + (0, 0) = \O$, hence $(0, 0)$ has order 5.
+\end{proof}
 In the lecture, it was mentioned that a theorem of Mazur states that the torsion group of an Elliptic Curve $E$ defined over $\Q$ has one of the following forms
 \begin{itemize}
     \item $\Z/n\Z$ for $n \in \{ 1, ..., 10, 12 \}$
@@ -671,7 +695,7 @@ In the lecture, it was mentioned that a theorem of Mazur states that the torsion
 \end{itemize}
 Hence, we are quite limited for $N$ a similar idea can work.
 First, note that the case $N = 2$ is easy.
-\begin{prop}
+\begin{prop}[3(ii)]
     Let $E$ be an Elliptic Curve defined over $\Q$.
     Then $E(\Q)$ has a nontrivial 2-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
     \begin{equation*}
@@ -788,4 +812,59 @@ Now we get
     Plugging this in yields $y^2 + v y = 0$ and so the third point of intersection is $(0, -v)$.
     Now note that $(0, 0)$, $(0, -v)$ and $\O$ are colinear, so $(0, 0) + (0, -v) + \O = \O$, hence $(0, 0) = -[2](0, 0)$ has order 3.
 \end{proof}
+
+\section{Question 4}
+
+\begin{example}
+    The Elliptic Curve $E: y^2 = x(x + 6 + 1)$ has rank $0$.
+\end{example}
+\begin{proof}
+    As in the lecture, consider
+    \begin{align*}
+        &E': y^2 = x(x^2 - 12x + 32) \\
+        &\phi: E \to E', \quad (u, v) \mapsto \left( \frac {y^2} {x^2}, \ y \frac {x^2 - 1} {x^2} \right) \\
+        &\hat{\phi}: E' \to E, \quad (u, v) \mapsto \left( \frac {y^2} {4x^2}, \ y \frac {x^2 - 1} {8x^2} \right) \\
+        &q: E'(\Q)/\phi(E(\Q)) \to \Q^*/S, \quad \overline{(u, v)} \mapsto \begin{cases}
+            \overline{u} & \text{if $u \neq 0$} \\
+            \overline{32} & \text{if $u = 0$}
+        \end{cases} \\
+        &\hat{q}: E(\Q)/\phi(E'(\Q)) \to \Q^*/S, \quad \overline{(u, v)} \mapsto \begin{cases}
+            \overline{u} & \text{if $u \neq 0$} \\
+            \overline{1} & \text{if $u = 0$}
+        \end{cases}
+    \end{align*}
+    \paragraph{Find $E'(\Q)/\phi(E(\Q))$} As in the lecture, consider $r \divides 32$ square-free, i.e. $r \in \{ \pm 1, \pm 2 \}$.
+
+    For $r = 2$, have that $(l, m, n) = (2, 1, 0)$ solves
+    \begin{equation*}
+        2l^4 - 12l^2m^2 + 16m^4 = n^2
+    \end{equation*}
+    and indeed we find $(8, 0) \in E'(\Q)$.
+
+    For $r = -1$, note that
+    \begin{equation*}
+        -l^4 - 12l^2m^2 - 32m^4 = n^2
+    \end{equation*}
+    has no nontrivial solutions in $\Q$, as the left-hand side is always $\leq 0$ and the right-hand side is $\geq 0$.
+
+    Since $-2 = -1 \cdot 2$, we see that $\im(q) = \langle 2 \rangle$ and $E'(\Q)/\phi(E(\Q)) = \langle (8, 0) \rangle$.
+
+    \paragraph{Find $E(\Q)/\hat{\phi}(E'(\Q))$} Consider $r \divides 1$, i.e. $r \in \{ \pm 1 \}$.
+
+    For $r = -1$, have that $(l, m, n) = (1, 1, 2)$ solves
+    \begin{equation*}
+        -l^4 + 6l^2m^2 - m^2 = n^2
+    \end{equation*}
+    and indeed find $(-1, 2) \in E(\Q)$.
+
+    Thus find $\im(\hat{q}) = \langle -1 \rangle$ and $E(\Q)/\hat{\phi}(E'(\Q)) = \langle (-1, 2) \rangle$.
+
+    \paragraph{Find the rank of $E$} By the above two steps, we see that
+    \begin{equation*}
+        E(\Q)/[2]E(\Q) = \langle (-1, 2), \hat{\phi}((8, 0)) \rangle = \langle (-1, 2), (0, 0) \rangle
+    \end{equation*}
+    Now observe that $[2](-1, 2) = (0, 0)$ and $[2](0, 0) = \O$.
+    Hence $E(\Q) = E_{\mathrm{tors}}(\Q)$ and the rank is 0 as claimed.
+\end{proof}
+
 \end{document}
