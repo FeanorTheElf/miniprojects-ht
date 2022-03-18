@@ -815,7 +815,8 @@ Now we get
 
 \section{Question 4}
 
-\begin{example}
+Let $S = \{ x^2 \ | \ x \in \Q^2 \}$.
+\begin{example}[4(i)]
     The Elliptic Curve $E: y^2 = x(x + 6 + 1)$ has rank $0$.
 \end{example}
 \begin{proof}
@@ -866,5 +867,150 @@ Now we get
     Now observe that $[2](-1, 2) = (0, 0)$ and $[2](0, 0) = \O$.
     Hence $E(\Q) = E_{\mathrm{tors}}(\Q)$ and the rank is 0 as claimed.
 \end{proof}
+To find an example with rank two, it seems like a good way to take a curve with many rational points.
+Further requiring those points to be non-integral increases our chance, as that way, they cannot be torsion points.
+
+For rank one, this is perfectly rigorous: If we find a curve with integral coefficients and at least one non-integral point, its rank must be $\geq 1$.
+Such a curve is easy to find by guessing a point and using linear algebra.
+Furthermore, if we have two points $P, Q$ with distinct $x$-coordinates ($\neq 1$), then we already see that $\overline{P} \neq \overline{Q} \in E(\Q)/\hat{q}(E'(\Q))$ and since both are non-torsion (they have non-integral coordinates), it follows that the rank is at least 2.
+\begin{example}
+    Guess the points
+    \begin{equation*}
+        P_1 = \left(-1, \frac 1 2\right), \quad P_2 = \left(-2, \frac 1 2\right)
+    \end{equation*}
+    and consider an Elliptic Curve given by
+    \begin{equation*}
+        y^2 = x^3 + a_2 x^2 + a_4 x
+    \end{equation*}
+    If $P_1, P_2, P_3 \in E$, we must have
+    \begin{align*}
+        &-1 + a_2 - a_4 = \frac 1 4 \\
+        &-8 + 4a_2 - 2a_4 = \frac 1 4
+    \end{align*}
+    This has the solution $(a_2, a_4) = (23/8, 13/8)$.
+    Hence, we consider the curve given by
+    \begin{equation*}
+        y^2 = x^3 + \frac {23} 8 x^2 + \frac {13/8} x
+    \end{equation*}
+    Putting it into standard form yields
+    \begin{equation*}
+        E: y^2 = x(x^2 + 46 x + 104)
+    \end{equation*}
+    Now we would like to compute the rank of this curve, however the standard method fails here.
+    The reason is that some of the equations, like
+    \begin{equation*}
+        13 l^4 + 65 l^2 m^2 + 8 m^4 = n^2
+    \end{equation*}
+    (resulting from $r = 13 \divides 104$) seem to have no integer solutions, but seem have one modulo any prime.
+
+    Note however that we find
+    \begin{equation*}
+        -l^4 + 46 l^2 m^2 - 104 m^4 = n^2 \quad \text{has solution $(l, m, n) = (2, 1, 8)$}
+    \end{equation*}
+    and
+    \begin{equation*}
+        104 l^4 + 46 l^2 m^2 + 1 m^4 = n^2 \quad \text{has solution $(l, m, n) = (0, 1, 1)$}
+    \end{equation*}
+    and
+    \begin{equation*}
+        2 l^4 + 46 l^2 m^2 + 52 m^4 = n^2 \quad \text{has solution $(l, m, n) = (1, 1, 10)$}
+    \end{equation*}
+    corresponding to the points $P_1, P_2$ and $(0, 0)$.
+
+    So we find that $(\Z/2\Z)^3 \hookrightarrow E(\Q)/[2]E(\Q)$ and since $x^2 + 46 x + 104$ has no rational roots (the discriminant $1700$ is not a perfect square), observe that $E_{\mathrm{tors}}(\Q) / [2]E(\Q) \cong \Z/2\Z$.
+    Thus
+    \begin{equation*}
+        (\Z/2\Z)^2 \hookrightarrow E_{\mathrm{torsion-free}}(\Q)/[2]E(\Q)
+    \end{equation*}
+    and $E$ has rank at least 2.
+\end{example}
+A lot of trying around shows that most curves that are generated in a ``clever'' way to satisfy nice properties (like high rank, or only few square-free $r \divides b$ resp. $r \divides b_1$) cause problems when computing the rank, due to resulting in hard-to-solve equations as above.
+So it would be good to find a method that generates ``nice'' curves, i.e. curves where each of the equations
+\begin{equation*}
+    r l^4 + a l^2 m^2 + \frac b r m^4 = n^4 \quad \text{resp} \quad r l^4 + a_1 l^2 m^2 + \frac {b_1} r m^4 = n^4
+\end{equation*}
+obviously has or hasn't a nontrivial solution.
+At the moment, I fail to see any elegant method to generate ``nice'' curves with desired properties.
+So lets fall back to brute force, which works quite well here as this condition is very easy to test via a computer.
+\begin{example}[4(ii)]
+    Consider the curve
+    \begin{equation*}
+        E: y^2 = x(x^2 + 47 x + 30)
+    \end{equation*}
+    Clearly $30 = 2 \cdot 3 \cdot 5$ has at least 3 different prime factors.
+    We want to compute the rank of $E$.
+    As always, have
+    \begin{equation*}
+        E': y^2 = x(x^2 - 92 x + 2089)
+    \end{equation*}
+
+    \paragraph{Find $E'(\Q)/\phi(E(\Q))$} Have $b_1 = 2089$ is prime, so consider $r \in \{ \pm 1, \pm 2098 \}$.
+    First note that for $r < 0$, the equation
+    \begin{equation*}
+        r l^4 - 92 l^2 m^2 + \frac {2089} r m^4 = n^2
+    \end{equation*}
+    has no real nontrivial solutions, as the left-hand side is $< 0$ and the right-hand side is $\geq 0$.
+    Hence, it is left to consider $r = 1$ and $r = 2089$.
+    Notice that the equations
+    \begin{equation*}
+        l^4 - 92 l^2 m^2 + 2089 m^4 = n^2 \quad \text{and} \quad 2089 l^4 - 92 l^2 m^2 + 1 m^4 = n^2
+    \end{equation*}
+    are symmetric w.r.t. swapping $l, m$.
+
+    Hence we only have the obvious solutions $(l, m, n) = (1, 0, 1)$ and $(l, m, n) = (0, 1, 1)$ that give the points $(0, 0)$ and $\O$.
+    So $E'(\Q)/\phi(E(\Q)) = \langle (0, 0) \rangle$.
+
+    \paragraph{Find $E(\Q)/\hat{\phi}(E'(\Q))$} Have $b = 30 = 2 \cdot 3 \cdot 5$, so consider
+    \begin{equation*}
+        r \in \{ \pm 1, \pm 2, \pm 3, \pm 5, \pm 6, \pm 10, \pm 15 \}
+    \end{equation*}
+
+    The equation
+    \begin{equation*}
+        -l^4 + 47 l^2 m^2 - 30 m^4 = n^2
+    \end{equation*}
+    has the solution $(l, m, n) = (1, 1, 4)$ which gives a point $(-1, 4) \in E(\Q)$.
+
+    The equation
+    \begin{equation*}
+        2l^4 + 47 l^2 m^2 + 15 m^4 = n^2
+    \end{equation*}
+    has the solution $(l, m, n) = (1, 1, 8)$ which gives a point $(2, 8) \in E(\Q)$.
+
+    The equation
+    \begin{equation*}
+        3l^4 + 47 l^2 m^2 + 10 m^4 = n^2
+    \end{equation*}
+    has the solution $(l, m, n) = (3, 1, 26)$ which gives a point $(27, 234) \in E(\Q)$.
+
+    The equation
+    \begin{equation*}
+        5l^4 + 47 l^2 m^2 + 6m^4 = n^2
+    \end{equation*}
+    has the solution $(l, m, n) = (1, 2, 17)$ which gives a point $(\frac 5 4, \frac {85} 8)$.
+
+    Since $\im(\hat{q})$ is a group and $-1, 2, 3, 5$ clearly generate
+    \begin{equation*}
+        \{ \pm 1, \pm 2, \pm 3, \pm 5, \pm 6, \pm 10, \pm 15 \} \subseteq \Q^*/S
+    \end{equation*}
+    we already see that $\im(\hat{q}) = \langle -1, 2, 3, 5 \rangle$.
+
+    \paragraph{Find the rank of $E$} Combining the above, we see that
+    \begin{equation*}
+        E(\Q)/[2]E(\Q) = \langle (-1, 4), (2, 8), (27, 234), (\frac 5 4, \frac {85} 8) \rangle
+    \end{equation*}
+    since $\hat{\phi}((0, 0)) = \O$.
+    This further shows that $E(\Q)/[2]E(\Q) \cong (\Z/2\Z)^4$.
+    Note that $x^2 + 47 x + 30$ has no rational root, so $(0, 0)$ is the only nontrivial 2-torsion points and thus
+    \begin{equation*}
+        E_{\mathrm{tors}}(\Q)/[2]E(\Q) \cong \Z/2\Z
+    \end{equation*}
+    Hence we see that the rank of $E$ is $4 - 1 = 3 \geq 2$.
+\end{example}
+Note that the computer also found other, similarly special curves, given by equations\footnote{I should have guessed that there is a solution involving 42.}
+\begin{align*}
+    E_1: y^2 = x(x^2 + 59 x^2 + 42) \\
+    E_2: y^2 = x(x^2 + 83 x^2 + 78)
+\end{align*}
 
 \end{document}
