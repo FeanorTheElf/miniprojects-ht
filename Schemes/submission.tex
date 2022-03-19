@@ -82,15 +82,17 @@
 \section{Definition of $\Proj$}
 
 This section is based on \cite[II.2]{hartshorne}
-\begin{reminder}
-    A \emph{graded ring} $S$ is a ring $S$ with a decomposition $S = \oplus_{d \in \N} S_d$ into groups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i S_j \subseteq S_{i + j}$ for all $i, j \in \N$.
-    Write further $S_+ := \sum_{d > 0} S_d$.
+\begin{definition}
+    A \emph{graded ring} $S$ is a ring $S$ with a decomposition $S = \oplus_{d \in \Z} S_d$ into groups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i S_j \subseteq S_{i + j}$ for all $i, j \in \Z$.
+    If all $S_d = \{ 0 \}$ for $d < 0$, call $S$ \emph{naturally graded ring}.
+    Write further $S_+ := \sum_{d \neq 0} S_d$.
+    For a homogeneous $f \in S_d$ say that $\deg(f) := d$ is its \emph{degree}.
 
     An element $f \in S$ is called \emph{homogeneous} (of degree $n$), if $f \in S_n$.
     An ideal $I \leq S$ is called \emph{homogeneous}, if it has a set of homogeneous generators.
-\end{reminder}
+\end{definition}
 \begin{definition}
-    For a graded ring $S$, define the set
+    For a naturally graded ring $S$, define the set
     \begin{equation*}
         \Proj(S) := \{ \p \in \Spec(S) \ | \ \text{$\p$ homogeneous}, \ S_+ \not\subseteq \p \}
     \end{equation*}
@@ -102,7 +104,7 @@ This section is based on \cite[II.2]{hartshorne}
     \end{equation*}
     for any homogeneous ideal $\a \leq S$.
 \end{definition}
-From now on let $S$ be a graded ring.
+From now on let $S$ be a naturally graded ring.
 \begin{prop}
     The above definition is well-defined, i.e. the sets $D_\a$ indeed form a topology on $\Proj(S)$.
 \end{prop}
@@ -140,23 +142,105 @@ From now on let $S$ be a graded ring.
     Since $\p$ is prime, it follows that $fg \notin \p$ and so $D_{fg} \subseteq D_f \cap D_g$ is an open neighborhood of $\p$.
 \end{proof}
 \begin{lemma}
+    Let $S$ be a graded ring (not necessarily naturally graded) and $f \in S$ be homogeneous. Then $S_f$ becomes a graded ring via
+    \begin{equation*}
+        \left(S_f\right)_d = \{ \frac g {f^n} \ | \ g \in S_{d + n} \}
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Clearly $(S_f)_i (S_f)_j \subseteq (S_f)_{i + j}$.
+    To see that $(S_f)_d$ is a subgroup of $S$, consider $g/f^n, h/f^m \in (S_f)_d$.
+    wlog $n = m$ as we can replace $g$ by $gf^{m - n}$ resp. $h$ by $hf^{n - m}$.
+    Now have that $\deg(g) = \deg(h) = d + n$ and so $g + h \in S_{d + n}$.
+    Thus
+    \begin{equation*}
+        \frac g {f^n} + \frac h {f^n} = \frac {g + h} {f^n} \in (S_f)_d
+    \end{equation*}
+    Finally, we show that $(S_f)_i \cap (S_f)_j = \{ 0 \}$ for $i \neq j$.
+    Assume there is $g/f^i = h/f^j \in (S_f)_n \cap (S_f)_m$.
+    Then there exists $t = f^d$ such that
+    \begin{equation*}
+        0 = t(gf^j - hf^i) = \underbrace{g f^{j + d}}_{\in S_{(j + d)\deg(f) + \deg(g)}} - \underbrace{h f^{i + n}}_{\in S_{(i + d)\deg(f) + \deg(h)}}
+    \end{equation*}
+    Thus either $(j + d)\deg(f) + \deg(g) = (i + d)\deg(f) + \deg(h)$ or $gf^{j + d} = hf^{i + d} = 0$.
+    However have that $\deg(g) = n - \deg(f)i$ and $\deg(h) = m - \deg(f)j$, so
+    \begin{equation*}
+        (j + d - i)\deg(f) + n \neq (i + d - j)\deg(f) + n
+    \end{equation*}
+    as $i \neq j$.
+    So $gf^{j + d} = hf^{i + d} = 0$ and hence $g/f^i = hf^j = 0$.
+    Therefore we have $(S_f)_i \cap (S_f)_j = \{ 0 \}$ as claimed.
+\end{proof}
+\begin{lemma}
+    \label{prop:homogeneous_part_prime}
+    Let $\p \leq S$ be a prime ideal.
+    Then
+    \begin{equation*}
+        \p' := \langle f \in \p \ | \ \text{$f$ homogeneous} \rangle \leq S
+    \end{equation*}
+    is a (homogeneous) prime ideal.
+\end{lemma}
+\begin{proof}
+    Consider $f, g \in S$ with $f g \in \p'$ and assume $f, g \notin \p'$.
+    Write $f = \sum_d f_d$ and $g = \sum_d g_d$ with $f_d, g_d \in S_d$.
+    So
+    \begin{equation*}
+        \sum_{i, j} f_i g_j = \sum_n \sum_{i + j = n} f_i g_j \in \p'
+    \end{equation*}
+    Since $\p'$ is homogeneous, it follows that
+    \begin{equation*}
+        \sum_{i + j = n} f_i g_j \in \p'
+    \end{equation*}
+    for all $n \in \Z$.
+
+    Let now $d$ resp. $e$ be maximal such that $f_d \notin \p'$ resp. $g_e \notin \p'$.
+    We have
+    \begin{equation*}
+        f_d g_e + \sum_{\substack{i + j = d + e\\(i, j) \neq (d, e)}} \underbrace{f_i g_j}_{\in \p'} = \sum_{i + j = d + e} f_i g_j \in \p'
+    \end{equation*}
+    and so $f_d g_e \in \p' \subseteq \p$.
+    Since $\p$ is prime, it follows that $f_d \in \p$ or $g_e \in \p$.
+    However both $f_d$ and $g_e$ are homogeneous, so $f_d \in \p'$ or $g_e \in \p'$, a contradiction.
+\end{proof}
+\begin{lemma}
     If $D_g \subseteq D_f$ then there is a homogeneous $h \in S$ such that $g^n = fh$ for some $n \in \N$.
 \end{lemma}
 \begin{proof}
     Assume not, then $f$ is not a unit in $S_g$.
-    Thus $\langle f \rangle \subseteq \m$ for a maximal ideal $\m \leq S_g$.
-    Now let $\p$ be the preimage of $\m$ under the localization map $S \to S_g$, so $g \in \p$ and $f \notin \p$.
-    
+    Hence, there is a maximal ideal $\m \leq S_g$ such that $f \in \m$.
+    Now let $\p$ be the preimage of $\m$ under the localization map $S \to S_g$.
+    Since $\m$ is maximal, we see that $\p$ is prime.
+
+    Now apply Lemma~\ref{prop:homogeneous_part_prime} and see that also
+    \begin{equation*}
+        \p' = \langle f \in \p \ | \ \text{$f$ homogeneous} \rangle \subseteq \p
+    \end{equation*}
+    is prime.
+    Furthermore, $g \notin \p$ and so $g \notin \p'$.
+    wlog we have that $g \in S_+$, so $S_+ \not\subseteq \p'$.
+    Since now $\p'$ is a homogeneous prime ideal, it follows that $\p' \in \Proj(S)$.
+
+    Finally, observe that $f \in \p'$ as $f \in \p$ and $f$ is homogeneous.
+    Hence, we have that $\p' \notin D_f$ and $\p' \in D_g$, which contradicts the assumption that $D_g \subseteq D_f$.
 \end{proof}
 \begin{prop}
     Let $B = \{ D_f \ | \ \text{$f \in S$ homogeneous}\}$.
     The functor
     \begin{align*}
-        \mathcal{F}: \restr{\Top(\Proj(S))}{B} \to \Ring, \quad D_f &\mapsto S_f \\
+        \mathcal{F}: \restr{\Top(\Proj(S))}{B} \to \Ring, \quad D_f &\mapsto (S_f)_0 \\
         (D_{fg} \subseteq D_f) &\mapsto \Bigl( \frac s {f^n} \mapsto \frac {sg^n} {(fg)^n} \Bigr)
     \end{align*}
     is a B-sheaf on $B$ (here $\Top(X)$ is the category given by the open sets of $X$ and their inclusion, as defined in the lecture).
 \end{prop}
+\begin{proof}
+    Clearly, $\mathcal{F}$ is a functor and thus a presheaf.
+    Hence, we have to show the local-to-global property.
+
+    Let $D_f = \bigcup_{i \in I} D_{g_if}$ be a cover and $s_i \in \mathcal{F}(D_{g_if})$ such that
+    \begin{equation*}
+        \forall x \in D_{g_if} \cap D_{g_jf} \ \exists V \in B: \ V \subseteq D_{g_if} \cap D_{g_jf}, \ x \in V, \ \frac {s_i} 1 = \frac {s_j} 1 \in \mathcal{F}(V)
+    \end{equation*}
+\end{proof}
 
 \printbibliography
 \end{document}
