@@ -413,6 +413,9 @@ First, it is convenient to have a closed formula for the $x$-coordinate of $[2]P
         x([2]P) = \frac {x(P)^4 - 2a_4 x(P)^2 - 8a_6x(P) + a_4^2 - 4a_2a_6} {4(x(P)^3 + a_2 x(P)^2 + a_4 x(P) + a_6)}
     \end{equation*}  
 \end{prop}
+\begin{proof}
+    TODO
+\end{proof}
 \begin{prop}
     Let $E: y^2 = x(x + 1)(x - 8)$ be the Elliptic Curve from the previous example.
     The for each prime $p \geq 5$, have that $\Z/4\Z \oplus \Z/2\Z$ is a subgroup of $\tilde{E}(\F_p)$.
@@ -573,6 +576,8 @@ is a quadratic residue modulo $p$, for any prime $p$.
     The claim follows.
 \end{proof}
 \begin{lemma}
+    TODO
+
     Let
     \begin{equation*}
         E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6    
@@ -626,6 +631,22 @@ is a quadratic residue modulo $p$, for any prime $p$.
     \end{equation*}
 \end{prop}
 \begin{proof}
+    Everything we have to show is that $\psi$ maps into $E'$.
+    Have
+    \begin{align*}
+        \psi_y^2 + (v + 1)& \psi_y \psi_x + v \psi_y - \psi_3^3 - v \psi_x^2 \\
+        =& (u^3 y + u^2 s x + t)^2 + (v + 1) (u^3 y + u^2 s x + t) (u^2 x) \\
+            & + v (u^3 y + u^2 s x + t) - (u^2 x)^3 - v (u^2 x)^2 \\
+        =& u^6 y^2 + u^4 s^2 x^2 + t^2 + 2 u^5 s x y + 2 u^3 y t + 2 u^2 s t x \\
+            & + (v + 1) u^5 x y + (v + 1) u^4 x^2 + (v + 1) u^2 x t \\
+            & + v u^3 y + v u^2 s x + v t - u^6 x^3 - v u^4 x^2 \\
+        =& u^6 \Bigl( y^2 + \frac 1 u ( 2 s + 1 + v ) x y + \frac 1 {u^3} (2t + v) y \\
+            & - x^3 - \frac 1 {u^2} ()
+         \Bigr)
+    \end{align*}
+
+    TODO
+
     Clearly $\psi$ maps $E$ to an Elliptic Curve $E''$.
     Note that by assumption, we have
     \begin{align*}
@@ -761,6 +782,9 @@ For this, we first look at some basic transformations we can do to Weierstraß e
         This is very useful, as it does not change which of the $a_1, ..., a_4, a_6$ are zero.
     \end{description}
 \end{prop}
+\begin{proof}
+    TODO
+\end{proof}
 Now we can find a nice form for Elliptic Curves with a (nontrivial) 3-torsion point by the following step:
 \begin{itemize}
     \item Apply a translation to get an isomorphic curve whose (nontrivial) 3-torsion point is $(0, 0)$.
