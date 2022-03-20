@@ -81,7 +81,6 @@
 
 \section{Definition of $\Proj$}
 
-This section is based on \cite[II.2]{hartshorne}
 \begin{definition}
     A \emph{graded ring} $S$ is a ring $S$ with a decomposition $S = \oplus_{d \in \Z} S_d$ into groups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i S_j \subseteq S_{i + j}$ for all $i, j \in \Z$.
     If all $S_d = \{ 0 \}$ for $d < 0$, call $S$ \emph{naturally graded ring}.
@@ -142,34 +141,36 @@ From now on let $S$ be a naturally graded ring.
     Since $\p$ is prime, it follows that $fg \notin \p$ and so $D_{fg} \subseteq D_f \cap D_g$ is an open neighborhood of $\p$.
 \end{proof}
 \begin{lemma}
-    Let $S$ be a graded ring (not necessarily naturally graded) and $f \in S$ be homogeneous. Then $S_f$ becomes a graded ring via
+    Let $S$ be a graded ring (not necessarily naturally graded) and $T \subseteq S$ a multiplicative set consisting of homogeneous elements. 
+    Then $T^{-1}S$ becomes a graded ring via
     \begin{equation*}
-        \left(S_f\right)_d = \{ \frac g {f^n} \ | \ g \in S_{d + n} \}
+        \left(T^{-1}S\right)_d = \Bigl\{ \frac g h \in T^{-1}S \ \Bigm| \ \text{$g$ homogeneous with $\deg(g) - \deg(h) = d$} \Bigr\}
     \end{equation*}
 \end{lemma}
 \begin{proof}
-    Clearly $(S_f)_i (S_f)_j \subseteq (S_f)_{i + j}$.
-    To see that $(S_f)_d$ is a subgroup of $S$, consider $g/f^n, h/f^m \in (S_f)_d$.
-    wlog $n = m$ as we can replace $g$ by $gf^{m - n}$ resp. $h$ by $hf^{n - m}$.
-    Now have that $\deg(g) = \deg(h) = d + n$ and so $g + h \in S_{d + n}$.
-    Thus
+    Clearly $(T^{-1}S)_i (T^{-1}S)_j \subseteq (T^{-1}S)_{i + j}$.
+    To see that $(T^{-1}S)_d$ is a subgroup of $S$, consider $g/f, l/h \in (T^{-1}S)_d$.
+    Now have
     \begin{equation*}
-        \frac g {f^n} + \frac h {f^n} = \frac {g + h} {f^n} \in (S_f)_d
+        \frac g f + \frac l h = \frac {gh + lf} {hf}
     \end{equation*}
-    Finally, we show that $(S_f)_i \cap (S_f)_j = \{ 0 \}$ for $i \neq j$.
-    Assume there is $g/f^i = h/f^j \in (S_f)_n \cap (S_f)_m$.
-    Then there exists $t = f^d$ such that
+    and by assumption, find $\deg(gh) = \deg(g) - \deg(h) = d + \deg(f) - d + \deg(l) = \deg(lf)$.
+    So $gh + lf$ is homogeneous and we have
     \begin{equation*}
-        0 = t(gf^j - hf^i) = \underbrace{g f^{j + d}}_{\in S_{(j + d)\deg(f) + \deg(g)}} - \underbrace{h f^{i + n}}_{\in S_{(i + d)\deg(f) + \deg(h)}}
+        \deg(gh + lf) - \deg(fh) = \deg(f) + \deg(l) - \deg(f) - \deg(h) = \deg(l) - \deg(h) = d
     \end{equation*}
-    Thus either $(j + d)\deg(f) + \deg(g) = (i + d)\deg(f) + \deg(h)$ or $gf^{j + d} = hf^{i + d} = 0$.
-    However have that $\deg(g) = n - \deg(f)i$ and $\deg(h) = m - \deg(f)j$, so
-    \begin{equation*}
-        (j + d - i)\deg(f) + n \neq (i + d - j)\deg(f) + n
-    \end{equation*}
-    as $i \neq j$.
-    So $gf^{j + d} = hf^{i + d} = 0$ and hence $g/f^i = hf^j = 0$.
-    Therefore we have $(S_f)_i \cap (S_f)_j = \{ 0 \}$ as claimed.
+    Thus $g/f + l/h \in (T^{-1}S)_d$.
+
+    Finally, we show that $(T^{-1}S)_n \cap (T^{-1}S)_m = \{ 0 \}$ for $i \neq j$.
+    Assume there is $g/f = l/h \in (T^{-1}S)_n \cap (T^{-1}S)_m$ with $\deg(g) - \deg(f) = n$ and $\deg(l) - \deg(h) = m$.
+    Then there exists $t \in T$ such that
+    \begin{align*}
+        0 = t(gh - lf) =& tgh - tlf \quad \text{with}\ tgh \in S_{\deg(t) + \deg(g) + \deg(h)} \\
+        &\text{and}\ tlf \in S_{\deg(t) + \deg(l) + \deg(f)} = S_{\deg(t) + \deg(g) + \deg(h) + (m - n)}
+    \end{align*}
+    If $n \neq m$, then $S_{\deg(t) + \deg(g) + \deg(h) + (m - n)} \cap S_{\deg(t) + \deg(g) + \deg(h)} = \{ 0 \}$ and so $tgh = tlf = 0$.
+    Thus $th(g - 0) = 0$ and so $g/f = 0/1 = 0$.
+    Thus $(T^{-1}S)_m \cap (T^{-1}S)_n = \{ 0 \}$.
 \end{proof}
 \begin{lemma}
     \label{prop:homogeneous_part_prime}
@@ -223,12 +224,13 @@ From now on let $S$ be a naturally graded ring.
     Finally, observe that $f \in \p'$ as $f \in \p$ and $f$ is homogeneous.
     Hence, we have that $\p' \notin D_f$ and $\p' \in D_g$, which contradicts the assumption that $D_g \subseteq D_f$.
 \end{proof}
+The next proof works exactly as the corresponding one for $\Spec$ in the lecture.
 \begin{prop}
     Let $B = \{ D_f \ | \ \text{$f \in S$ homogeneous}\}$.
     The functor
     \begin{align*}
         \mathcal{F}: \restr{\Top(\Proj(S))}{B} \to \Ring, \quad D_f &\mapsto (S_f)_0 \\
-        (D_{fg} \subseteq D_f) &\mapsto \Bigl( \frac s {f^n} \mapsto \frac {sg^n} {(fg)^n} \Bigr)
+        (D_{fg} \subseteq D_f) &\mapsto \Bigl( \restr{\cdot}{D_{fg}}: \frac s {f^n} \mapsto \frac {sg^n} {(fg)^n} \Bigr)
     \end{align*}
     is a B-sheaf on $B$ (here $\Top(X)$ is the category given by the open sets of $X$ and their inclusion, as defined in the lecture).
 \end{prop}
@@ -240,7 +242,111 @@ From now on let $S$ be a naturally graded ring.
     \begin{equation*}
         \forall x \in D_{g_if} \cap D_{g_jf} \ \exists V \in B: \ V \subseteq D_{g_if} \cap D_{g_jf}, \ x \in V, \ \frac {s_i} 1 = \frac {s_j} 1 \in \mathcal{F}(V)
     \end{equation*}
+    To show uniqueness, it suffices to show that if
+    \begin{equation*}
+        \restr{\alpha}{D_{h_i}} = \restr{\beta}{D_{h_i}} \quad \text{for any $h_i$ with}\ \Proj(S) = \bigcup_i D_{h_i}
+    \end{equation*}
+    then $\alpha = \beta$.
+
+    By assumption, have $h_i^{n_i}(\alpha - \beta) = 0$ for each $i$, and wlog there are only finitely many $i$.
+    Thus find $N = \max_i n_i \in \N$ and get that $h_i^N(\alpha - \beta) = 0$.
+    Since $\bigcup_i D_{h_i} = \Proj(S)$ it follows that $\bigcup_i D_{h_i^N} = \Proj(S)$ and so $1 \in \langle h_i^N \ | \ i \rangle$.
+    It follows that
+    \begin{equation*}
+        \alpha - \beta = 1(\alpha - \beta) \in \langle h_i^N \ | \ i \rangle (\alpha - \beta) = \langle h_i^N (\alpha - \beta) \ | \ i \rangle = \{ 0 \}
+    \end{equation*}
+    and so $\alpha = \beta$.
+
+    Now we show existence.
+    By the uniqueness above, it follows that
+    \begin{equation*}
+        \restr{s_i}{D_{fg_ig_j}} = \restr{s_i}{D_{fg_i} \cap D_{fg_j}} = \restr{s_j}{D_{fg_i} \cap D_{fg_j}} = \restr{s_j}{D_{fg_ig_j}}
+    \end{equation*}
+    wlog have again a finite cover, i.e. only finitely many $g_i$.
+    Hence find an $N \in \N$ such that each $s_i = s'_i / (fg_i)^N$ with $s'_i \in S$ homogeneous.
+    By possibly replacing $N$ with a bigger $N$, we can now assume that
+    \begin{equation*}
+        (f^2g_ig_j)^N \left( s'_i (fg_j)^N - s'_j (fg_i)^N \right) = 0 \quad \text{as $\restr{s_i}{D_{fg_ig_j}} = \restr{s_j}{D_{fg_ig_j}}$}
+    \end{equation*}
+    Now note that
+    \begin{equation*}
+        s_i = \frac {a_i} {b_i} \quad \text{with}\ a_i = s'_i(fg_i)^N, \ b_i = (fg_i)^{2N}
+    \end{equation*}
+    and
+    \begin{equation*}
+        a_i b_j - a_j b_i = s'_i (fg_i)^N (fg_j)^{2N} - s'_j (fg_j)^N (fg_i)^{2N} = \underbrace{(f^2g_ig_j)^N \left(s'_i (fg_j)^N - s'_j (fg_i)^N \right)}_{= 0}
+    \end{equation*}
+    Now observe that $D_{b_i} = D_{fg_i}$ and so $f^m \in \langle b_i \ | \ i \rangle$ for some $m$.
+    Let $1 = \sum_i r_i b_i$ and get
+    \begin{equation*}
+        a_i f^m = \sum_l r_l b_l a_i = \sum_l r_l a_l b_i = b_i \sum_l r_l a_l
+    \end{equation*}
+    Note that $a_i, b_i, f$ are homogeneous, and so we can also choose $r_i$ to be homogeneous.
+    Then find that $0 = \deg(s_i) = \deg(a_i) - \deg(b_i) = \deg(\sum r_l a_l) - m\deg(f)$.
+
+    Thus
+    \begin{equation*}
+        s_i = s := \frac {\sum_l r_l a_l} {f^m} \in S_f
+    \end{equation*}
+    and since $\deg(\sum r_l a_l) = m\deg(f)$ we find that $s \in (S_f)_0 = \mathcal{F}(D_f)$.
+    Clearly $\restr{s}{D_{fg_i}} = s_i$ and the claim follows.
 \end{proof}
+\begin{corollary}
+    Hence we can (uniquely) extend the B-sheaf $\mathcal{F}$ to a sheaf $\O_{\Proj(S)}$ on $\Proj(S)$.
+\end{corollary}
+The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(S), \O_{\Proj(S)})$ is a scheme.
+\begin{lemma}
+    For $\p \in \Proj(S)$, the stalk
+    \begin{equation*}
+        \O_{\Proj(S), \p} = (T^{-1}S)_0
+    \end{equation*}
+    is a local ring, where $T = \{ f \notin \p \ | \ \text{$f$ homogeneous}\}$ contains all homogeneous elements not in $\p$.
+\end{lemma}
+\begin{proof}
+    Consider the ideal
+    \begin{equation*}
+        \m = \Bigl\{ \frac f g \in (T^{-1}S)_0 \ \Bigm| \ f \in \p \Bigr\}
+    \end{equation*}
+    We claim this is the unique maximal ideal of $(T^{-1}S)_0$.
+
+    First, note that $1 \notin (T^{-1}S)_0$ as otherwise, there would be $f/g \in T^{-1}S, f \in \p$ with $t(f - g) = 0$ for some $t \in T$.
+    However then $tg = tf \in \p$, and so $g \in \p$ (as $t \notin \p$), contradicting $g \in T$.
+    
+    Now assume there is any ideal $\a$ such that $\a \setminus \m \neq \emptyset$, i.e. there is $f/g \in \a \setminus \m$.
+    Then $f \in T$ as $f$ homogeneous and $f \notin \p$.
+    Thus $g/f \in (T^{-1}S)_0$ and so $f/g \in (T^{-1}S)_0^*$, which implies $\a = \langle 1 \rangle$.
+\end{proof}
+\begin{lemma}
+    For $f \in S_+$ homogeneous have that $(D_f, \restr{\O_{\Proj(S)}}{D_f})$ is an affine scheme.
+\end{lemma}
+\begin{proof}
+    Let $R = (S_f)_0$.
+    Consider the map
+    \begin{equation*}
+        f: D_f \to \Spec(R), \quad \p \mapsto \p S_f \cap (S_f)_0
+    \end{equation*}
+    Note that it is continuous, as the preimage of some basic open set $D_{g/f^n}$ is $D_{fg} \subseteq D_f$ open.
+    Furthermore, $f$ has the inverse
+    \begin{equation*}
+        f^{-1}: \Spec(R) \to D_f, \quad \p \mapsto \p S_f
+    \end{equation*}
+    which is also continuous, as the preimage of some basic open set $D_{fg}$ is $D_{g^n/f^m}$ where $n\deg(g) = m\deg(f)$.
+    Thus $f$ is a homeomorphism.
+
+    Now consider the natural transformation
+    \begin{equation*}
+        \eta: \O_{\Spec R} \Rightarrow f_*\Bigl( \restr{\O_{\Proj(S)}}{D_f} \Bigr)
+    \end{equation*}
+    given on basic open sets by
+    \begin{equation*}
+        \eta_{D_{g/f^n}}: R_{g/f^n} \to (S_{fg})_0, \quad \frac {h/f^m} {g/f^n} \mapsto \frac {h f^n} {g f^m}
+    \end{equation*}
+    Clearly this is a ring isomorphism, so $\eta$ is a natural isomorphism.
+    The claim follows.
+\end{proof}
+\begin{corollary}
+    $(\Proj(S), \O_{\Proj(S)})$ is a scheme.
+\end{corollary}
 
 \printbibliography
 \end{document}
