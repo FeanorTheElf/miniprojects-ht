@@ -38,11 +38,15 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\I}{\mathbb{I}}
 \newcommand{\V}{\mathbb{V}}
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathbb{P}}
 \newcommand{\p}{\mathfrak{p}}
+\newcommand{\q}{\mathfrak{q}}
 \newcommand{\m}{\mathfrak{m}}
 \renewcommand{\a}{\mathfrak{a}}
 \renewcommand{\b}{\mathfrak{b}}
 \renewcommand{\m}{\mathfrak{m}}
+\newcommand{\Nil}{\mathfrak{N}}
 \newcommand{\Set}{\mathrm{\textbf{Set}}}
 \newcommand{\Aff}{\mathrm{\textbf{Aff}}}
 \newcommand{\Sch}{\mathrm{\textbf{Sch}}}
@@ -51,7 +55,7 @@
 \newcommand{\Top}{\mathrm{Top}}
 \newcommand{\Spec}{\mathrm{Spec}}
 \newcommand{\Proj}{\mathrm{Proj}}
-\newcommand{\Quot}{\mathrm{Quot}}
+\newcommand{\Frac}{\mathrm{Frac}}
 \newcommand{\im}{\mathrm{im}}
 \renewcommand{\O}{\mathcal{O}}
 \DeclareMathOperator*{\colim}{colim}
@@ -78,6 +82,8 @@
 
 \begin{document}
 \maketitle
+
+\tableofcontents
 
 \section{Definition of $\Proj$}
 
@@ -131,7 +137,7 @@ From now on let $S$ be a naturally graded ring.
     Clearly $\langle f \rangle$ is a homogenous ideal, so $D_f$ is open.
     For any homogeneous ideal $\a = \langle f_i \ | \ i \in I \rangle$ with $f_i \in S$ homogeneous have
     \begin{equation*}
-        \a = \bigcup_{i \in I} D_{f_i}
+        D_\a = \bigcup_{i \in I} D_{f_i}
     \end{equation*}
     as $\a \not\subseteq \p$ implies there is some $g = \sum_{i \in I} g_i f_i \notin \p$, with $g_i \in S$.
     Hence, at least one $g_j f_j \notin \p$ and so $f_j \notin \p$, thus $\p \in D_{f_j}$.
@@ -242,11 +248,15 @@ The next proof works exactly as the corresponding one for $\Spec$ in the lecture
     \begin{equation*}
         \forall x \in D_{g_if} \cap D_{g_jf} \ \exists V \in B: \ V \subseteq D_{g_if} \cap D_{g_jf}, \ x \in V, \ \frac {s_i} 1 = \frac {s_j} 1 \in \mathcal{F}(V)
     \end{equation*}
-    To show uniqueness, it suffices to show that if
+    To show uniqueness, assume there are $\alpha/f^N, \beta/f^N \in D_f$ with
     \begin{equation*}
-        \restr{\alpha}{D_{h_i}} = \restr{\beta}{D_{h_i}} \quad \text{for any $h_i$ with}\ \Proj(S) = \bigcup_i D_{h_i}
+        \restr{\frac {\alpha} {f^N}}{D_{g_if}} = \restr{\frac {\beta} {f^N}}{D_{g_if}} \quad \text{for all $i$}
     \end{equation*}
-    then $\alpha = \beta$.
+    Therefore there is $n_i \in \N$ such that
+    \begin{equation*}
+        (fg_i)^{n_i}
+    \end{equation*}
+
 
     By assumption, have $h_i^{n_i}(\alpha - \beta) = 0$ for each $i$, and wlog there are only finitely many $i$.
     Thus find $N = \max_i n_i \in \N$ and get that $h_i^N(\alpha - \beta) = 0$.
@@ -277,7 +287,7 @@ The next proof works exactly as the corresponding one for $\Spec$ in the lecture
         a_i b_j - a_j b_i = s'_i (fg_i)^N (fg_j)^{2N} - s'_j (fg_j)^N (fg_i)^{2N} = \underbrace{(f^2g_ig_j)^N \left(s'_i (fg_j)^N - s'_j (fg_i)^N \right)}_{= 0}
     \end{equation*}
     Now observe that $D_{b_i} = D_{fg_i}$ and so $f^m \in \langle b_i \ | \ i \rangle$ for some $m$.
-    Let $1 = \sum_i r_i b_i$ and get
+    Let $f^m = \sum_i r_i b_i$ and get
     \begin{equation*}
         a_i f^m = \sum_l r_l b_l a_i = \sum_l r_l a_l b_i = b_i \sum_l r_l a_l
     \end{equation*}
@@ -317,6 +327,7 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
     Thus $g/f \in (T^{-1}S)_0$ and so $f/g \in (T^{-1}S)_0^*$, which implies $\a = \langle 1 \rangle$.
 \end{proof}
 \begin{lemma}
+    \label{prop:Df_affine}
     For $f \in S_+$ homogeneous have that $(D_f, \restr{\O_{\Proj(S)}}{D_f})$ is an affine scheme.
 \end{lemma}
 \begin{proof}
@@ -339,7 +350,7 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
     \end{equation*}
     given on basic open sets by
     \begin{equation*}
-        \eta_{D_{g/f^n}}: R_{g/f^n} \to (S_{fg})_0, \quad \frac {h/f^m} {g/f^n} \mapsto \frac {h f^n} {g f^m}
+        \eta_{D_{g/f^n}}: R_{g/f^n} \to (S_{fg})_0, \quad \frac {h/f^m} {(g/f^n)^l} \mapsto \frac {h f^{nl}} {g^l f^m}
     \end{equation*}
     Clearly this is a ring isomorphism, so $\eta$ is a natural isomorphism.
     The claim follows.
@@ -347,6 +358,304 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
 \begin{corollary}
     $(\Proj(S), \O_{\Proj(S)})$ is a scheme.
 \end{corollary}
+\begin{definition}
+    For any ring $R$ and $n \in \N$, define the projective $n$-space as\footnote{Endow $R[x_0, ..., x_n]$ with the standard natural grading, i.e. $\deg(x_i) = 1$. Note that this makes $R[x_0, ..., x_n]_0 = R$, so all $r \in R$ are homogeneous of degree $0$.}
+    \begin{equation*}
+        \P_R^n := \Proj(R[x_0, ..., x_n])
+    \end{equation*}
+    which naturally becomes a scheme over $\Spec(R)$ via the morphism given by
+    \begin{align*}
+        &f: \Proj(R[x_0, ..., x_n]) \to \Spec(R), \quad \p \mapsto \p \cap R \\
+        &f^\#_{D_f}: R_f \to \O_{\Proj(S)}(D_f) = (R[x_0, ..., x_n]_f)_0, \quad r \mapsto r
+    \end{align*}
+\end{definition}
 
+\section{Projective space as a variety}
+For this section, let $R$ be a ring and $n \in \N$.
+\begin{prop}
+    Projective $n$-space $\P_R^n \to \Spec(R)$ over $\Spec(R)$ is separated.
+\end{prop}
+\begin{proof}
+    By Lemma~\ref{prop:Df_affine} we find a cover $\Proj(S) = \bigcup_i D_{x_i}$ of affine opens.
+    We use the characterization from the lecture and show that $D_{x_i} \cap D_{x_j}$ is an affine open and the canonical multiplication map
+    \begin{equation*}
+        \O_{\P_R^n}(D_{x_i}) \times \O_{\P_R^n}(D_{x_j}) \to \O_{\P_R^n}(D_{x_i} \cap D_{x_j})
+    \end{equation*}
+    is surjective.
+    
+    First note that $D_{x_i} \cap D_{x_j} = D_{x_ix_j}$ which is affine open by Lemma~\ref{prop:Df_affine}.
+    By definition, we have $\O_{\P_R^n}(D_f) = (R[x_0, ..., x_n]_f)_0$ and so we have to show that
+    \begin{equation*}
+        (R[x_0, ..., x_n]_{x_i})_0 \times (R[x_0, ..., x_n]_{x_j})_0 \to (R[x_0, ..., x_n]_{x_ix_j})_0, \quad (a, b) \mapsto ab
+    \end{equation*}
+    is surjective.
+    
+    However, for $f/(x_ix_j)^n \in (R[x_0, ..., x_n]_{x_ix_j})_0$ we have that
+    \begin{equation*}
+        \frac f {x_i^{2n}} \cdot \frac {x_i^n} {x_j^n} = \frac f {(x_ix_j)^n}
+    \end{equation*}
+    and clearly $f/x_i^{2n} \in (R[x_0, ..., x_n]_{x_i})_0$ as $\deg(f) = \deg(x_i) n + \deg(x_j) n = 2n$ and $x_i^n/x_j^n \in (R[x_0, ..., x_n]_{x_j})_0$.
+    The claim follows
+\end{proof}
+\begin{lemma}
+    \label{prop:nil_poly_ring}
+    It holds that $\Nil(R)R[x_0, ..., x_n] = \Nil(R[x_0, ..., x_n])$.
+\end{lemma}
+\begin{proof}
+    Clearly $\Nil(R)R[x_0, ..., x_n] \subseteq \Nil(R[x_0, ..., x_n])$, as for $\sum_{i = 1}^m f_i r_i$ with $f_i^n = 0$ have that
+    \begin{equation*}
+        \Bigl( \sum_{i = 1}^m f_i r_i \Bigr)^{m n} = \sum_{1 \leq i_1, ..., i_{mn} \leq m} \underbrace{f_{i_1} ... f_{i_{mn}}}_{\mathclap{\substack{= 0 \\ \text{as at least one $i$ repeats at least $n$ times in $i_1, ..., i_{mn}$}}}} r_{i_1} ... r_{i_mn}
+    \end{equation*}
+    Now note that $\Nil(R[x_0, ..., x_n]) \subseteq \a$ for all ideals $\a$ and the claim follows.
+\end{proof}
+\begin{prop}
+    Assume $\Spec(R)$ is irreducible.
+    Then $\P_R^n$ is an irreducible scheme.
+\end{prop}
+\begin{proof}
+    We show that $D_{x_0} \subseteq \P_R^n$ is dense.
+    The claim then follows, as any two nonempty, disjoint open sets give nonempty, disjoint open sets in $D_{x_0}$ which is isomorphic to the 
+    irreducible\footnote{This is obviously irreducible, as $R[x_0, ..., x_n]/\Nil(R[x_0, ..., x_n]) = (R/\Nil(R))[x_0, ..., x_n]$ is integral by assumption and Lemma~\ref{prop:nil_poly_ring}.}
+    affine scheme $\Spec(R[x_0, ..., x_n]_{x_0})_0$ by Lemma~\ref{prop:Df_affine}.
+
+    So consider any nonempty basic open $D_f \subseteq \P_R^n$ and find that $D_f \cap D_{x_0} = D_{fx_0}$.
+    By assumption, $\Nil(R)$ is a prime ideal and so $fx_0$ is not nilpotent (unless $f$ were nilpotent, but then $D_f = \emptyset$), i.e. the ring $R[x_0, ..., x_n]_{fx_0}$ is not the zero ring.
+    Hence, it has a maximal ideal $\m$.
+    Let $\p$ be the preimage of $\m$ under the localization map $R[x_0, ..., x_n] \to R[x_0, ..., x_n]_{fx_0}$, which is clearly prime with $fx_0 \notin \p$.
+    By Lemma~\ref{prop:homogeneous_part_prime}, we now see that
+    \begin{equation*}
+        \p' := \langle f \in \p \ | \ \text{$f$ homogeneous} \rangle \leq R[x_0, ..., x_n]
+    \end{equation*}
+    is a homogeneous prime ideal, and since $fx_0 \notin \p \supseteq \p'$, we see that $S_+ \not\subseteq \p'$, i.e. $\p' \in \Proj(R[x_0, ..., x_n])$.
+    Now it follows that $\p' \in D_{fx_0}$, so $D_{fx_0} \neq \emptyset$.
+\end{proof}
+\begin{prop}
+    Assume $R$ is reduced.
+    Then $\P_R^n$ is a reduced scheme.
+\end{prop}
+\begin{proof}
+    By the lecture, it suffices to show that each $\O_{\P_R^n}(D_{x_i}) \cong \Spec(R[x_0, ..., x_n]_{x_i})_0$ is reduced.
+    However this is trivial, as taking the polynomial ring $R[x_0, ..., x_n]$ preserves reducedness by Lemma~\ref{prop:nil_poly_ring}, and localizing (and of course taking the subring $S_0$) also do.
+\end{proof}
+\begin{corollary}
+    Assume $R$ is integral.
+    Then $\P_R^n$ is an integral scheme.
+\end{corollary}
+\begin{prop}
+    $\P_R^n \to \Spec(R)$ is of finite type.
+\end{prop}
+\begin{proof}
+    First note that $\P_R^n$ is covered by a finite number of affine opens $D_{x_i}$ where the canonical morphisms
+    \begin{equation*}
+        D_{x_i} \cong \Spec(R[x_0, ..., x_n]_{x_i})_0 \to \Spec(R)
+    \end{equation*}
+    are quasi-compact (they are induced by ring homomorphisms $R \to (R[x_0, ..., x_n]_{x_i})_0$), hence $\P_R^n$ is quasi-compact.
+
+    To see that it is locally of finite type, show that there is the cover by affine opens $\P_R^n = \bigcup_i D_{x_i}$ such that the ring homomorphisms $R \to \O_{\P_R^n}(D_{x_i})$ are of finite type.
+    This is clearly the case, as
+    \begin{equation*}
+        \O_{\P_R^n}(D_{x_i}) = (R[x_0, ..., x_n]_{x_i})_0 \cong R[y_0, ..., y_{i - 1}, y_i, ..., y_n]
+    \end{equation*}
+    is a finitely generated $R$-algebra.
+\end{proof}
+\begin{corollary}
+    If $k$ is an algebraically closed field, then $\P_k^n$ is a variety.
+\end{corollary}
+
+\section{Projective space is proper}
+We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, hence it is left to show that it is universally closed.
+\begin{lemma}
+    Let $X, Y$ be topological spaces and $f: X \to Y$ a continuous map.
+    Let further $Y = \bigcup_i V_i$ be a cover by open sets.
+    If each of the maps
+    \begin{equation*}
+        \restr{f}{f^{-1}(V_i)}: f^{-1}(V_i) \to V_i
+    \end{equation*}
+    is closed (as a map into $V_i$), then $f$ is closed.
+\end{lemma}
+\begin{proof}
+    Consider some closed $C \subseteq X$ and $x \in Y \setminus f(C)$.
+    Since the $V_i$ cover $Y$, there is $i$ such that $x \in V_i$.
+    As $\restr{f}{f^{-1}(V_i)}$ is closed, we see that
+    \begin{equation*}
+        f(C) \cap V_i = \restr{f}{f^{-1}(V_i)}(C)
+    \end{equation*}
+    is closed in $V_i$, hence there is an open neighborhood $U \subseteq V_i$ of $x$ with $U \cap f(C) = \emptyset$.
+    Now note that $V_i \subseteq Y$ is open, and so $U$ is also an open neighborhood of $x$ in $Y$.
+    This holds for all $x \in Y \setminus f(C)$, hence $f(C)$ is closed.
+\end{proof}
+\begin{corollary}
+    A scheme $X$ over $\Spec(R)$ is universally closed, if for all ring homomorphisms $R \to S$ have the following:
+    The map $X \times_{\Spec(R)} \Spec(S) \to \Spec(S)$ that makes the diagram
+    \begin{center}
+        \begin{tikzpicture}
+            \node (SX) at (0, 0) {$\Spec(S) \times_{\Spec(R)} X$};
+            \node (S) at (0, -1.5) {$\Spec(S)$};
+            \node (X) at (4, 0) {$X$};
+            \node (R) at (4, -1.5) {$\Spec(R)$};
+
+            \draw [->] (SX) -- (S);
+            \draw [->] (SX) -- (X);
+            \draw [->] (S) -- (R);
+            \draw [->] (X) -- (R);
+        \end{tikzpicture}
+    \end{center}
+    is closed.
+\end{corollary}
+\begin{proof}
+    Consider any scheme $Y$ over $\Spec(R)$.
+    We have to show that the map $\pi: Y \times_{\Spec(R)} X \to Y$ that makes the diagram
+    \begin{center}
+        \begin{tikzpicture}
+            \node (YX) at (0, 0) {$Y \times_{\Spec(R)} X$};
+            \node (Y) at (0, -1.5) {$Y$};
+            \node (X) at (4, 0) {$X$};
+            \node (R) at (4, -1.5) {$\Spec(R)$};
+
+            \draw [->] (YX) -- (Y) node [midway, left] {$\pi$};
+            \draw [->] (YX) -- (X);
+            \draw [->] (Y) -- (R);
+            \draw [->] (X) -- (R);
+        \end{tikzpicture}
+    \end{center}
+    commute, is closed.
+
+    Let $Y = \bigcup_i V_i$ be a cover by affine opens.
+    For each $i$, note that the diagram
+    \begin{center}
+        \begin{tikzpicture}
+            \node (YX) at (0, 0) {$\pi^{-1}(V_i)$};
+            \node (Y) at (0, -2) {$V_i$};
+            \node (X) at (4, 0) {$X$};
+            \node (R) at (4, -2) {$\Spec(R)$};
+
+            \draw [->] (YX) -- (Y) node [midway, left] {$\pi_i := \restr{\pi}{\pi^{-1}(V_i)}$};
+            \draw [->] (YX) -- (X);
+            \draw [->] (Y) -- (R);
+            \draw [->] (X) -- (R);
+        \end{tikzpicture}
+    \end{center}
+    commutes.
+    By the universal property of $V_i \times_{\Spec(R)} X$ we now find a morphism
+    \begin{equation*}
+        \psi: \pi^{-1}(V_i) \to V_i \times_{\Spec(R)} X
+    \end{equation*}
+    of schemes over $Y \times X$, i.e. the inclusion $\pi^{-1}(V_i)$ factors as
+    \begin{equation*}
+        \pi^{-1}(V_i) \ \overset{\psi}{\to} \ V_i \times_{\Spec(R)} X \ \to \ Y \times_{\Spec(R)} X
+    \end{equation*}
+    Considering $V_i \times_{\Spec(R)} X$ as an open subscheme of $Y \times_{\Spec(R)} X$, we thus see that $\psi$ must already be the identity and so $\pi^{-1}(V_i) \subseteq V_i \times_{\Spec(R)} X$.
+    It follows that $\pi^{-1}(V_i) = V_i \times_{\Spec(R)} X$.
+
+    By assumption we know that each $\pi_i$ is closed, as $V_i \cong \Spec(\O_Y(V_i))$ is affine.
+    Now the previous lemma yields that also $\pi$ is closed.
+\end{proof}
+\begin{remark}
+    \label{prop:functoriality_proj}
+    Note that $\Proj$ is not functorial, in the sense that a homomorphism of graded rings $S \to T$ does not induce a natural morphism $\Proj(T) \to \Proj(S)$ (like $\Spec$ does).
+    Namely, given $\alpha: S \to T$, we might want to consider
+    \begin{equation*}
+        \Proj(T) \to \Proj(S), \quad \p \mapsto \alpha^{-1}(\p)
+    \end{equation*}
+    However, in general this is not well-defined, as $\alpha^{-1}(\p)$ might contain $S_+$.
+
+    If we further require the map $\alpha: S \to T$ to fulfill $T_+ \subseteq \alpha(S_+)T$, then this works out and we get a morphism
+    \begin{align*}
+        \Proj(\alpha): \Proj(T) &\to \Proj(S), \quad \p \mapsto \alpha^{-1}(\p), \\
+        \Proj(\alpha)^\#_{D_f}: \O_{\Proj(S)}(D_f) &\to \O_{\Proj(T)}(D_{\alpha(f)}), \quad \frac x y \mapsto \frac {\alpha(x)} {\alpha(y)}
+    \end{align*}
+    Note that this is indeed a well-defined morphism, as for $\p \in \Proj(T)$ there is some $f \in T_+ \setminus \p$ and by assumption, have $g \in S_+, t \in T$ with $\alpha(g)t = f$.
+    Now $g \notin \alpha^{-1}(\p)$, as $g \in \alpha^{-1}(\p)$ would imply $\alpha(g) \in \p$, thus $f = t\alpha(g) \in \p$.
+
+    In particular, any ring homomorphism $R \to S$ induces a canonical morphism $\P_S^n \to \P_R^n$ of schemes, since the induced ring homomorphism $R[x_0, ..., x_n] \to S[x_0, ..., x_n]$ satisfies the above additional condition.
+\end{remark}
+\begin{lemma}
+    Let $S, T$ be $R$-algebras via $f: R \to S$ and $g: R \to T$.
+    Let $\p \leq S, \q \leq T$ be prime ideals with $\b = f^{-1}(\p) = g^{-1}(\q)$.
+    Then have the canonical map
+    \begin{equation*}
+        S \otimes_R T \to \Frac(S/\p) \otimes_R \Frac(T/\q) = \Frac{S/\p} \otimes_{R/\b} \Frac(T/\q)
+    \end{equation*}
+    Then the preimage $\a \leq S \otimes_R T$ of a prime ideal in $\Frac{S/\p} \otimes_{R/\b} \Frac(T/\q)$ is a prime ideal such that
+    \begin{equation*}
+        \iota_S^{-1}(\a) = \p \quad \text{and} \quad \iota_T^{-1}(\a) = \q
+    \end{equation*}
+    where $\iota_S: S \to S \otimes_R T$ and $\iota_T: T \to S \otimes_R T$ are the tensor maps.
+\end{lemma}
+\begin{lemma}
+    Let $R \to S$ be a ring homomorphism.
+    Then the base change of $\P_R^n$ is
+    \begin{equation*}
+        \P_R^n \times_{\Spec(R)} \Spec(S) = \P_S^n
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Consider the canonical map $\alpha: R[x_0, ..., x_n] \to S[x_0, ..., x_n]$ induced by $R \to S$.
+    Note that
+    \begin{equation*}
+        S \otimes_R (R[x_0, ..., x_n]_f)_0 \cong (S[x_0, ..., x_n]_{\alpha(f)})_0 \quad \text{via} \quad \iota_f: s \otimes \frac r {f^n} \mapsto \frac {s\alpha(r)} {\alpha(f)^n}
+    \end{equation*}
+    for all homogeneous $f \in R[x_0, ..., x_n]$.
+    By Lemma~\ref{prop:Df_affine}, we see that $D_f$ for $f \in S[x_0, ..., x_n]$ homogeneous form an affine open cover of $\P_S^n$.
+    Furthermore, we have a cover by affine opens $D_f \times_{\Spec(R)} \Spec(S)$ of $\P_R^n \times_{\Spec(R)} \Spec(S)$ for $f \in R[x_0, ..., x_n]$ homogeneous.
+    Together, we see that it suffices to show that the isomorphisms (induced by $\iota_f$)
+    \begin{equation*}
+        \phi_f: D_{\alpha(f)} = \Spec((S[x_0, ..., x_n]_{\alpha(f)})_0) \to D_f \times_{\Spec(R)} \Spec(S)
+    \end{equation*}
+    glue to an isomorphism $\Proj(S[x_0, ..., x_n]) \to \P_R^n \times_{\Spec(R)} \Spec(S)$.
+    By the gluing lemma, it suffices that the compatibility conditions are satisfied, i.e. that for all $f, g \in R[x_0, ..., x_n]$ homogeneous the diagram
+    \begin{center}
+        \begin{tikzpicture}
+            \node (Sfg) at (0, 0) {$D_{\alpha(f)} \cap D_{\alpha(g)} = D_{\alpha(fg)}$};
+            \node (Sf) at (3, 1) {$D_{\alpha(f)}$};
+            \node (Sg) at (3, -1) {$D_{\alpha(g)}$};
+            \node (f) at (7, 1) {$D_f \times_{\Spec(R)} \Spec(S)$};
+            \node (g) at (7, -1) {$D_g \times_{\Spec(R)} \Spec(S)$};
+            \node (all) at (10, 0) {$\P_R^n \times_{\Spec(R)} \Spec(S)$};
+
+            \draw [->] (Sfg) -- (Sf);
+            \draw [->] (Sfg) -- (Sg);
+            \draw [->] (Sf) -- (f) node [midway, above] {$\phi_f$};
+            \draw [->] (Sg) -- (g) node [midway, above] {$\phi_g$};
+            \draw [->] (f) -- (all);
+            \draw [->] (g) -- (all);
+        \end{tikzpicture}
+    \end{center}
+    commutes.
+
+    For a prime ideal $\p \in D_{\alpha(fg)}$ have that
+    \begin{equation*}
+        \phi_f(\p) = \iota_f^{-1}(\p \cap (S[x_0, ..., x_n]_f)_0) \in D_f \times_{\Spec(R)} \Spec(S)
+    \end{equation*}
+    and so $g \notin \phi_f(\p)$, i.e. $\phi_f(\p) \in D_{fg} \times_{\Spec(R)} \Spec(S)$.
+    Hence, we have that both restrictions
+    \begin{equation*}
+        \restr{\phi_f}{D_{\alpha(fg)}}, \ \restr{\phi_g}{D_{\alpha(fg)}}: D_{\alpha(fg)} \to D_{fg} \times_{\Spec(R)} \Spec(S)
+    \end{equation*}
+    map into $D_{fg} \times_{\Spec(R)} \Spec(S)$.
+    Now note that the diagram
+    \begin{center}
+        \begin{tikzpicture}
+            \node (Rf) at (0, 0) {$S \otimes_R (R[x_0, ..., x_n]_f)_0$};
+            \node (Rg) at (-3, -2) {$S \otimes_R (R[x_0, ..., x_n]_g)_0$};
+            \node (Rfg) at (0, -4) {$S \otimes_R (R[x_0, ..., x_n]_{fg})_0$};
+
+            \node (Sf) at (5, 0) {$(S[x_0, ..., x_n]_f)_0$};
+            \node (Sg) at (8, -2) {$(S[x_0, ..., x_n]_g)_0$};
+            \node (Sfg) at (5, -4) {$(S[x_0, ..., x_n]_{fg})_0$};
+
+            \draw [->] (Rf) -- (Sf) node [midway, above] {$\iota_f$};
+            \draw [->] (Rg) -- (Sg) node [midway, above] {$\iota_g$};
+            \draw [->] (Rfg) -- (Sfg) node [midway, above] {$\iota_{fg}$};
+
+            \draw [->] (Rf) -- (Rfg);
+            \draw [->] (Rg) -- (Rfg);
+            \draw [->] (Sf) -- (Sfg);
+            \draw [->] (Sg) -- (Sfg);
+        \end{tikzpicture}
+    \end{center}
+    commutes, and so the restrictions of $\phi_f$ resp. $\phi_g$ to $D_{\alpha(fg)}$ are both induced by the homomorphism $\iota_{fg}$, hence they are equal.
+    The claim follows.
+\end{proof}
 \printbibliography
 \end{document}
