@@ -57,6 +57,7 @@
 \newcommand{\Proj}{\mathrm{Proj}}
 \newcommand{\Frac}{\mathrm{Frac}}
 \newcommand{\im}{\mathrm{im}}
+\newcommand{\cont}{\mathrm{cont}}
 \renewcommand{\O}{\mathcal{O}}
 \DeclareMathOperator*{\colim}{colim}
 
@@ -366,7 +367,7 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
     which naturally becomes a scheme over $\Spec(R)$ via the morphism given by
     \begin{align*}
         &f: \Proj(R[x_0, ..., x_n]) \to \Spec(R), \quad \p \mapsto \p \cap R \\
-        &f^\#_{D_f}: R_f \to \O_{\Proj(S)}(D_f) = (R[x_0, ..., x_n]_f)_0, \quad r \mapsto r
+        &f^\#_{D_f}: R_f \to \O_{\Proj(R[x_0, ..., x_n])}(D_f) = (R[x_0, ..., x_n]_f)_0 = R_f, \quad r \mapsto r
     \end{align*}
 \end{definition}
 
@@ -442,6 +443,7 @@ For this section, let $R$ be a ring and $n \in \N$.
     Then $\P_R^n$ is an integral scheme.
 \end{corollary}
 \begin{prop}
+    \label{prop:p_quasi_compact}
     $\P_R^n \to \Spec(R)$ is of finite type.
 \end{prop}
 \begin{proof}
@@ -484,9 +486,11 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
     Now note that $V_i \subseteq Y$ is open, and so $U$ is also an open neighborhood of $x$ in $Y$.
     This holds for all $x \in Y \setminus f(C)$, hence $f(C)$ is closed.
 \end{proof}
+\cite[66.9.5.]{stacks}
 \begin{corollary}
+    \label{prop:universally_closed_affines}
     A scheme $X$ over $\Spec(R)$ is universally closed, if for all ring homomorphisms $R \to S$ have the following:
-    The map $X \times_{\Spec(R)} \Spec(S) \to \Spec(S)$ that makes the diagram
+    The base change map $X \times_{\Spec(R)} \Spec(S) \to \Spec(S)$, i.e. the map that makes the diagram
     \begin{center}
         \begin{tikzpicture}
             \node (SX) at (0, 0) {$\Spec(S) \times_{\Spec(R)} X$};
@@ -500,7 +504,7 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
             \draw [->] (X) -- (R);
         \end{tikzpicture}
     \end{center}
-    is closed.
+    commute, is closed.
 \end{corollary}
 \begin{proof}
     Consider any scheme $Y$ over $\Spec(R)$.
@@ -570,24 +574,13 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
     In particular, any ring homomorphism $R \to S$ induces a canonical morphism $\P_S^n \to \P_R^n$ of schemes, since the induced ring homomorphism $R[x_0, ..., x_n] \to S[x_0, ..., x_n]$ satisfies the above additional condition.
 \end{remark}
 \begin{lemma}
-    Let $S, T$ be $R$-algebras via $f: R \to S$ and $g: R \to T$.
-    Let $\p \leq S, \q \leq T$ be prime ideals with $\b = f^{-1}(\p) = g^{-1}(\q)$.
-    Then have the canonical map
-    \begin{equation*}
-        S \otimes_R T \to \Frac(S/\p) \otimes_R \Frac(T/\q) = \Frac{S/\p} \otimes_{R/\b} \Frac(T/\q)
-    \end{equation*}
-    Then the preimage $\a \leq S \otimes_R T$ of a prime ideal in $\Frac{S/\p} \otimes_{R/\b} \Frac(T/\q)$ is a prime ideal such that
-    \begin{equation*}
-        \iota_S^{-1}(\a) = \p \quad \text{and} \quad \iota_T^{-1}(\a) = \q
-    \end{equation*}
-    where $\iota_S: S \to S \otimes_R T$ and $\iota_T: T \to S \otimes_R T$ are the tensor maps.
-\end{lemma}
-\begin{lemma}
+    \label{prop:projective_space_base_change}
     Let $R \to S$ be a ring homomorphism.
     Then the base change of $\P_R^n$ is
     \begin{equation*}
-        \P_R^n \times_{\Spec(R)} \Spec(S) = \P_S^n
+        \P_R^n \times_{\Spec(R)} \Spec(S) \cong \P_S^n
     \end{equation*}
+    as schemes over $\Spec(S)$.
 \end{lemma}
 \begin{proof}
     Consider the canonical map $\alpha: R[x_0, ..., x_n] \to S[x_0, ..., x_n]$ induced by $R \to S$.
@@ -636,13 +629,13 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
     Now note that the diagram
     \begin{center}
         \begin{tikzpicture}
-            \node (Rf) at (0, 0) {$S \otimes_R (R[x_0, ..., x_n]_f)_0$};
-            \node (Rg) at (-3, -2) {$S \otimes_R (R[x_0, ..., x_n]_g)_0$};
-            \node (Rfg) at (0, -4) {$S \otimes_R (R[x_0, ..., x_n]_{fg})_0$};
+            \node (Rf) at (-3, 0) {$S \otimes_R (R[x_0, ..., x_n]_f)_0$};
+            \node (Rg) at (0, -2) {$S \otimes_R (R[x_0, ..., x_n]_g)_0$};
+            \node (Rfg) at (-3, -4) {$S \otimes_R (R[x_0, ..., x_n]_{fg})_0$};
 
-            \node (Sf) at (5, 0) {$(S[x_0, ..., x_n]_f)_0$};
-            \node (Sg) at (8, -2) {$(S[x_0, ..., x_n]_g)_0$};
-            \node (Sfg) at (5, -4) {$(S[x_0, ..., x_n]_{fg})_0$};
+            \node (Sf) at (8, 0) {$(S[x_0, ..., x_n]_f)_0$};
+            \node (Sg) at (5, -2) {$(S[x_0, ..., x_n]_g)_0$};
+            \node (Sfg) at (8, -4) {$(S[x_0, ..., x_n]_{fg})_0$};
 
             \draw [->] (Rf) -- (Sf) node [midway, above] {$\iota_f$};
             \draw [->] (Rg) -- (Sg) node [midway, above] {$\iota_g$};
@@ -657,5 +650,124 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
     commutes, and so the restrictions of $\phi_f$ resp. $\phi_g$ to $D_{\alpha(fg)}$ are both induced by the homomorphism $\iota_{fg}$, hence they are equal.
     The claim follows.
 \end{proof}
+The next lemma is directly from \cite[II.4.5]{hartshorne}.
+\begin{lemma}
+    \label{prop:im_closed_iff_stable_specialization}
+    Let $f: X \to Y$ be a quasi-compact morphism.
+    Then $f(|X|)$ is closed if and only if it is stable under specialization.
+\end{lemma}
+\begin{lemma}
+    \label{prop:adding_coeff_ideal_does_not_introduce_irrelevant_ideal}
+    Let $\p \leq R[x_0, ..., x_n]$ be a homogeneous prime ideal with $R[x_0, ..., x_n]_+ \not\subseteq \p$.
+    Further let $\q \leq R$ be a prime ideal such that $\p \cap R \subseteq \q$.
+    Then there some $i$ such that no $\alpha x_i^m$ is in $\b := \p + \q R[x_0, ..., x_n]$, for any $\alpha \in R \setminus \b$ and any $m \in \N$.
+\end{lemma}
+\begin{proof}
+    Assume there is $m \in \N$ such that $\alpha_i x_i^m \in \b$ for all $i$ and some $\alpha_i \in \b \setminus R$.
+    Since $\b \cap R = \q$ is prime, have that $\alpha := \prod_i \alpha_i \notin \b$.
+    Further we have that $\alpha x_i^m \in \b$ for all $i$.
+
+    Consider now the vector $(w_i)_{i < N}$ containing all monomials of degree $(n + 1)m$.
+    By assumption, all $\alpha w_i \in \b$.
+    Since $\p$ is homogeneous, observe that now there are $r_{ij} \in \q$ such that
+    \begin{equation*}
+        \alpha w_i - \sum_{j < N} r_{ij} w_j \in \p
+    \end{equation*}
+    Working modulo $\p$, we see that $A w = \alpha w$ where $A \in (\b/\p)^{N \times N}$.
+
+    Now observe that $\alpha \notin \b/\p$ since $\alpha \notin \b$.
+    Hence there exists a prime ideal in $R/\p$ containing $\b/\p$ and not containing $\alpha$.
+    Localizing at that prime ideal gives a local ring $S$ with maximal ideal $\mathfrak{l}$.
+    Now assume that $w \in S^n$ and $A/\alpha \in \mathfrak{l}^{n \times n}$.
+    Note that we still have $(A/\alpha) w = w$.
+
+    wlog $S$ is noetherian, otherwise continue with the ring
+    \begin{equation*}
+        \tilde{S} := \begin{cases}
+            \Z[A/\alpha, x] & \text{if $\mathrm{char}(S) = 0$} \\
+            (\Z/\mathrm{char}(R)\Z)[A/\alpha, x] & \text{if $\mathrm{char}(S) \neq 0$}
+        \end{cases}
+    \end{equation*}
+    generated by the coefficients of $A/\alpha$ and $w$ (this is noetherian, as it is a quotient of a polynomial ring in finitely many variables).
+    
+    Now equip $S_{\mathfrak{l}}$ with the $\mathfrak{l}$-adic topology.
+    Note that $S$ is noetherian and local, thus the Krull intersection theorem shows that the $\mathfrak{l}$-adic topology is Hausdorff and we find
+    \begin{equation*}
+        w = \lim_{i \to \infty} w = \lim_{i \to \infty} \frac {A^i} {\alpha^i} w = \Bigl( \lim_{i \to \infty} \frac {A^i} {\alpha^i} \Bigr) w = 0 w = 0
+    \end{equation*}
+    since $(A/\alpha)^i$ has coefficients in $\mathfrak{l}^i$, thus converges to $0$ as $i \to \infty$.
+
+    Thus $w \equiv 0 \mod \p$ and so $x_i^N \equiv 0 \mod \p$, i.e. $x_i^N \in \p$ for all $i$.
+    However, since $\p$ is prime, this implies $R[x_0, ..., x_n]_+ = \langle x_0, ..., x_n \rangle \subseteq \p$, contradicting the assumption. 
+\end{proof}
+\begin{prop}
+    \label{prop:projective_structure_morphism_closed}
+    The morphism $\P_R^n \to \Spec(R)$ is closed.
+\end{prop}
+\begin{proof}
+    Denote $\P_R^n \to \Spec(R)$ by $\phi$.
+    Consider a closed set $\V(\a) = \P_R^n \setminus D_\a$ given by a homogeneous ideal $\a \leq R[x_0, ..., x_n]$.
+    By Lemma~\ref{prop:im_closed_iff_stable_specialization}, it suffices to show that $\phi(\V(\a))$ is closed under specialization (note that $\P_R^n \to \Spec(R)$ is quasi-compact, e.g. by Proposition~\ref{prop:p_quasi_compact}).
+
+    Consider $\q \in \phi(\V(\a)) \subseteq \Spec(R)$ and a prime ideal $\q'$ that specializes $\q$, i.e. $\q' \supseteq \q$.
+    Then there is a $\p \in \V(\a)$ with $\p \cap R = \q$, in particular $\a \subseteq \p$.
+    We want to show that $\q' \in \phi(\V(\a))$.
+
+    Note that by Lemma~\ref{prop:adding_coeff_ideal_does_not_introduce_irrelevant_ideal}, there is $i$ such that the multiplicative set
+    \begin{equation*}
+        T := \{ \alpha x_i^m \ | \ \alpha \in R \setminus \q', \ m \in \N \}
+    \end{equation*}
+    has empty intersection with the ideal $\b := \p + \q' R[x_0, ..., x_n]$.
+    
+    Hence, the ring $T^{-1}(R[x_0, ..., x_n]/\b)$ is nonzero, thus has a prime.
+    Taking its preimage under
+    \begin{equation*}
+        R[x_0, ..., x_n] \to R[x_0, ..., x_n]/\b \to T^{-1}(R[x_0, ..., x_n]/\b)
+    \end{equation*}
+    yields a prime ideal $\p'$ such that $x_i \notin \p'$ and $\b \subseteq \p'$.
+    Clearly have that $\q' \subseteq \p'$ and since $\p' \cap T = \emptyset$, find that $\p' \cap R = \q'$.
+    By Lemma~\ref{prop:homogeneous_part_prime}, assume wlog that $\p'$ is homogeneous.
+    Now have a homogeneous prime ideal $\p'$ with $\a \subseteq \p \subseteq \p'$, i.e. $\p' \in \V(\a)$ and $\phi(\p') = \p' \cap R = \q'$.
+    Thus $\q \in \phi(\V(\a))$ and the claim follows.
+\end{proof}
+\begin{corollary}
+    The morphism $\P_R^n \to \Spec(R)$ is universally closed.
+\end{corollary}
+\begin{proof}
+    Use Lemma~\ref{prop:universally_closed_affines}, so consider an affine base change $f_{\Spec(S)}: \P_R^n \times_{\Spec(R)} \Spec(S) \to \Spec(S)$.
+    By Lemma~\ref{prop:projective_space_base_change}, have that $\P_R^n \times_{\Spec(R)} \Spec(S) \cong \P_S^n$ as schemes over $S$, hence $f_{\Spec(S)}$ is isomorphic to $\P_S^n \to \Spec(S)$.
+    This morphism is closed by Proposition~\ref{prop:projective_structure_morphism_closed} and the claim follows.
+\end{proof}
+\begin{corollary}
+    Projective space $\P_R^n$ over $\Spec(R)$ is proper.
+\end{corollary}
+\begin{corollary}
+    Let $k$ be an algebraically closed field.
+    Then projective space $\P_k^n$ over $\Spec(k)$ is a complete variety.
+\end{corollary}
+
+\section{Valuative criterion of properness}
+\begin{prop}
+    Let $X$ be noetherian and $f: X \to Y$ a morphism of finite type.
+    The following are equivalent
+    \begin{itemize}
+        \item $f$ is proper
+        \item For every valuation ring $R$ with field of fractions $K = \Frac(R)$ and all morphisms $\Spec(R) \to Y$, $\Spec(K) \to X$ that make the diagram
+        \begin{center}
+            \begin{tikzpicture}
+                \node (K) at (0, 0) {$\Spec(K)$};
+                \node (R) at (0, -2) {$\Spec(R)$};
+                \node (X) at (3, 0) {$X$};
+                \node (Y) at (3, -2) {$Y$};
+    
+                \draw [->] (K) -- (R);
+                \draw [->] (K) -- (X);
+                \draw [->] (R) -- (Y);
+                \draw [->] (X) -- (Y) node [midway, right] {$f$};
+            \end{tikzpicture}
+        \end{center}
+        commute, there exists a unique compatible morphism $\Spec(R) \to X$.
+    \end{itemize}
+\end{prop}
 \printbibliography
 \end{document}
