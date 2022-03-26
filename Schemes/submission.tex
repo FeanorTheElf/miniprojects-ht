@@ -89,23 +89,25 @@
 
 \section{Definition of $\Proj$}
 
-First of all, we will start with a reminder on graded rings, as they are the fundamental object used in the $\Proj$-construction.
+First of all, we introduce the fundamental object used in the $\Proj$-construction.
 \begin{definition}
-    A \emph{graded ring} $S$ is a ring $S$ with a decomposition\footnote{We use the convention that $0 \in \N$.} $S = \oplus_{d \in \N} S_d$ into subgroups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i \cdot S_j \subseteq S_{i + j}$ for all $i, j \in \Z$.
+    A \emph{graded ring}\footnote{
+        Unlike most authors, we consider graded rings with homogeneous elements of negative degree (i.e. not naturally graded rings), so that we can talk about the grading of a localization.
+        Namely, if $T \subseteq S$ is a multiplicative subset containing only homogeneous elements of a graded ring $S$, then $T^{-1}S$ has the canonical grading given by $\deg(f/t) = \deg(f) - \deg(t)$.
+    } $S$ is a ring $S$ with a decomposition $S = \oplus_{d \in \Z} S_d$ into subgroups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i \cdot S_j \subseteq S_{i + j}$ for all $i, j \in \Z$.
+    We call $S$ \emph{naturally graded}, if $S_i = \{ 0 \}$ for $i < 0$.
     Write further $S_+ := \sum_{d \neq 0} S_d$.
     For a homogeneous $f \in S_d$ say that $\deg(f) := d$ is its \emph{degree}.
 
     An element $f \in S$ is called \emph{homogeneous} (of degree $n$), if $f \in S_n$.
     An ideal $I \leq S$ is called \emph{homogeneous}, if it has a set of homogeneous generators.
 \end{definition}
-From now on let $S$ be a graded ring.
+From now on let $S$ be a naturally graded ring.
 \begin{definition}
-    Define the set
+    Define the \emph{projective spectrum} $\Proj(S)$ as all homogeneous prime ideals that do not contain the ``irrelevant ideal'' $S_+$
     \begin{equation*}
         \Proj(S) := \{ \p \in \Spec(S) \ | \ \text{$\p$ homogeneous}, \ S_+ \not\subseteq \p \}
     \end{equation*}
-    of homogeneous prime ideals not containing $S_+$.
-
     This becomes a topological space by endowing it with the \emph{Zariski-topology} on $\Proj(S)$, given by the open sets
     \begin{equation*}
         \D{\a} := \{ \p \in \Proj(S) \ | \ \a \not\subseteq \p \}
@@ -123,10 +125,8 @@ From now on let $S$ be a graded ring.
     \end{equation*}
     Clearly the ideals $\a\b$ and $\b$ are again homogeneous.
 \end{proof}
-As opposed to Hartshorne \cite{hartshorne}, we follow an approach to construct a sheaf of rings on $\Proj(S)$ will be similar to the construction of $\Spec(R)$.
-In particular, we will define $\O_{\Proj(S)}$ on a basis of the topology, and extend it to a sheaf.
+As opposed to Hartshorne \cite{hartshorne}, our approach to construct a sheaf of rings on $\Proj(S)$ will be similar to the construction of $\Spec(R)$, i.e. we will first specify $\O_{\Proj(S)}$ on a topological basis.
 This is also the definition used in \citestacks{01M6}.
-IT will be somewhat more tedious, but gives a nice idea of how $\O_{\Proj(S)}(U)$ looks like.
 \begin{lemma}
     \label{prop:Splus_invariance}
     For a homogeneous ideal $\a$ have $\D{\a} = \D{\a S_+}$.
@@ -177,7 +177,6 @@ IT will be somewhat more tedious, but gives a nice idea of how $\O_{\Proj(S)}(U)
         \sum_{i + j = n} f_i g_j \in \p'
     \end{equation*}
     for all $n \in \Z$.
-
     Let now $d$ resp. $e$ be maximal such that $f_d \notin \p'$ resp. $g_e \notin \p'$.
     We have
     \begin{equation*}
@@ -207,7 +206,6 @@ IT will be somewhat more tedious, but gives a nice idea of how $\O_{\Proj(S)}(U)
     By assumption, $\D{f}$ covers $\D{g}$, thus by the Covering Trick (Lemma~\ref{prop:covering_trick}), observe that $g^n \in \langle f \rangle$ for some $n \in \N$.
     The claim follows.
 \end{proof}
-The next proof works exactly as the corresponding one for $\Spec$ in the lecture.
 \begin{prop}
     Let $B = \{ \D{f} \ | \ \text{$f \in S_+$ homogeneous}\}$.
     The functor\footnote{The map on arrows is well-defined by Corollary~\ref{prop:basic_set_inclusion_divisibility}.}
