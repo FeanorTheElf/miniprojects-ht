@@ -36,8 +36,8 @@
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Q}{\mathbb{Q}}
-\newcommand{\I}{\mathbb{I}}
-\newcommand{\V}{\mathbb{V}}
+\newcommand{\V}[1]{\mathrm{V}_+(#1)}
+\newcommand{\D}[1]{\mathrm{D}_+(#1)}
 \newcommand{\A}{\mathbb{A}}
 \renewcommand{\P}{\mathbb{P}}
 \newcommand{\p}{\mathfrak{p}}
@@ -88,17 +88,18 @@
 
 \section{Definition of $\Proj$}
 
+First of all, we will start with a reminder on graded rings, as they are the fundamental object used in the $\Proj$-construction.
 \begin{definition}
-    A \emph{graded ring} $S$ is a ring $S$ with a decomposition $S = \oplus_{d \in \Z} S_d$ into groups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i S_j \subseteq S_{i + j}$ for all $i, j \in \Z$.
-    If all $S_d = \{ 0 \}$ for $d < 0$, call $S$ \emph{naturally graded ring}.
+    A \emph{graded ring} $S$ is a ring $S$ with a decomposition $S = \oplus_{d \in \N} S_d$ into groups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i S_j \subseteq S_{i + j}$ for all $i, j \in \Z$.
     Write further $S_+ := \sum_{d \neq 0} S_d$.
     For a homogeneous $f \in S_d$ say that $\deg(f) := d$ is its \emph{degree}.
 
     An element $f \in S$ is called \emph{homogeneous} (of degree $n$), if $f \in S_n$.
     An ideal $I \leq S$ is called \emph{homogeneous}, if it has a set of homogeneous generators.
 \end{definition}
+From now on let $S$ be a graded ring.
 \begin{definition}
-    For a naturally graded ring $S$, define the set
+    Define the set
     \begin{equation*}
         \Proj(S) := \{ \p \in \Spec(S) \ | \ \text{$\p$ homogeneous}, \ S_+ \not\subseteq \p \}
     \end{equation*}
@@ -106,78 +107,61 @@
 
     This becomes a topological space by endowing it with the \emph{Zariski-topology} on $\Proj(S)$, given by the open sets
     \begin{equation*}
-        D_{\a} := \{ \p \in \Proj(S) \ | \ \a \not\subseteq \p \}
+        \D{\a} := \{ \p \in \Proj(S) \ | \ \a \not\subseteq \p \}
     \end{equation*}
     for any homogeneous ideal $\a \leq S$.
 \end{definition}
-From now on let $S$ be a naturally graded ring.
 \begin{prop}
-    The above definition is well-defined, i.e. the sets $D_\a$ indeed form a topology on $\Proj(S)$.
+    The above definition is well-defined, i.e. the sets $\D{\a}$ indeed form a topology on $\Proj(S)$.
 \end{prop}
 \begin{proof}
-    Clearly $\Proj(S) = D_{\langle 1 \rangle}$ and $\emptyset = D_{\langle 0 \rangle}$ are open.
-    Furthermore, for open sets $D_\a$ and $D_\b$, have that
+    Clearly $\Proj(S) = \D{\langle 1 \rangle}$ and $\emptyset = \D{\langle 0 \rangle}$ are open.
+    Furthermore, for open sets $\D{\a}$ and $\D{\b}$, have that
     \begin{equation*}
-        D_\a \cap D_\b = \{ \p \in \Proj(S) \ | \ \a, \b \not\subseteq \p \} = \{ \p \in \Proj(S) \ | \ \a\b \not\subseteq \p \} = D_{\a\b}
+        \D{\a} \cap \D{\b} = \{ \p \in \Proj(S) \ | \ \a, \b \not\subseteq \p \} = \{ \p \in \Proj(S) \ | \ \a\b \not\subseteq \p \} = \D{\a\b}
     \end{equation*}
     This holds, as $\a, \b \not\subseteq \p$ implies that there are $f \in \a$ and $g \in \b$ with $f, g \notin \p$.
     However, then $fg \notin \p$ as $\p$ is prime.
-    Obviously $\a\b$ is homogeneous, and so $D_\a \cap D_\b$ is open.
+    Obviously $\a\b$ is homogeneous, and so $\D{\a} \cap \D{\b}$ is open.
 
     Finally, given a collection $\mathcal{A}$ of homogeneous ideals in $S$, have that
     \begin{align*}
-        \bigcup_{\a \in \mathcal{A}} D_\a =& \{ \p \in \Proj(S) \ | \ \exists \a \in \mathcal{A}:\ \a \not\subseteq \p \} = \{ \p \in \Proj(S) \ | \ \exists \a \in \mathcal{A} \exists f \in \a:\ f \notin \p \} \\
-        =& \Bigl\{ \p \in \Proj(S) \ \Bigm| \ \exists f \in \sum_{\a \in \mathcal{A}} \a:\ f \notin \p \Bigr\} = D_{\b} \quad \text{for $\b = \sum_{\a \in \mathcal{A}} \a$}
+        \bigcup_{\a \in \mathcal{A}} \D{\a} =& \{ \p \in \Proj(S) \ | \ \exists \a \in \mathcal{A}:\ \a \not\subseteq \p \} = \{ \p \in \Proj(S) \ | \ \exists \a \in \mathcal{A} \exists f \in \a:\ f \notin \p \} \\
+        =& \Bigl\{ \p \in \Proj(S) \ \Bigm| \ \exists f \in \sum_{\a \in \mathcal{A}} \a:\ f \notin \p \Bigr\} = \D{\b} \quad \text{for $\b = \sum_{\a \in \mathcal{A}} \a$}
     \end{align*}
-    Clearly $\b$ is again homogeneous, and so $\bigcup_{\a \in \mathcal{A}} D_\a$ is open.
+    Clearly $\b$ is again homogeneous, and so $\bigcup_{\a \in \mathcal{A}} \D{\a}$ is open.
 \end{proof}
-\begin{prop}
-    The sets $D_f := D_{\langle f \rangle}$ for homogeneous $f \in S$ form a basis of the topology on $\Proj(S)$.
-\end{prop}
-\begin{proof}
-    Clearly $\langle f \rangle$ is a homogenous ideal, so $D_f$ is open.
-    For any homogeneous ideal $\a = \langle f_i \ | \ i \in I \rangle$ with $f_i \in S$ homogeneous have
-    \begin{equation*}
-        D_\a = \bigcup_{i \in I} D_{f_i}
-    \end{equation*}
-    as $\a \not\subseteq \p$ implies there is some $g = \sum_{i \in I} g_i f_i \notin \p$, with $g_i \in S$.
-    Hence, at least one $g_j f_j \notin \p$ and so $f_j \notin \p$, thus $\p \in D_{f_j}$.
-    It follows that the $D_f$ generate the topology on $\Proj(S)$, so it is left to show that they are a basis.
-
-    Consider $\p \in D_f \cap D_g$, so $f, g \notin \p$.
-    Since $\p$ is prime, it follows that $fg \notin \p$ and so $D_{fg} \subseteq D_f \cap D_g$ is an open neighborhood of $\p$.
-\end{proof}
+As opposed to Hartshorne \cite{hartshorne}, we follow an approach similar to the construction of $\O_{\Spec(R)}$ to construct a sheaf of rings on $\Proj(S)$.
+In particular, we will define $\O_{\Proj(S)}$ on a basis of the topology, and extend it to a sheaf.
+This will be somewhat more tedious, but gives a nice idea of how $\O_{\Proj(S)}(U)$ looks like.
 \begin{lemma}
-    Let $S$ be a graded ring (not necessarily naturally graded) and $T \subseteq S$ a multiplicative set consisting of homogeneous elements. 
-    Then $T^{-1}S$ becomes a graded ring via
-    \begin{equation*}
-        \left(T^{-1}S\right)_d = \Bigl\{ \frac g h \in T^{-1}S \ \Bigm| \ \text{$g$ homogeneous with $\deg(g) - \deg(h) = d$} \Bigr\}
-    \end{equation*}
+    \label{prop:Splus_invariance}
+    For a homogeneous ideal $\a$ have $\D{\a} = \D{\a S_+}$.
 \end{lemma}
 \begin{proof}
-    Clearly $(T^{-1}S)_i (T^{-1}S)_j \subseteq (T^{-1}S)_{i + j}$.
-    To see that $(T^{-1}S)_d$ is a subgroup of $S$, consider $g/f, l/h \in (T^{-1}S)_d$.
+    The inclusion $\supseteq$ is clear, as $\a S_+ \subseteq \a$.
+    So assume there is a $\p \in \D{\a}$.
+    Since $\p \in \Proj(S)$ find $S_+ \not\subseteq \p$ and by assumption, $\a \not\subseteq \p$.
+    Thus there are $s \in S_+$ and $a \in \a$ with $a, s \notin \p$.
+    Since $\p$ is prime, it follows that $as \notin \p$ and so $\a S_+ \not\subseteq \p$.
+\end{proof}
+\begin{prop}
+    \label{prop:basis_topology}
+    The sets $\D{f} := \D{\langle f \rangle}$ for homogeneous $f \in S_+$ form a basis of the topology on $\Proj(S)$.
+\end{prop}
+\begin{proof}
+    Clearly $\langle f \rangle$ is a homogenous ideal, so $\D{f}$ is open.
+    For any homogeneous ideal $\a = \langle f_i \ | \ i \in I \rangle$ with $f_i \in S$ homogeneous have that $\D{\a} = \D{\a S_+}$ by Lemma~\ref{prop:Splus_invariance}, so we can assume wlog that all $f_i \in S_+$.
     Now have
     \begin{equation*}
-        \frac g f + \frac l h = \frac {gh + lf} {hf}
+        \D{\a} = \bigcup_{i \in I} \D{f_i}
     \end{equation*}
-    and by assumption, find $\deg(gh) = \deg(g) - \deg(h) = d + \deg(f) - d + \deg(l) = \deg(lf)$.
-    So $gh + lf$ is homogeneous and we have
-    \begin{equation*}
-        \deg(gh + lf) - \deg(fh) = \deg(f) + \deg(l) - \deg(f) - \deg(h) = \deg(l) - \deg(h) = d
-    \end{equation*}
-    Thus $g/f + l/h \in (T^{-1}S)_d$.
+    as $\a \not\subseteq \p$ implies there is some $g = \sum_{i \in I} g_i f_i \notin \p$, with $g_i \in S$.
+    Hence, at least one $g_j f_j \notin \p$ and so $f_j \notin \p$, thus $\p \in \D{f_j}$.
+    It follows that the $\D{f}$ generate the topology on $\Proj(S)$, so it is left to show that they are a basis.
 
-    Finally, we show that $(T^{-1}S)_n \cap (T^{-1}S)_m = \{ 0 \}$ for $i \neq j$.
-    Assume there is $g/f = l/h \in (T^{-1}S)_n \cap (T^{-1}S)_m$ with $\deg(g) - \deg(f) = n$ and $\deg(l) - \deg(h) = m$.
-    Then there exists $t \in T$ such that
-    \begin{align*}
-        0 = t(gh - lf) =& tgh - tlf \quad \text{with}\ tgh \in S_{\deg(t) + \deg(g) + \deg(h)} \\
-        &\text{and}\ tlf \in S_{\deg(t) + \deg(l) + \deg(f)} = S_{\deg(t) + \deg(g) + \deg(h) + (m - n)}
-    \end{align*}
-    If $n \neq m$, then $S_{\deg(t) + \deg(g) + \deg(h) + (m - n)} \cap S_{\deg(t) + \deg(g) + \deg(h)} = \{ 0 \}$ and so $tgh = tlf = 0$.
-    Thus $th(g - 0) = 0$ and so $g/f = 0/1 = 0$.
-    Thus $(T^{-1}S)_m \cap (T^{-1}S)_n = \{ 0 \}$.
+    Consider $\p \in \D{f} \cap \D{g}$, so $f, g \notin \p$.
+    Since $\p$ is prime, it follows that $fg \notin \p$ and so $\D{fg} \subseteq \D{f} \cap \D{g}$ is an open neighborhood of $\p$.
 \end{proof}
 \begin{lemma}
     \label{prop:homogeneous_part_prime}
@@ -210,34 +194,33 @@ From now on let $S$ be a naturally graded ring.
     Since $\p$ is prime, it follows that $f_d \in \p$ or $g_e \in \p$.
     However both $f_d$ and $g_e$ are homogeneous, so $f_d \in \p'$ or $g_e \in \p'$, a contradiction.
 \end{proof}
-\begin{lemma}
-    If $D_g \subseteq D_f$ then there is a homogeneous $h \in S$ such that $g^n = fh$ for some $n \in \N$.
+\begin{lemma}[``Covering Trick'']
+    \label{prop:covering_trick}
+    Let $f, f_i \in S_+$ be homogeneous.
+    Then $\D{f} \subseteq \bigcup_i \D{f_i}$ if and only if $f^n \in \langle f_i \ | \ i \rangle$ for some $n \in \N$
 \end{lemma}
 \begin{proof}
-    Assume not, then $f$ is not a unit in $S_g$.
-    Hence, there is a maximal ideal $\m \leq S_g$ such that $f \in \m$.
-    Now let $\p$ be the preimage of $\m$ under the localization map $S \to S_g$.
-    Since $\m$ is maximal, we see that $\p$ is prime.
-
-    Now apply Lemma~\ref{prop:homogeneous_part_prime} and see that also
-    \begin{equation*}
-        \p' = \langle f \in \p \ | \ \text{$f$ homogeneous} \rangle \subseteq \p
-    \end{equation*}
-    is prime.
-    Furthermore, $g \notin \p$ and so $g \notin \p'$.
-    wlog we have that $g \in S_+$, so $S_+ \not\subseteq \p'$.
-    Since now $\p'$ is a homogeneous prime ideal, it follows that $\p' \in \Proj(S)$.
-
-    Finally, observe that $f \in \p'$ as $f \in \p$ and $f$ is homogeneous.
-    Hence, we have that $\p' \notin D_f$ and $\p' \in D_g$, which contradicts the assumption that $D_g \subseteq D_f$.
+    The direction $\Leftarrow$ is clear.
+    So assume $\D{f} \subseteq \bigcup_i \D{f_i}$.
+    If no $f^n$ is in $\a := \langle f_i \ | \ i \rangle$, then $f$ is not nilpotent in $S/\a$ and so $S/\a$ is not the zero ring.
+    Hence, $(S/\a)_f$ has a prime ideal, and its preimage under $S \to S/\a \to (S/\a)_f$ yields a prime ideal $\p'$ containing $\a$ and not containing $f$.
+    Since $f \in S_+$ note that $S_+ \not\subseteq \p'$ and as both $f$ and $\a$ are homogeneous, Lemma~\ref{prop:homogeneous_part_prime} yields now that $\langle g \in \p' \ | \ \text{$g$ homogeneous} \rangle$ is a prime ideal in $\D{f}$ but not in $\bigcup_i \D{f_i}$, contradicting the assumption.
+\end{proof}
+\begin{corollary}
+    \label{prop:basic_set_inclusion_divisibility}
+    If $\D{g} \subseteq \D{f}$ with $f, g \in S_+$, then there is a homogeneous $h \in S$ such that $g^n = fh$ for some $n \in \N$.
+\end{corollary}
+\begin{proof}
+    By assumption, $\D{f}$ covers $\D{g}$, thus by the Covering Trick (Lemma~\ref{prop:covering_trick}), observe that $g^n \in \langle f \rangle$ for some $n \in \N$.
+    The claim follows.
 \end{proof}
 The next proof works exactly as the corresponding one for $\Spec$ in the lecture.
 \begin{prop}
-    Let $B = \{ D_f \ | \ \text{$f \in S$ homogeneous}\}$.
-    The functor
+    Let $B = \{ \D{f} \ | \ \text{$f \in S_+$ homogeneous}\}$.
+    The functor\footnote{The map on arrows is well-defined by Corollary~\ref{prop:basic_set_inclusion_divisibility}.}
     \begin{align*}
-        \mathcal{F}: \restr{\Top(\Proj(S))}{B} \to \Ring, \quad D_f &\mapsto (S_f)_0 \\
-        (D_{fg} \subseteq D_f) &\mapsto \Bigl( \restr{\cdot}{D_{fg}}: \frac s {f^n} \mapsto \frac {sg^n} {(fg)^n} \Bigr)
+        \mathcal{F}: \restr{\Top(\Proj(S))}{B} \to \Ring, \quad \D{f} &\mapsto (S_f)_0 \\
+        (\D{fg} \subseteq \D{f}) &\mapsto \Bigl( \restr{\cdot}{\D{fg}}: \frac s {f^n} \mapsto \frac {sg^n} {(fg)^n} \Bigr)
     \end{align*}
     is a B-sheaf on $B$ (here $\Top(X)$ is the category given by the open sets of $X$ and their inclusion, as defined in the lecture).
 \end{prop}
@@ -245,39 +228,41 @@ The next proof works exactly as the corresponding one for $\Spec$ in the lecture
     Clearly, $\mathcal{F}$ is a functor and thus a presheaf.
     Hence, we have to show the local-to-global property.
 
-    Let $D_f = \bigcup_{i \in I} D_{g_if}$ be a cover and $s_i \in \mathcal{F}(D_{g_if})$ such that
+    Let $\D{f} = \bigcup_{i \in I} \D{g_if}$ be a cover and $s_i \in \mathcal{F}(\D{g_if})$ such that
     \begin{equation*}
-        \forall x \in D_{g_if} \cap D_{g_jf} \ \exists V \in B: \ V \subseteq D_{g_if} \cap D_{g_jf}, \ x \in V, \ \frac {s_i} 1 = \frac {s_j} 1 \in \mathcal{F}(V)
+        \forall x \in \D{g_if} \cap \D{g_jf} \ \exists V \in B: \ V \subseteq \D{g_if} \cap \D{g_jf}, \ x \in V, \ \frac {s_i} 1 = \frac {s_j} 1 \in \mathcal{F}(V)
     \end{equation*}
-    To show uniqueness, assume there are $\alpha/f^N, \beta/f^N \in D_f$ with
+
+    To show uniqueness, assume there are $\alpha/f^N, \beta/f^N \in \D{f}$ with
     \begin{equation*}
-        \restr{\frac {\alpha} {f^N}}{D_{g_if}} = \restr{\frac {\beta} {f^N}}{D_{g_if}} \quad \text{for all $i$}
+        \restr{\frac {\alpha} {f^N}}{\D{g_if}} = \restr{\frac {\beta} {f^N}}{\D{g_if}} \quad \text{for all $i$}
     \end{equation*}
     Therefore there is $n_i \in \N$ such that
     \begin{equation*}
-        (fg_i)^{n_i}
+        (fg_i)^{n_i} (\alpha f^N + \beta f^N) = 0
     \end{equation*}
 
+    wlog there are only finitely many $i$ (by the Covering Trick, Lemma~\ref{prop:covering_trick}).
 
-    By assumption, have $h_i^{n_i}(\alpha - \beta) = 0$ for each $i$, and wlog there are only finitely many $i$.
-    Thus find $N = \max_i n_i \in \N$ and get that $h_i^N(\alpha - \beta) = 0$.
-    Since $\bigcup_i D_{h_i} = \Proj(S)$ it follows that $\bigcup_i D_{h_i^N} = \Proj(S)$ and so $1 \in \langle h_i^N \ | \ i \rangle$.
-    It follows that
+    wlog $N$ is sufficiently large (we can always increase $N$), and so $(fg_i)^N(\alpha - \beta) = 0$.
+
+    Since $\bigcup_i \D{(fg_i)^N} = \bigcup_i \D{fg_i} = \D{f}$ it follows that $f^n \in \langle (fg_i)^N \ | \ i \rangle$ for some $n \in \N$ (again the Covering Trick, Lemma~\ref{prop:covering_trick}).
+    Therefore we find
     \begin{equation*}
-        \alpha - \beta = 1(\alpha - \beta) \in \langle h_i^N \ | \ i \rangle (\alpha - \beta) = \langle h_i^N (\alpha - \beta) \ | \ i \rangle = \{ 0 \}
+        f^n(\alpha - \beta) \in \langle (fg_i)^N \ | \ i \rangle (\alpha - \beta) = \langle (fg_i)^N (\alpha - \beta) \ | \ i \rangle = \{ 0 \}
     \end{equation*}
-    and so $\alpha = \beta$.
+    and so $\alpha = \beta \in S_f$.
 
     Now we show existence.
     By the uniqueness above, it follows that
     \begin{equation*}
-        \restr{s_i}{D_{fg_ig_j}} = \restr{s_i}{D_{fg_i} \cap D_{fg_j}} = \restr{s_j}{D_{fg_i} \cap D_{fg_j}} = \restr{s_j}{D_{fg_ig_j}}
+        \restr{s_i}{\D{fg_ig_j}} = \restr{s_i}{\D{fg_i} \cap \D{fg_j}} = \restr{s_j}{\D{fg_i} \cap \D{fg_j}} = \restr{s_j}{\D{fg_ig_j}}
     \end{equation*}
     wlog have again a finite cover, i.e. only finitely many $g_i$.
     Hence find an $N \in \N$ such that each $s_i = s'_i / (fg_i)^N$ with $s'_i \in S$ homogeneous.
     By possibly replacing $N$ with a bigger $N$, we can now assume that
     \begin{equation*}
-        (f^2g_ig_j)^N \left( s'_i (fg_j)^N - s'_j (fg_i)^N \right) = 0 \quad \text{as $\restr{s_i}{D_{fg_ig_j}} = \restr{s_j}{D_{fg_ig_j}}$}
+        (f^2g_ig_j)^N \left( s'_i (fg_j)^N - s'_j (fg_i)^N \right) = 0 \quad \text{as $\restr{s_i}{\D{fg_ig_j}} = \restr{s_j}{\D{fg_ig_j}}$}
     \end{equation*}
     Now note that
     \begin{equation*}
@@ -287,23 +272,24 @@ The next proof works exactly as the corresponding one for $\Spec$ in the lecture
     \begin{equation*}
         a_i b_j - a_j b_i = s'_i (fg_i)^N (fg_j)^{2N} - s'_j (fg_j)^N (fg_i)^{2N} = \underbrace{(f^2g_ig_j)^N \left(s'_i (fg_j)^N - s'_j (fg_i)^N \right)}_{= 0}
     \end{equation*}
-    Now observe that $D_{b_i} = D_{fg_i}$ and so $f^m \in \langle b_i \ | \ i \rangle$ for some $m$.
-    Let $f^m = \sum_i r_i b_i$ and get
+    Now observe that $\D{b_i} = \D{fg_i}$ and so $f^n \in \langle b_i \ | \ i \rangle$ for some $n$ (once again the Covering Trick, Lemma~\ref{prop:covering_trick}).
+    Let $f^n = \sum_i r_i b_i$ and get
     \begin{equation*}
-        a_i f^m = \sum_l r_l b_l a_i = \sum_l r_l a_l b_i = b_i \sum_l r_l a_l
+        a_i f^n = \sum_l r_l b_l a_i = \sum_l r_l a_l b_i = b_i \sum_l r_l a_l
     \end{equation*}
     Note that $a_i, b_i, f$ are homogeneous, and so we can also choose $r_i$ to be homogeneous.
-    Then find that $0 = \deg(s_i) = \deg(a_i) - \deg(b_i) = \deg(\sum r_l a_l) - m\deg(f)$.
+    Then find that $0 = \deg(s_i) = \deg(a_i) - \deg(b_i) = \deg(\sum r_l a_l) - n\deg(f)$.
 
     Thus
     \begin{equation*}
-        s_i = s := \frac {\sum_l r_l a_l} {f^m} \in S_f
+        s_i = s := \frac {\sum_l r_l a_l} {fn} \in S_f
     \end{equation*}
-    and since $\deg(\sum r_l a_l) = m\deg(f)$ we find that $s \in (S_f)_0 = \mathcal{F}(D_f)$.
-    Clearly $\restr{s}{D_{fg_i}} = s_i$ and the claim follows.
+    and since $\deg(\sum r_l a_l) = n\deg(f)$ we find that $s \in (S_f)_0 = \mathcal{F}(\D{f})$.
+    Clearly $\restr{s}{\D{fg_i}} = s_i$ and the claim follows.
 \end{proof}
+Now we the B-sheaf extension theorem from the lecture (from Section 1.11) yields the following corollary.
 \begin{corollary}
-    Hence we can (uniquely) extend the B-sheaf $\mathcal{F}$ to a sheaf $\O_{\Proj(S)}$ on $\Proj(S)$.
+    The B-sheaf $\mathcal{F}$ can be (uniquely, up to isomorphism) extended to a sheaf $\O_{\Proj(S)}$ on $\Proj(S)$.
 \end{corollary}
 The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(S), \O_{\Proj(S)})$ is a scheme.
 \begin{lemma}
@@ -320,7 +306,7 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
     \end{equation*}
     We claim this is the unique maximal ideal of $(T^{-1}S)_0$.
 
-    First, note that $1 \notin (T^{-1}S)_0$ as otherwise, there would be $f/g \in T^{-1}S, f \in \p$ with $t(f - g) = 0$ for some $t \in T$.
+    First, note that $1 \notin \m$ as otherwise, there would be $f/g \in T^{-1}S, f \in \p$ with $t(f - g) = 0$ for some $t \in T$.
     However then $tg = tf \in \p$, and so $g \in \p$ (as $t \notin \p$), contradicting $g \in T$.
     
     Now assume there is any ideal $\a$ such that $\a \setminus \m \neq \emptyset$, i.e. there is $f/g \in \a \setminus \m$.
@@ -329,25 +315,38 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
 \end{proof}
 \begin{lemma}
     \label{prop:Df_affine}
-    For $f \in S_+$ homogeneous have that $(D_f, \restr{\O_{\Proj(S)}}{D_f})$ is an affine scheme.
+    For $f \in S_+$ homogeneous have that $(\D{f}, \restr{\O_{\Proj(S)}}{\D{f}})$ is an affine scheme.
 \end{lemma}
 \begin{proof}
     Let $R = (S_f)_0$.
     Consider the map
     \begin{equation*}
-        f: D_f \to \Spec(R), \quad \p \mapsto \p S_f \cap (S_f)_0
+        \phi: \D{f} \to \Spec(R), \quad \p \mapsto \p S_f \cap R
     \end{equation*}
-    Note that it is continuous, as the preimage of some basic open set $D_{g/f^n}$ is $D_{fg} \subseteq D_f$ open.
-    Furthermore, $f$ has the inverse
+    Note that it is continuous, as the preimage of some basic open set $D_{g/f^n}$ is $\D{fg} \subseteq \D{f}$ open.
+    Furthermore, have the map
     \begin{equation*}
-        f^{-1}: \Spec(R) \to D_f, \quad \p \mapsto \p S_f
+        \phi': \Spec(R) \to \D{f}, \quad \p \mapsto \p S_f \cap S
     \end{equation*}
-    which is also continuous, as the preimage of some basic open set $D_{fg}$ is $D_{g^n/f^m}$ where $n\deg(g) = m\deg(f)$.
-    Thus $f$ is a homeomorphism.
+    which is also continuous, as the preimage of some basic open set $\D{fg}$ is $D_{g^n/f^m}$ where $n\deg(g) = m\deg(f)$.
+    Note that $\phi \circ \phi' = \mathrm{id}_{\Spec(R)}$ because $\p \subseteq (\p S_f \cap S) S_f \cap R$ and
+    \begin{equation*}
+        (\p S_f \cap S) S_f \cap R \subseteq \p S_f \cap S_f \cap R = \p S_f \cap (S_f)_0 = \p
+    \end{equation*}
+    where the last equality holds, since $\p \leq (S_f)_0$ is homogeneous.
+    
+    To see that $\phi' \circ \phi = \mathrm{id}_{\D{f}}$, it suffices now to show that $\phi$ is injective ($\phi$ has a right-inverse, hence it is then bijective, and the one-sided inverse $\phi'$ is already the inverse).
+    Let $\p, \q \leq S$ homogeneous primes with $f \notin \p, \q$.
+    Assume there is $g \in \p \setminus \q$.
+    Then
+    \begin{equation*}
+        g^{\deg(f)} \in \p S_f \setminus \q S_f  \ \Rightarrow \ \frac {g^{\deg(f)}} {f^{\deg(g)}} \in (\p S_f \setminus \q S_f) \cap R = (\p S_f \cap R) \setminus (\q S_f \cap R)
+    \end{equation*}
+    and so $\phi(\p) \neq \phi(\q)$. Thus $\phi$ is a homeomorphism.
 
     Now consider the natural transformation
     \begin{equation*}
-        \eta: \O_{\Spec R} \Rightarrow f_*\Bigl( \restr{\O_{\Proj(S)}}{D_f} \Bigr)
+        \eta: \O_{\Spec R} \Rightarrow \phi_*\Bigl( \restr{\O_{\Proj(S)}}{\D{f}} \Bigr)
     \end{equation*}
     given on basic open sets by
     \begin{equation*}
@@ -360,32 +359,34 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
     $(\Proj(S), \O_{\Proj(S)})$ is a scheme.
 \end{corollary}
 \begin{definition}
-    For any ring $R$ and $n \in \N$, define the projective $n$-space as\footnote{Endow $R[x_0, ..., x_n]$ with the standard natural grading, i.e. $\deg(x_i) = 1$. Note that this makes $R[x_0, ..., x_n]_0 = R$, so all $r \in R$ are homogeneous of degree $0$.}
+    For any ring $R$ and $n \in \N$, define the \emph{projective $n$-space} as\footnote{Endow $R[x_0, ..., x_n]$ with the standard natural grading, i.e. $\deg(x_i) = 1$. Note that this makes $R[x_0, ..., x_n]_0 = R$, so all $r \in R$ are homogeneous of degree $0$.}
     \begin{equation*}
         \P_R^n := \Proj(R[x_0, ..., x_n])
     \end{equation*}
     which naturally becomes a scheme over $\Spec(R)$ via the morphism given by
     \begin{align*}
         &f: \Proj(R[x_0, ..., x_n]) \to \Spec(R), \quad \p \mapsto \p \cap R \\
-        &f^\#_{D_f}: R_f \to \O_{\Proj(R[x_0, ..., x_n])}(D_f) = (R[x_0, ..., x_n]_f)_0 = R_f, \quad r \mapsto r
+        &f^\#_{D_f}: R_f \to \O_{\Proj(R[x_0, ..., x_n])}(\D{f}) = R_f[x_0, ..., x_n], \quad r \mapsto r
     \end{align*}
 \end{definition}
 
 \section{Projective space as a variety}
 For this section, let $R$ be a ring and $n \in \N$.
+
+First, we will study the property of being separated.
 \begin{prop}
-    Projective $n$-space $\P_R^n \to \Spec(R)$ over $\Spec(R)$ is separated.
+    The morphism $\P_R^n \to \Spec(R)$ is separated.
 \end{prop}
 \begin{proof}
-    By Lemma~\ref{prop:Df_affine} we find a cover $\Proj(S) = \bigcup_i D_{x_i}$ of affine opens.
-    We use the characterization from the lecture and show that $D_{x_i} \cap D_{x_j}$ is an affine open and the canonical multiplication map
+    By Lemma~\ref{prop:Df_affine} we find a cover $\Proj(S) = \bigcup_i \D{x_i}$ of affine opens.
+    We use the characterization from the lecture and show that $\D{x_i} \cap \D{x_j}$ is an affine open and the canonical multiplication map
     \begin{equation*}
-        \O_{\P_R^n}(D_{x_i}) \times \O_{\P_R^n}(D_{x_j}) \to \O_{\P_R^n}(D_{x_i} \cap D_{x_j})
+        \O_{\P_R^n}(\D{x_i}) \times \O_{\P_R^n}(\D{x_j}) \to \O_{\P_R^n}(\D{x_i} \cap \D{x_j})
     \end{equation*}
     is surjective.
     
-    First note that $D_{x_i} \cap D_{x_j} = D_{x_ix_j}$ which is affine open by Lemma~\ref{prop:Df_affine}.
-    By definition, we have $\O_{\P_R^n}(D_f) = (R[x_0, ..., x_n]_f)_0$ and so we have to show that
+    First note that $\D{x_i} \cap \D{x_j} = \D{x_ix_j}$ which is affine open by Lemma~\ref{prop:Df_affine}.
+    By definition, we have $\O_{\P_R^n}(\D{f}) = (R[x_0, ..., x_n]_f)_0$ and so we have to show that
     \begin{equation*}
         (R[x_0, ..., x_n]_{x_i})_0 \times (R[x_0, ..., x_n]_{x_j})_0 \to (R[x_0, ..., x_n]_{x_ix_j})_0, \quad (a, b) \mapsto ab
     \end{equation*}
@@ -396,8 +397,9 @@ For this section, let $R$ be a ring and $n \in \N$.
         \frac f {x_i^{2n}} \cdot \frac {x_i^n} {x_j^n} = \frac f {(x_ix_j)^n}
     \end{equation*}
     and clearly $f/x_i^{2n} \in (R[x_0, ..., x_n]_{x_i})_0$ as $\deg(f) = \deg(x_i) n + \deg(x_j) n = 2n$ and $x_i^n/x_j^n \in (R[x_0, ..., x_n]_{x_j})_0$.
-    The claim follows
+    The claim follows.
 \end{proof}
+To study integrality, it is useful to have the next small lemma on the nilradical.
 \begin{lemma}
     \label{prop:nil_poly_ring}
     It holds that $\Nil(R)R[x_0, ..., x_n] = \Nil(R[x_0, ..., x_n])$.
@@ -414,13 +416,13 @@ For this section, let $R$ be a ring and $n \in \N$.
     Then $\P_R^n$ is an irreducible scheme.
 \end{prop}
 \begin{proof}
-    We show that $D_{x_0} \subseteq \P_R^n$ is dense.
+    We show that $\D{x_0} \subseteq \P_R^n$ is dense.
     The claim then follows, as any two nonempty, disjoint open sets give nonempty, disjoint open sets in $D_{x_0}$ which is isomorphic to the 
     irreducible\footnote{This is obviously irreducible, as $R[x_0, ..., x_n]/\Nil(R[x_0, ..., x_n]) = (R/\Nil(R))[x_0, ..., x_n]$ is integral by assumption and Lemma~\ref{prop:nil_poly_ring}.}
     affine scheme $\Spec(R[x_0, ..., x_n]_{x_0})_0$ by Lemma~\ref{prop:Df_affine}.
 
-    So consider any nonempty basic open $D_f \subseteq \P_R^n$ and find that $D_f \cap D_{x_0} = D_{fx_0}$.
-    By assumption, $\Nil(R)$ is a prime ideal and so $fx_0$ is not nilpotent (unless $f$ were nilpotent, but then $D_f = \emptyset$), i.e. the ring $R[x_0, ..., x_n]_{fx_0}$ is not the zero ring.
+    So consider any nonempty basic open $\D{f} \subseteq \P_R^n$ and find that $\D{f} \cap \D{x_0} = \D{fx_0}$.
+    By assumption, $\Nil(R)$ is a prime ideal and so $fx_0$ is not nilpotent (unless $f$ were nilpotent, but then $\D{f} = \emptyset$), i.e. the ring $R[x_0, ..., x_n]_{fx_0}$ is not the zero ring.
     Hence, it has a maximal ideal $\m$.
     Let $\p$ be the preimage of $\m$ under the localization map $R[x_0, ..., x_n] \to R[x_0, ..., x_n]_{fx_0}$, which is clearly prime with $fx_0 \notin \p$.
     By Lemma~\ref{prop:homogeneous_part_prime}, we now see that
@@ -428,14 +430,14 @@ For this section, let $R$ be a ring and $n \in \N$.
         \p' := \langle f \in \p \ | \ \text{$f$ homogeneous} \rangle \leq R[x_0, ..., x_n]
     \end{equation*}
     is a homogeneous prime ideal, and since $fx_0 \notin \p \supseteq \p'$, we see that $S_+ \not\subseteq \p'$, i.e. $\p' \in \Proj(R[x_0, ..., x_n])$.
-    Now it follows that $\p' \in D_{fx_0}$, so $D_{fx_0} \neq \emptyset$.
+    Now it follows that $\p' \in \D{fx_0}$, so $\D{fx_0} \neq \emptyset$.
 \end{proof}
 \begin{prop}
     Assume $R$ is reduced.
     Then $\P_R^n$ is a reduced scheme.
 \end{prop}
 \begin{proof}
-    By the lecture, it suffices to show that each $\O_{\P_R^n}(D_{x_i}) \cong \Spec(R[x_0, ..., x_n]_{x_i})_0$ is reduced.
+    By the lecture, it suffices to show that each $\O_{\P_R^n}(\D{x_i}) \cong \Spec(R[x_0, ..., x_n]_{x_i})_0$ is reduced.
     However this is trivial, as taking the polynomial ring $R[x_0, ..., x_n]$ preserves reducedness by Lemma~\ref{prop:nil_poly_ring}, and localizing (and of course taking the subring $S_0$) also do.
 \end{proof}
 \begin{corollary}
@@ -444,19 +446,19 @@ For this section, let $R$ be a ring and $n \in \N$.
 \end{corollary}
 \begin{prop}
     \label{prop:p_quasi_compact}
-    $\P_R^n \to \Spec(R)$ is of finite type.
+    The morphism $\P_R^n \to \Spec(R)$ is of finite type.
 \end{prop}
 \begin{proof}
-    First note that $\P_R^n$ is covered by a finite number of affine opens $D_{x_i}$ where the canonical morphisms
+    First note that $\P_R^n$ is covered by a finite number of affine opens $\D{x_i}$ where the canonical morphisms
     \begin{equation*}
-        D_{x_i} \cong \Spec(R[x_0, ..., x_n]_{x_i})_0 \to \Spec(R)
+        \D{x_i} \cong \Spec(R[x_0, ..., x_n]_{x_i})_0 \to \Spec(R)
     \end{equation*}
     are quasi-compact (they are induced by ring homomorphisms $R \to (R[x_0, ..., x_n]_{x_i})_0$), hence $\P_R^n$ is quasi-compact.
 
-    To see that it is locally of finite type, show that there is the cover by affine opens $\P_R^n = \bigcup_i D_{x_i}$ such that the ring homomorphisms $R \to \O_{\P_R^n}(D_{x_i})$ are of finite type.
+    To see that it is locally of finite type, show that there is the cover by affine opens $\P_R^n = \bigcup_i \D{x_i}$ such that the ring homomorphisms $R \to \O_{\P_R^n}(\D{x_i})$ are of finite type.
     This is clearly the case, as
     \begin{equation*}
-        \O_{\P_R^n}(D_{x_i}) = (R[x_0, ..., x_n]_{x_i})_0 \cong R[y_0, ..., y_{i - 1}, y_i, ..., y_n]
+        \O_{\P_R^n}(\D{x_i}) = (R[x_0, ..., x_n]_{x_i})_0 \cong R[y_0, ..., y_{i - 1}, y_i, ..., y_n]
     \end{equation*}
     is a finitely generated $R$-algebra.
 \end{proof}
@@ -465,7 +467,12 @@ For this section, let $R$ be a ring and $n \in \N$.
 \end{corollary}
 
 \section{Projective space is proper}
-We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, hence it is left to show that it is universally closed.
+We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, now we want to show that it is proper.
+Both in Hartshorne \cite{hartshorne} and the Stacks project \cite{stacks}, and in every other source I could find, this is done using the ``valuative criterion for properness'' (see also Section~\ref{prop:valuative_criterion_properness}).
+However, its proof is apparently quite lengthy and requires a lot of abstract algebra.
+In the following, I tried to find a simpler and shorter proof.
+That was only partially successful, as the proof I came up with is shorter, but definitely not simpler.
+However, it gives a slightly different perspective onto the issue, which is quite nice.
 \begin{lemma}
     Let $X, Y$ be topological spaces and $f: X \to Y$ a continuous map.
     Let further $Y = \bigcup_i V_i$ be a cover by open sets.
@@ -486,10 +493,11 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
     Now note that $V_i \subseteq Y$ is open, and so $U$ is also an open neighborhood of $x$ in $Y$.
     This holds for all $x \in Y \setminus f(C)$, hence $f(C)$ is closed.
 \end{proof}
-\cite[66.9.5.]{stacks}
+I am slightly surprised that the following lemma was to be found nowhere, except in \cite[66.9.5.]{stacks} (for general algebraic spaces).
+It seems to be the kind of characterization I would expect to find in most textbooks.
 \begin{corollary}
     \label{prop:universally_closed_affines}
-    A scheme $X$ over $\Spec(R)$ is universally closed, if for all ring homomorphisms $R \to S$ have the following:
+    A scheme $X$ over $\Spec(R)$ is universally closed, if for all ring homomorphisms $R \to S$ satisfy the following:
     The base change map $X \times_{\Spec(R)} \Spec(S) \to \Spec(S)$, i.e. the map that makes the diagram
     \begin{center}
         \begin{tikzpicture}
@@ -561,12 +569,12 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
     \begin{equation*}
         \Proj(T) \to \Proj(S), \quad \p \mapsto \alpha^{-1}(\p)
     \end{equation*}
-    However, in general this is not well-defined, as $\alpha^{-1}(\p)$ might contain $S_+$.
+    However, in general this is not well-defined, as $\alpha^{-1}(\p)$ might contain $S_+$\footnote{Just consider the inclusion $R[x] \to R[x, y]$ and the ideal $\langle x \rangle \in \Proj(R[x, y])$.}.
 
     If we further require the map $\alpha: S \to T$ to fulfill $T_+ \subseteq \alpha(S_+)T$, then this works out and we get a morphism
     \begin{align*}
         \Proj(\alpha): \Proj(T) &\to \Proj(S), \quad \p \mapsto \alpha^{-1}(\p), \\
-        \Proj(\alpha)^\#_{D_f}: \O_{\Proj(S)}(D_f) &\to \O_{\Proj(T)}(D_{\alpha(f)}), \quad \frac x y \mapsto \frac {\alpha(x)} {\alpha(y)}
+        \Proj(\alpha)^\#_{\D{f}}: \O_{\Proj(S)}(\D{f}) &\to \O_{\Proj(T)}(\D{\alpha(f)}), \quad \frac x y \mapsto \frac {\alpha(x)} {\alpha(y)}
     \end{align*}
     Note that this is indeed a well-defined morphism, as for $\p \in \Proj(T)$ there is some $f \in T_+ \setminus \p$ and by assumption, have $g \in S_+, t \in T$ with $\alpha(g)t = f$.
     Now $g \notin \alpha^{-1}(\p)$, as $g \in \alpha^{-1}(\p)$ would imply $\alpha(g) \in \p$, thus $f = t\alpha(g) \in \p$.
@@ -589,22 +597,22 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
         S \otimes_R (R[x_0, ..., x_n]_f)_0 \cong (S[x_0, ..., x_n]_{\alpha(f)})_0 \quad \text{via} \quad \iota_f: s \otimes \frac r {f^n} \mapsto \frac {s\alpha(r)} {\alpha(f)^n}
     \end{equation*}
     for all homogeneous $f \in R[x_0, ..., x_n]$.
-    By Lemma~\ref{prop:Df_affine}, we see that $D_f$ for $f \in S[x_0, ..., x_n]$ homogeneous form an affine open cover of $\P_S^n$.
-    Furthermore, we have a cover by affine opens $D_f \times_{\Spec(R)} \Spec(S)$ of $\P_R^n \times_{\Spec(R)} \Spec(S)$ for $f \in R[x_0, ..., x_n]$ homogeneous.
+    By Lemma~\ref{prop:Df_affine}, we see that $\D{f}$ for $f \in S[x_0, ..., x_n]$ homogeneous form an affine open cover of $\P_S^n$.
+    Furthermore, we have a cover by affine opens $\D{f} \times_{\Spec(R)} \Spec(S)$ of $\P_R^n \times_{\Spec(R)} \Spec(S)$ for $f \in R[x_0, ..., x_n]$ homogeneous.
     Together, we see that it suffices to show that the isomorphisms (induced by $\iota_f$)
     \begin{equation*}
-        \phi_f: D_{\alpha(f)} = \Spec((S[x_0, ..., x_n]_{\alpha(f)})_0) \to D_f \times_{\Spec(R)} \Spec(S)
+        \phi_f: \D{\alpha(f)} = \Spec((S[x_0, ..., x_n]_{\alpha(f)})_0) \to \D{f} \times_{\Spec(R)} \Spec(S)
     \end{equation*}
     glue to an isomorphism $\Proj(S[x_0, ..., x_n]) \to \P_R^n \times_{\Spec(R)} \Spec(S)$.
     By the gluing lemma, it suffices that the compatibility conditions are satisfied, i.e. that for all $f, g \in R[x_0, ..., x_n]$ homogeneous the diagram
     \begin{center}
         \begin{tikzpicture}
-            \node (Sfg) at (0, 0) {$D_{\alpha(f)} \cap D_{\alpha(g)} = D_{\alpha(fg)}$};
-            \node (Sf) at (3, 1) {$D_{\alpha(f)}$};
-            \node (Sg) at (3, -1) {$D_{\alpha(g)}$};
-            \node (f) at (7, 1) {$D_f \times_{\Spec(R)} \Spec(S)$};
-            \node (g) at (7, -1) {$D_g \times_{\Spec(R)} \Spec(S)$};
-            \node (all) at (10, 0) {$\P_R^n \times_{\Spec(R)} \Spec(S)$};
+            \node (Sfg) at (1, 0) {$\D{\alpha(f)} \cap \D{\alpha(g)} = \D{\alpha(fg)}$};
+            \node (Sf) at (3, 1.5) {$\D{\alpha(f)}$};
+            \node (Sg) at (3, -1.5) {$\D{\alpha(g)}$};
+            \node (f) at (7, 1.5) {$\D{f} \times_{\Spec(R)} \Spec(S)$};
+            \node (g) at (7, -1.5) {$\D{g} \times_{\Spec(R)} \Spec(S)$};
+            \node (all) at (9, 0) {$\P_R^n \times_{\Spec(R)} \Spec(S)$};
 
             \draw [->] (Sfg) -- (Sf);
             \draw [->] (Sfg) -- (Sg);
@@ -616,16 +624,16 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
     \end{center}
     commutes.
 
-    For a prime ideal $\p \in D_{\alpha(fg)}$ have that
+    For a prime ideal $\p \in \D{\alpha(fg)}$ have that
     \begin{equation*}
-        \phi_f(\p) = \iota_f^{-1}(\p \cap (S[x_0, ..., x_n]_f)_0) \in D_f \times_{\Spec(R)} \Spec(S)
+        \phi_f(\p) = \iota_f^{-1}(\p \cap (S[x_0, ..., x_n]_f)_0) \in \D{f} \times_{\Spec(R)} \Spec(S)
     \end{equation*}
-    and so $g \notin \phi_f(\p)$, i.e. $\phi_f(\p) \in D_{fg} \times_{\Spec(R)} \Spec(S)$.
+    and so $g \notin \phi_f(\p)$, i.e. $\phi_f(\p) \in \D{fg} \times_{\Spec(R)} \Spec(S)$.
     Hence, we have that both restrictions
     \begin{equation*}
-        \restr{\phi_f}{D_{\alpha(fg)}}, \ \restr{\phi_g}{D_{\alpha(fg)}}: D_{\alpha(fg)} \to D_{fg} \times_{\Spec(R)} \Spec(S)
+        \restr{\phi_f}{\D{\alpha(fg)}}, \ \restr{\phi_g}{\D{\alpha(fg)}}: \D{\alpha(fg)} \to \D{fg} \times_{\Spec(R)} \Spec(S)
     \end{equation*}
-    map into $D_{fg} \times_{\Spec(R)} \Spec(S)$.
+    map into $\D{fg} \times_{\Spec(R)} \Spec(S)$.
     Now note that the diagram
     \begin{center}
         \begin{tikzpicture}
@@ -647,15 +655,53 @@ We already know that $\P_R^n$ is separated and of finite type over $\Spec(R)$, h
             \draw [->] (Sg) -- (Sfg);
         \end{tikzpicture}
     \end{center}
-    commutes, and so the restrictions of $\phi_f$ resp. $\phi_g$ to $D_{\alpha(fg)}$ are both induced by the homomorphism $\iota_{fg}$, hence they are equal.
+    commutes, and so the restrictions of $\phi_f$ resp. $\phi_g$ to $\D{\alpha(fg)}$ are both induced by the homomorphism $\iota_{fg}$, hence they are equal.
     The claim follows.
 \end{proof}
+We now come close to the core of the proof.
+However, there is one further notion we need.
+\begin{definition}
+    Let $x \in X$ be a point in a scheme (or more generally, a topological space).
+    A point $x' \in X$ is said to \emph{specialize} $x$, if it is contained in the closure $x' \in \overline{\{x\}}$.
+\end{definition}
 The next lemma is directly from \cite[II.4.5]{hartshorne}.
 \begin{lemma}
     \label{prop:im_closed_iff_stable_specialization}
     Let $f: X \to Y$ be a quasi-compact morphism.
     Then $f(|X|)$ is closed if and only if it is stable under specialization.
 \end{lemma}
+\begin{proof}
+    The implication $\Leftarrow$ is clear.
+    It suffices to show that $f(|X|) \cap V \subseteq V$ is closed for all affine opens $V \subseteq Y$.
+    
+    Note that the preimage $f^{-1}(V)$ is quasi-compact, hence has a finite cover of affine opens $U_i \subseteq X$.
+    Now let $V_i = \overline{f(|U_i|)}$ be the closed subscheme of $V$ with the canonical (reduced) scheme structure\footnote{As in the Lecture Notes, Section 5.6.}.
+    Since $V$ is affine, also $V_i$ is affine.
+    Note that now it suffices to show that $f(|U_i|) \subseteq V_i$ is closed.
+
+    In other words, we have reduced the situation to the case that
+    \begin{equation*}
+        f' = \restr{f}{U_i}: U_i = \Spec(A) \to V_i = \Spec(B)
+    \end{equation*}
+    is a morphism between affine schemes with dense image.
+    We want to show that $f'(|U_i|)$ is already $V_i$.
+
+    Consider some $\p \in V_i$.
+    By Zorn's Lemma, there is a minimal prime ideal $\p' \subseteq \p$ in the ring $B$.
+    Note that $\p$ is a specialization of $\p'$.
+    Hence, it suffices to show that $\p' \in f'(|U_i|)$.
+    Note that $B_{\p'}$ must be a field, otherwise we could take a proper nonzero prime ideal of $B_{\p'}$ and its preimage under $B \to B_{\p'}$ would be a smaller prime ideal in $B$.
+
+    Since $f': \Spec(A) \to \Spec(B)$ has dense image, we find that $B \to A$ is injective.
+    Consider $A$ as a $B$-algebra.
+    Let $\q$ be a prime ideal of $A \otimes_B B_{\p'}$ (this is not the zero ring, as $B_{\p'}$ is a flat $B$-module and so the inclusion $B \to B_{\p'}$ induces an inclusion $B_{\p'} \to A \otimes_B B_{\p'}$).
+
+    Taking the preimage of $\q$ under the map $A \to A \otimes_B B_{\p'}$ now gives a prime ideal $\q' \leq A$.
+    Since $\q \cap B_{\p'} = \{ 0 \}$ (here we use that $B_{\p'}$ is a field), find $\q' \cap B = \p'$, thus $\q'$ maps to $\p'$ under $\Spec(A) \to \Spec(B)$.
+    This shows $\p' \in f'(|U_i|)$ and the claim follows.
+\end{proof}
+The next lemma is now the decisive statement that will allow us to show that $\P_R^n \to \Spec(R)$ is closed.
+It is also the place where things get somewhat ugly, and we require a good deal of commutative algebra to prove it.
 \begin{lemma}
     \label{prop:adding_coeff_ideal_does_not_introduce_irrelevant_ideal}
     Let $\p \leq R[x_0, ..., x_n]$ be a homogeneous prime ideal with $R[x_0, ..., x_n]_+ \not\subseteq \p$.
@@ -683,15 +729,12 @@ The next lemma is directly from \cite[II.4.5]{hartshorne}.
 
     wlog $S$ is noetherian, otherwise continue with the ring
     \begin{equation*}
-        \tilde{S} := \begin{cases}
-            \Z[A/\alpha, x] & \text{if $\mathrm{char}(S) = 0$} \\
-            (\Z/\mathrm{char}(R)\Z)[A/\alpha, x] & \text{if $\mathrm{char}(S) \neq 0$}
-        \end{cases}
+        \tilde{S} := \bigl( \Z / \mathrm{char}(S) \Z \bigr) \bigl[ A/\alpha, x \bigr]
     \end{equation*}
     generated by the coefficients of $A/\alpha$ and $w$ (this is noetherian, as it is a quotient of a polynomial ring in finitely many variables).
     
     Now equip $S_{\mathfrak{l}}$ with the $\mathfrak{l}$-adic topology.
-    Note that $S$ is noetherian and local, thus the Krull intersection theorem shows that the $\mathfrak{l}$-adic topology is Hausdorff and we find
+    Note that $S$ is noetherian and local, thus the Krull intersection theorem \cite[8.41]{comalg_notes} shows that the $\mathfrak{l}$-adic topology is Hausdorff and we find
     \begin{equation*}
         w = \lim_{i \to \infty} w = \lim_{i \to \infty} \frac {A^i} {\alpha^i} w = \Bigl( \lim_{i \to \infty} \frac {A^i} {\alpha^i} \Bigr) w = 0 w = 0
     \end{equation*}
@@ -700,6 +743,8 @@ The next lemma is directly from \cite[II.4.5]{hartshorne}.
     Thus $w \equiv 0 \mod \p$ and so $x_i^N \equiv 0 \mod \p$, i.e. $x_i^N \in \p$ for all $i$.
     However, since $\p$ is prime, this implies $R[x_0, ..., x_n]_+ = \langle x_0, ..., x_n \rangle \subseteq \p$, contradicting the assumption. 
 \end{proof}
+As we will see in the next proof, this lemma shows that if $\P_R^n \to \Spec(R)$ maps a point $\p$ to a point $\q$, then it also maps a specialization of $\p$ to any specialization of $\q$.
+From this, we can derive the next proposition.
 \begin{prop}
     \label{prop:projective_structure_morphism_closed}
     The morphism $\P_R^n \to \Spec(R)$ is closed.
@@ -747,7 +792,11 @@ The next lemma is directly from \cite[II.4.5]{hartshorne}.
 \end{corollary}
 
 \section{Valuative criterion of properness}
+\label{prop:valuative_criterion_properness}
+Instead of using some magical ad-hoc argument as before, there is also the following nice characterization of the notion of properness.
+We will omit the proof here, but present it as it can give more geometric intuition on properness and why $\P_R^n$ is proper.
 \begin{prop}
+    \label{prop:valuative_criterion_properness}
     Let $X$ be noetherian and $f: X \to Y$ a morphism of finite type.
     The following are equivalent
     \begin{itemize}
@@ -769,5 +818,65 @@ The next lemma is directly from \cite[II.4.5]{hartshorne}.
         commute, there exists a unique compatible morphism $\Spec(R) \to X$.
     \end{itemize}
 \end{prop}
+\begin{proof}
+    Omitted, see e.g. \cite[II.4.7]{hartshorne}
+\end{proof}
+\begin{prop}
+    The morphism $\P_R^n \to \Spec(R)$ is proper.
+\end{prop}
+\begin{proof}[Alternative Proof]
+    Since properness is preserved under base change, by Lemma~\ref{prop:projective_space_base_change} it suffices to show the statement for $\P_\Z^n \to \Spec(\Z)$.
+
+    Apply Proposition~\ref{prop:valuative_criterion_properness}.
+    Let $R$ be a valuation ring, $K = \Frac(R)$ and assume we have morphisms $\Spec(R) \to Y$, $\Spec(K) \to X$ such that the diagram
+    \begin{center}
+        \begin{tikzpicture}
+            \node (K) at (0, 0) {$\Spec(K)$};
+            \node (R) at (0, -2) {$\Spec(R)$};
+            \node (X) at (3, 0) {$X$};
+            \node (Y) at (3, -2) {$Y$};
+
+            \draw [->] (K) -- (R);
+            \draw [->] (K) -- (X);
+            \draw [->] (R) -- (Y);
+            \draw [->] (X) -- (Y) node [midway, right] {$f$};
+        \end{tikzpicture}
+    \end{center}
+    commutes.
+    Note that $\Spec(K) = \{ \langle 0 \rangle \}$, so let $\xi_1 \in X$ be the image of $\langle 0 \rangle$ under $\Spec(K) \to X$.
+    Since $\langle x_0, ..., x_n \rangle \not\subseteq \xi$, there is $x_i \not\in \xi$.
+    Now let
+    \begin{equation*}
+        f_j := \begin{cases}
+            x_j & \text{if $x_j \notin \xi_1$} \\
+            x_j - x_i & \text{if $x_j \in \xi_1$}
+        \end{cases}
+    \end{equation*}
+    Thus all $f_j$ are homogeneous of degree 1 with $\langle f_j \ | \ j \rangle = \langle x_0, ..., x_n \rangle$.
+    It follows that $X = \bigcup_j \D{f_j}$ is a cover by affine opens such that $\xi_1 \in \bigcap_j \D{f_j}$.
+    Now possibly apply a linear automorphism $f_j \to x_j$ and thus assume wlog that $f_j = x_j$.
+    In particular, find $x_j \in \O_{X, \xi_1}^*$.
+
+    The morphism $\Spec(K) \to X$ now gives an inclusion $k(\xi_1) \subseteq K$.
+    Since $x_j \in \O_{X, \xi_1}^*$, observe that $g_{ij} := x_i / x_j \in K$ is well-defined and nonzero with $g_{ij} g_{jk} = g_{ik}$.
+
+    As $R$ is a valuation ring, we find $k$ such that $g_{k0}$ is the smallest element (w.r.t. divisibility by $R$) among $g_{00}, ..., g_{n0}$.
+    So we see that $g_{ik} = g_{i0} / g_{k0} \in R$ for all $i$.
+    In particular, we find a ring homomorphism
+    \begin{equation*}
+        \Z\left[ \frac {x_0} {x_k}, ..., \frac {x_n} {x_k} \right] \to R, \quad \frac {x_j} {x_k} \mapsto g_{ik}
+    \end{equation*}
+    that is compatible with the field inclusion $k(\xi_1) \subseteq K$.
+
+    The induced morphism
+    \begin{equation*}
+        \Spec(R) \to \Spec(\Z\Bigl[ \frac {x_0} {x_k}, ..., \frac {x_n} {x_k} \Bigr]) = \D{x_j} \subseteq X
+    \end{equation*}
+    is now a compatible morphism $\Spec(R) \to X$.
+    
+    Also it is not too hard to show that the morphism is unique, and the claim follows.
+\end{proof}
+Note that in some way, this is the same proof as before.
+The core idea - namely the choice of the smallest element $g_{k0}$ (w.r.t. divisibility by $R$) - more or less achieves the same effect as the more complicated ideal argument from Lemma~\ref{prop:adding_coeff_ideal_does_not_introduce_irrelevant_ideal}.
 \printbibliography
 \end{document}
