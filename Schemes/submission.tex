@@ -60,6 +60,7 @@
 \newcommand{\cont}{\mathrm{cont}}
 \renewcommand{\O}{\mathcal{O}}
 \DeclareMathOperator*{\colim}{colim}
+\newcommand{\citestacks}[1]{\cite[\href{https://stacks.math.columbia.edu/tag/#1}{Tag #1}]{stacks}}
 
 \newcommand\restr[2]{{
     \left.\kern-\nulldelimiterspace
@@ -68,18 +69,18 @@
     \right|_{#2}
 }}
 
-\newtheorem{prop}{Proposition}
-\newtheorem{theorem}[prop]{Theorem}
-\newtheorem{lemma}[prop]{Lemma}
-\newtheorem{corollary}[prop]{Corollary}
+\newtheorem{prop}[subsection]{Proposition}
+\newtheorem{theorem}[subsection]{Theorem}
+\newtheorem{lemma}[subsection]{Lemma}
+\newtheorem{corollary}[subsection]{Corollary}
 
 \theoremstyle{definition}
-\newtheorem{problem}[prop]{Problem}
-\newtheorem{alg}[prop]{Algorithm}
-\newtheorem{definition}[prop]{Definition}
-\newtheorem{example}[prop]{Example}
-\newtheorem{remark}[prop]{Remark}
-\newtheorem{reminder}[prop]{Reminder}
+\newtheorem{problem}[subsection]{Problem}
+\newtheorem{alg}[subsection]{Algorithm}
+\newtheorem{definition}[subsection]{Definition}
+\newtheorem{example}[subsection]{Example}
+\newtheorem{remark}[subsection]{Remark}
+\newtheorem{reminder}[subsection]{Reminder}
 
 \begin{document}
 \maketitle
@@ -90,7 +91,7 @@
 
 First of all, we will start with a reminder on graded rings, as they are the fundamental object used in the $\Proj$-construction.
 \begin{definition}
-    A \emph{graded ring} $S$ is a ring $S$ with a decomposition $S = \oplus_{d \in \N} S_d$ into groups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i S_j \subseteq S_{i + j}$ for all $i, j \in \Z$.
+    A \emph{graded ring} $S$ is a ring $S$ with a decomposition\footnote{We use the convention that $0 \in \N$.} $S = \oplus_{d \in \N} S_d$ into subgroups $S_i \subseteq S$ (w.r.t. addition in $S$) such that $S_i \cdot S_j \subseteq S_{i + j}$ for all $i, j \in \Z$.
     Write further $S_+ := \sum_{d \neq 0} S_d$.
     For a homogeneous $f \in S_d$ say that $\deg(f) := d$ is its \emph{degree}.
 
@@ -116,24 +117,16 @@ From now on let $S$ be a graded ring.
 \end{prop}
 \begin{proof}
     Clearly $\Proj(S) = \D{\langle 1 \rangle}$ and $\emptyset = \D{\langle 0 \rangle}$ are open.
-    Furthermore, for open sets $\D{\a}$ and $\D{\b}$, have that
+    To show that finite intersections and arbitrary unions of open sets are open, notice that as usual
     \begin{equation*}
-        \D{\a} \cap \D{\b} = \{ \p \in \Proj(S) \ | \ \a, \b \not\subseteq \p \} = \{ \p \in \Proj(S) \ | \ \a\b \not\subseteq \p \} = \D{\a\b}
+        \D{\a} \cap \D{\b} = \D{\a\b} \quad \text{and} \quad \bigcup_{\a \in \mathcal{A}} \D{\a} = \D{\b} \quad \text{where} \ \b = \sum_{\a \in \mathcal{A}} \a
     \end{equation*}
-    This holds, as $\a, \b \not\subseteq \p$ implies that there are $f \in \a$ and $g \in \b$ with $f, g \notin \p$.
-    However, then $fg \notin \p$ as $\p$ is prime.
-    Obviously $\a\b$ is homogeneous, and so $\D{\a} \cap \D{\b}$ is open.
-
-    Finally, given a collection $\mathcal{A}$ of homogeneous ideals in $S$, have that
-    \begin{align*}
-        \bigcup_{\a \in \mathcal{A}} \D{\a} =& \{ \p \in \Proj(S) \ | \ \exists \a \in \mathcal{A}:\ \a \not\subseteq \p \} = \{ \p \in \Proj(S) \ | \ \exists \a \in \mathcal{A} \exists f \in \a:\ f \notin \p \} \\
-        =& \Bigl\{ \p \in \Proj(S) \ \Bigm| \ \exists f \in \sum_{\a \in \mathcal{A}} \a:\ f \notin \p \Bigr\} = \D{\b} \quad \text{for $\b = \sum_{\a \in \mathcal{A}} \a$}
-    \end{align*}
-    Clearly $\b$ is again homogeneous, and so $\bigcup_{\a \in \mathcal{A}} \D{\a}$ is open.
+    Clearly the ideals $\a\b$ and $\b$ are again homogeneous.
 \end{proof}
-As opposed to Hartshorne \cite{hartshorne}, we follow an approach similar to the construction of $\O_{\Spec(R)}$ to construct a sheaf of rings on $\Proj(S)$.
+As opposed to Hartshorne \cite{hartshorne}, we follow an approach to construct a sheaf of rings on $\Proj(S)$ will be similar to the construction of $\Spec(R)$.
 In particular, we will define $\O_{\Proj(S)}$ on a basis of the topology, and extend it to a sheaf.
-This will be somewhat more tedious, but gives a nice idea of how $\O_{\Proj(S)}(U)$ looks like.
+This is also the definition used in \citestacks{01M6}.
+IT will be somewhat more tedious, but gives a nice idea of how $\O_{\Proj(S)}(U)$ looks like.
 \begin{lemma}
     \label{prop:Splus_invariance}
     For a homogeneous ideal $\a$ have $\D{\a} = \D{\a S_+}$.
@@ -224,7 +217,7 @@ The next proof works exactly as the corresponding one for $\Spec$ in the lecture
     \end{align*}
     is a B-sheaf on $B$ (here $\Top(X)$ is the category given by the open sets of $X$ and their inclusion, as defined in the lecture).
 \end{prop}
-\begin{proof}
+\begin{proof}\footnote{I guess I have included the proof mostly for the sake of completeness - apart from presentational issues, it is just copied from the lecture notes.}
     Clearly, $\mathcal{F}$ is a functor and thus a presheaf.
     Hence, we have to show the local-to-global property.
 
@@ -291,7 +284,7 @@ Now we the B-sheaf extension theorem from the lecture (from Section 1.11) yields
 \begin{corollary}
     The B-sheaf $\mathcal{F}$ can be (uniquely, up to isomorphism) extended to a sheaf $\O_{\Proj(S)}$ on $\Proj(S)$.
 \end{corollary}
-The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(S), \O_{\Proj(S)})$ is a scheme.
+The next to lemmas are based on \cite[Prop. II.2.5]{hartshorne} and will be used to deduce that $(\Proj(S), \O_{\Proj(S)})$ is a scheme.
 \begin{lemma}
     For $\p \in \Proj(S)$, the stalk
     \begin{equation*}
@@ -350,7 +343,7 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
     \end{equation*}
     given on basic open sets by
     \begin{equation*}
-        \eta_{D_{g/f^n}}: R_{g/f^n} \to (S_{fg})_0, \quad \frac {h/f^m} {(g/f^n)^l} \mapsto \frac {h f^{nl}} {g^l f^m}
+        \eta_{\D{g/f^n}}: R_{g/f^n} \to (S_{fg})_0, \quad \frac {h/f^m} {(g/f^n)^l} \mapsto \frac {h f^{nl}} {g^l f^m}
     \end{equation*}
     Clearly this is a ring isomorphism, so $\eta$ is a natural isomorphism.
     The claim follows.
@@ -372,12 +365,11 @@ The next to lemmas are based on \cite[II.2.5]{hartshorne} and show that $(\Proj(
 
 \section{Projective space as a variety}
 For this section, let $R$ be a ring and $n \in \N$.
-
-First, we will study the property of being separated.
 \begin{prop}
     The morphism $\P_R^n \to \Spec(R)$ is separated.
 \end{prop}
 \begin{proof}
+    This is the same proof as for \citestacks{01MC}.
     By Lemma~\ref{prop:Df_affine} we find a cover $\Proj(S) = \bigcup_i \D{x_i}$ of affine opens.
     We use the characterization from the lecture and show that $\D{x_i} \cap \D{x_j}$ is an affine open and the canonical multiplication map
     \begin{equation*}
@@ -402,14 +394,14 @@ First, we will study the property of being separated.
 To study integrality, it is useful to have the next small lemma on the nilradical.
 \begin{lemma}
     \label{prop:nil_poly_ring}
-    It holds that $\Nil(R)R[x_0, ..., x_n] = \Nil(R[x_0, ..., x_n])$.
+    If $\Spec(R)$ is irreducible, then $\Nil(R)R[x_0, ..., x_n] = \Nil(R[x_0, ..., x_n])$.
 \end{lemma}
 \begin{proof}
     Clearly $\Nil(R)R[x_0, ..., x_n] \subseteq \Nil(R[x_0, ..., x_n])$, as for $\sum_{i = 1}^m f_i r_i$ with $f_i^n = 0$ have that
     \begin{equation*}
         \Bigl( \sum_{i = 1}^m f_i r_i \Bigr)^{m n} = \sum_{1 \leq i_1, ..., i_{mn} \leq m} \underbrace{f_{i_1} ... f_{i_{mn}}}_{\mathclap{\substack{= 0 \\ \text{as at least one $i$ repeats at least $n$ times in $i_1, ..., i_{mn}$}}}} r_{i_1} ... r_{i_mn}
     \end{equation*}
-    Now note that $\Nil(R[x_0, ..., x_n]) \subseteq \a$ for all ideals $\a$ and the claim follows.
+    Now note that $\Nil(R[x_0, ..., x_n]) \subseteq \a$ for all prime ideals $\a$, and the claim follows since $\Nil(R)$ is prime by assumption that $\Spec(R)$ is irreducible.
 \end{proof}
 \begin{prop}
     Assume $\Spec(R)$ is irreducible.
@@ -438,7 +430,7 @@ To study integrality, it is useful to have the next small lemma on the nilradica
 \end{prop}
 \begin{proof}
     By the lecture, it suffices to show that each $\O_{\P_R^n}(\D{x_i}) \cong \Spec(R[x_0, ..., x_n]_{x_i})_0$ is reduced.
-    However this is trivial, as taking the polynomial ring $R[x_0, ..., x_n]$ preserves reducedness by Lemma~\ref{prop:nil_poly_ring}, and localizing (and of course taking the subring $S_0$) also do.
+    However this is trivial, as taking the polynomial ring $R[x_0, ..., x_n]$ preserves reducedness, and localizing (and of course taking the subring $S_0$) also do.
 \end{proof}
 \begin{corollary}
     Assume $R$ is integral.
@@ -473,29 +465,10 @@ However, its proof is apparently quite lengthy and requires a lot of abstract al
 In the following, I tried to find a simpler and shorter proof.
 That was only partially successful, as the proof I came up with is shorter, but definitely not simpler.
 However, it gives a slightly different perspective onto the issue, which is quite nice.
-\begin{lemma}
-    Let $X, Y$ be topological spaces and $f: X \to Y$ a continuous map.
-    Let further $Y = \bigcup_i V_i$ be a cover by open sets.
-    If each of the maps
-    \begin{equation*}
-        \restr{f}{f^{-1}(V_i)}: f^{-1}(V_i) \to V_i
-    \end{equation*}
-    is closed (as a map into $V_i$), then $f$ is closed.
-\end{lemma}
-\begin{proof}
-    Consider some closed $C \subseteq X$ and $x \in Y \setminus f(C)$.
-    Since the $V_i$ cover $Y$, there is $i$ such that $x \in V_i$.
-    As $\restr{f}{f^{-1}(V_i)}$ is closed, we see that
-    \begin{equation*}
-        f(C) \cap V_i = \restr{f}{f^{-1}(V_i)}(C)
-    \end{equation*}
-    is closed in $V_i$, hence there is an open neighborhood $U \subseteq V_i$ of $x$ with $U \cap f(C) = \emptyset$.
-    Now note that $V_i \subseteq Y$ is open, and so $U$ is also an open neighborhood of $x$ in $Y$.
-    This holds for all $x \in Y \setminus f(C)$, hence $f(C)$ is closed.
-\end{proof}
-I am slightly surprised that the following lemma was to be found nowhere, except in \cite[66.9.5.]{stacks} (for general algebraic spaces).
+
+I am slightly surprised that the following lemma was to be found nowhere, except in \citestacks{03IT} (for general algebraic spaces).
 It seems to be the kind of characterization I would expect to find in most textbooks.
-\begin{corollary}
+\begin{lemma}
     \label{prop:universally_closed_affines}
     A scheme $X$ over $\Spec(R)$ is universally closed, if for all ring homomorphisms $R \to S$ satisfy the following:
     The base change map $X \times_{\Spec(R)} \Spec(S) \to \Spec(S)$, i.e. the map that makes the diagram
@@ -513,7 +486,7 @@ It seems to be the kind of characterization I would expect to find in most textb
         \end{tikzpicture}
     \end{center}
     commute, is closed.
-\end{corollary}
+\end{lemma}
 \begin{proof}
     Consider any scheme $Y$ over $\Spec(R)$.
     We have to show that the map $\pi: Y \times_{\Spec(R)} X \to Y$ that makes the diagram
@@ -552,15 +525,24 @@ It seems to be the kind of characterization I would expect to find in most textb
     \begin{equation*}
         \psi: \pi^{-1}(V_i) \to V_i \times_{\Spec(R)} X
     \end{equation*}
-    of schemes over $Y \times X$, i.e. the inclusion $\pi^{-1}(V_i)$ factors as
+    of schemes over $Y \times X$, i.e. the inclusion of $\pi^{-1}(V_i)$ into $Y \times_{\Spec(R)} X$ factors as
     \begin{equation*}
         \pi^{-1}(V_i) \ \overset{\psi}{\to} \ V_i \times_{\Spec(R)} X \ \to \ Y \times_{\Spec(R)} X
     \end{equation*}
     Considering $V_i \times_{\Spec(R)} X$ as an open subscheme of $Y \times_{\Spec(R)} X$, we thus see that $\psi$ must already be the identity and so $\pi^{-1}(V_i) \subseteq V_i \times_{\Spec(R)} X$.
     It follows that $\pi^{-1}(V_i) = V_i \times_{\Spec(R)} X$.
+    By assumption, we now get that each $\pi_i$ is closed, as $V_i \cong \Spec(\O_Y(V_i))$ is affine.
 
-    By assumption we know that each $\pi_i$ is closed, as $V_i \cong \Spec(\O_Y(V_i))$ is affine.
-    Now the previous lemma yields that also $\pi$ is closed.
+    To show that $\pi$ is closed, let $C \subseteq Y \times_{\Spec(R)} X$ be closed.
+    Consider some $x \in Y \setminus \pi(C)$.
+    Since the $V_i$ cover $Y$, there is $i$ such that $x \in V_i$.
+    As $\pi = \restr{\pi}{f^{-1}(V_i)}$ is closed, we see that
+    \begin{equation*}
+        \pi(C) \cap V_i = \pi_i(C) \quad \text{is closed in $V_i$}
+    \end{equation*}
+    Hence there is an open neighborhood $U \subseteq V_i$ of $x$ with $U \cap \pi(C) = \emptyset$.
+    Now note that $V_i \subseteq Y$ is open, and so $U$ is also an open neighborhood of $x$ in $Y$.
+    This holds for all $x \in Y \setminus \pi(C)$, hence $\pi(C)$ is closed.
 \end{proof}
 \begin{remark}
     \label{prop:functoriality_proj}
@@ -638,12 +620,12 @@ It seems to be the kind of characterization I would expect to find in most textb
     \begin{center}
         \begin{tikzpicture}
             \node (Rf) at (-3, 0) {$S \otimes_R (R[x_0, ..., x_n]_f)_0$};
-            \node (Rg) at (0, -2) {$S \otimes_R (R[x_0, ..., x_n]_g)_0$};
-            \node (Rfg) at (-3, -4) {$S \otimes_R (R[x_0, ..., x_n]_{fg})_0$};
+            \node (Rg) at (0, -1.5) {$S \otimes_R (R[x_0, ..., x_n]_g)_0$};
+            \node (Rfg) at (-3, -3) {$S \otimes_R (R[x_0, ..., x_n]_{fg})_0$};
 
             \node (Sf) at (8, 0) {$(S[x_0, ..., x_n]_f)_0$};
-            \node (Sg) at (5, -2) {$(S[x_0, ..., x_n]_g)_0$};
-            \node (Sfg) at (8, -4) {$(S[x_0, ..., x_n]_{fg})_0$};
+            \node (Sg) at (5, -1.5) {$(S[x_0, ..., x_n]_g)_0$};
+            \node (Sfg) at (8, -3) {$(S[x_0, ..., x_n]_{fg})_0$};
 
             \draw [->] (Rf) -- (Sf) node [midway, above] {$\iota_f$};
             \draw [->] (Rg) -- (Sg) node [midway, above] {$\iota_g$};
@@ -658,8 +640,7 @@ It seems to be the kind of characterization I would expect to find in most textb
     commutes, and so the restrictions of $\phi_f$ resp. $\phi_g$ to $\D{\alpha(fg)}$ are both induced by the homomorphism $\iota_{fg}$, hence they are equal.
     The claim follows.
 \end{proof}
-We now come close to the core of the proof.
-However, there is one further notion we need.
+Before we come to the proof now, there is one last notion to present.
 \begin{definition}
     Let $x \in X$ be a point in a scheme (or more generally, a topological space).
     A point $x' \in X$ is said to \emph{specialize} $x$, if it is contained in the closure $x' \in \overline{\{x\}}$.
@@ -704,27 +685,27 @@ The next lemma is now the decisive statement that will allow us to show that $\P
 It is also the place where things get somewhat ugly, and we require a good deal of commutative algebra to prove it.
 \begin{lemma}
     \label{prop:adding_coeff_ideal_does_not_introduce_irrelevant_ideal}
-    Let $\p \leq R[x_0, ..., x_n]$ be a homogeneous prime ideal with $R[x_0, ..., x_n]_+ \not\subseteq \p$.
-    Further let $\q \leq R$ be a prime ideal such that $\p \cap R \subseteq \q$.
+    Let $\p \in \Proj(R[x_0, ..., x_n])$ and let $\q \leq R$ be a prime ideal such that $\p \cap R \subseteq \q$.
     Then there some $i$ such that no $\alpha x_i^m$ is in $\b := \p + \q R[x_0, ..., x_n]$, for any $\alpha \in R \setminus \b$ and any $m \in \N$.
 \end{lemma}
 \begin{proof}
-    Assume there is $m \in \N$ such that $\alpha_i x_i^m \in \b$ for all $i$ and some $\alpha_i \in \b \setminus R$.
-    Since $\b \cap R = \q$ is prime, have that $\alpha := \prod_i \alpha_i \notin \b$.
-    Further we have that $\alpha x_i^m \in \b$ for all $i$.
+    Assume for a contradiction  that there is $m \in \N$ such that $\alpha_i x_i^m \in \b$ for all $i$ and some $\alpha_i \in \b \setminus R$.
+    Since $\b \cap R = \q$ is prime, have that $\alpha := \prod_i \alpha_i \notin \b$ and further $\alpha^n \notin \b$ for all $n \in \N$.
+    Furthermore, we obviously have $\alpha x_i^m \in \b$ for all $i$.
 
     Consider now the vector $(w_i)_{i < N}$ containing all monomials of degree $(n + 1)m$.
-    By assumption, all $\alpha w_i \in \b$.
+    By assumption, all\footnote{Since a monomial of degree $(n + 1)m$ in $n + 1$ variables is divisible by $x_i^m$ for at least one $i$, by the pigeonhole principle.} $\alpha w_i \in \b$.
     Since $\p$ is homogeneous, observe that now there are $r_{ij} \in \q$ such that
     \begin{equation*}
         \alpha w_i - \sum_{j < N} r_{ij} w_j \in \p
     \end{equation*}
-    Working modulo $\p$, we see that $A w = \alpha w$ where $A \in (\b/\p)^{N \times N}$.
+    Working modulo $\p$, we see that $A w = \alpha w$ where $A \in (\b/\p)^{N \times N}$ is a matrix with coefficients in $\b/\p$.
 
-    Now observe that $\alpha \notin \b/\p$ since $\alpha \notin \b$.
-    Hence there exists a prime ideal in $R/\p$ containing $\b/\p$ and not containing $\alpha$.
+    Now observe that no power of $\alpha$ is in $\b/\p$ (as mentioned before).
+    Hence there exists a prime ideal\footnote{By the usual argument, i.e. take a preimage of a prime ideal under the map $R \to R/\p \to (R/\p)_\alpha$.} in $R/\p$ containing $\b/\p$ and not containing $\alpha$.
     Localizing at that prime ideal gives a local ring $S$ with maximal ideal $\mathfrak{l}$.
-    Now assume that $w \in S^n$ and $A/\alpha \in \mathfrak{l}^{n \times n}$.
+    Now we continue in $S$, replacing $w$ and $A/\alpha$ by their images under $R \to S$.
+    So $w \in S^n$ and $A/\alpha \in \mathfrak{l}^{n \times n}$.
     Note that we still have $(A/\alpha) w = w$.
 
     wlog $S$ is noetherian, otherwise continue with the ring
@@ -751,12 +732,12 @@ From this, we can derive the next proposition.
 \end{prop}
 \begin{proof}
     Denote $\P_R^n \to \Spec(R)$ by $\phi$.
-    Consider a closed set $\V(\a) = \P_R^n \setminus D_\a$ given by a homogeneous ideal $\a \leq R[x_0, ..., x_n]$.
-    By Lemma~\ref{prop:im_closed_iff_stable_specialization}, it suffices to show that $\phi(\V(\a))$ is closed under specialization (note that $\P_R^n \to \Spec(R)$ is quasi-compact, e.g. by Proposition~\ref{prop:p_quasi_compact}).
+    Consider a closed set $\V{\a} = \P_R^n \setminus \D{\a}$ given by a homogeneous ideal $\a \leq R[x_0, ..., x_n]$.
+    By Lemma~\ref{prop:im_closed_iff_stable_specialization}, it suffices to show that $\phi(\V{\a})$ is closed under specialization (note that $\P_R^n \to \Spec(R)$ is quasi-compact, e.g. by Proposition~\ref{prop:p_quasi_compact}).
 
-    Consider $\q \in \phi(\V(\a)) \subseteq \Spec(R)$ and a prime ideal $\q'$ that specializes $\q$, i.e. $\q' \supseteq \q$.
-    Then there is a $\p \in \V(\a)$ with $\p \cap R = \q$, in particular $\a \subseteq \p$.
-    We want to show that $\q' \in \phi(\V(\a))$.
+    Consider $\q \in \phi(\V{\a}) \subseteq \Spec(R)$ and a prime ideal $\q'$ that specializes $\q$, i.e. $\q' \supseteq \q$.
+    Then there is a $\p \in \V{\a}$ with $\p \cap R = \q$, in particular $\a \subseteq \p$.
+    We want to show that $\q' \in \phi(\V{\a})$.
 
     Note that by Lemma~\ref{prop:adding_coeff_ideal_does_not_introduce_irrelevant_ideal}, there is $i$ such that the multiplicative set
     \begin{equation*}
@@ -764,7 +745,7 @@ From this, we can derive the next proposition.
     \end{equation*}
     has empty intersection with the ideal $\b := \p + \q' R[x_0, ..., x_n]$.
     
-    Hence, the ring $T^{-1}(R[x_0, ..., x_n]/\b)$ is nonzero, thus has a prime.
+    Hence, the ring $T^{-1}(R[x_0, ..., x_n]/\b)$ is nonzero, thus has a prime ideal.
     Taking its preimage under
     \begin{equation*}
         R[x_0, ..., x_n] \to R[x_0, ..., x_n]/\b \to T^{-1}(R[x_0, ..., x_n]/\b)
@@ -772,9 +753,17 @@ From this, we can derive the next proposition.
     yields a prime ideal $\p'$ such that $x_i \notin \p'$ and $\b \subseteq \p'$.
     Clearly have that $\q' \subseteq \p'$ and since $\p' \cap T = \emptyset$, find that $\p' \cap R = \q'$.
     By Lemma~\ref{prop:homogeneous_part_prime}, assume wlog that $\p'$ is homogeneous.
-    Now have a homogeneous prime ideal $\p'$ with $\a \subseteq \p \subseteq \p'$, i.e. $\p' \in \V(\a)$ and $\phi(\p') = \p' \cap R = \q'$.
-    Thus $\q \in \phi(\V(\a))$ and the claim follows.
+    Now have a homogeneous prime ideal $\p'$ with $\a \subseteq \p \subseteq \p'$, i.e. $\p' \in \V{\a}$ and $\phi(\p') = \p' \cap R = \q'$.
+    Thus $\q \in \phi(\V{\a})$ and the claim follows.
 \end{proof}
+I must say, I find this proof and also the more geometric proof later (Proposition~\ref{prop:projective_space_proper_alternative_proof}) extremely fascinating.
+In particular, I like how generic points are quite important for the proof.
+It also reminds me of the only classical proof of an equivalent statement (projections from projective space are closed) I have ever seen.
+The idea was - more or less - to consider points $y \in \im(f) \subseteq \P_k^n$ with preimages $x \in X \subseteq \P_k^m$ and deduce (using Hilbert's Nullstellensatz) that there is some ``generic preimage'' $\tilde{x} \in \P_K^m$ in projective space over the algebraic closure $K = \overline{k(Y)}$ of the ``generic point'' $\tilde{y} = [y_0 : ... : y_n] \in \P_K^n$.
+A ``partial evaluation homomorphism'' (i.e. not defined on the whole domain) $K \dashrightarrow k$ can then be used to ``evaluate'' the ``generic preimage point'' on each image point.
+The core of that proof is exactly constructing this ``partial evaluation homomorphism'', which corresponds exactly to Lemma~\ref{prop:adding_coeff_ideal_does_not_introduce_irrelevant_ideal}.
+
+But now enough of talking, here is the main result.
 \begin{corollary}
     The morphism $\P_R^n \to \Spec(R)$ is universally closed.
 \end{corollary}
@@ -792,9 +781,9 @@ From this, we can derive the next proposition.
 \end{corollary}
 
 \section{Valuative criterion of properness}
-\label{prop:valuative_criterion_properness}
+\label{sec:valuative_criterion_properness}
 Instead of using some magical ad-hoc argument as before, there is also the following nice characterization of the notion of properness.
-We will omit the proof here, but present it as it can give more geometric intuition on properness and why $\P_R^n$ is proper.
+We will omit the proof here, but present the statement as it can give more geometric intuition on properness and why $\P_R^n$ is proper.
 \begin{prop}
     \label{prop:valuative_criterion_properness}
     Let $X$ be noetherian and $f: X \to Y$ a morphism of finite type.
@@ -805,9 +794,9 @@ We will omit the proof here, but present it as it can give more geometric intuit
         \begin{center}
             \begin{tikzpicture}
                 \node (K) at (0, 0) {$\Spec(K)$};
-                \node (R) at (0, -2) {$\Spec(R)$};
+                \node (R) at (0, -1.5) {$\Spec(R)$};
                 \node (X) at (3, 0) {$X$};
-                \node (Y) at (3, -2) {$Y$};
+                \node (Y) at (3, -1.5) {$Y$};
     
                 \draw [->] (K) -- (R);
                 \draw [->] (K) -- (X);
@@ -819,9 +808,10 @@ We will omit the proof here, but present it as it can give more geometric intuit
     \end{itemize}
 \end{prop}
 \begin{proof}
-    Omitted, see e.g. \cite[II.4.7]{hartshorne}
+    Omitted, see e.g. \cite[II.4.7]{hartshorne} or \citestacks{01NH}.
 \end{proof}
 \begin{prop}
+    \label{prop:projective_space_proper_alternative_proof}
     The morphism $\P_R^n \to \Spec(R)$ is proper.
 \end{prop}
 \begin{proof}[Alternative Proof]
@@ -832,9 +822,9 @@ We will omit the proof here, but present it as it can give more geometric intuit
     \begin{center}
         \begin{tikzpicture}
             \node (K) at (0, 0) {$\Spec(K)$};
-            \node (R) at (0, -2) {$\Spec(R)$};
+            \node (R) at (0, -1.5) {$\Spec(R)$};
             \node (X) at (3, 0) {$X$};
-            \node (Y) at (3, -2) {$Y$};
+            \node (Y) at (3, -1.5) {$Y$};
 
             \draw [->] (K) -- (R);
             \draw [->] (K) -- (X);
