@@ -137,7 +137,7 @@ Note that this is usually not a group anymore, and does not have a lot of nice s
     \end{equation*}
     Thus $\tilde{E}(\F_p) \geq 5$ and so there must be $(x, y) \in \tilde{E}(\F_p)$ with $y \neq 0$, as there are at most four points on $\tilde{E}(\F_p)$ that do not satisfy this ($\O$ and possibly $(\alpha_i, 0)$ with $\alpha_i$ a root of $x^3 + 2x + 2$).
 
-    Now consider any prime $p \neq 2, 3$ and $(\tilde{x}, \tilde{y}) \in \tilde{E}(\F_p), x, y \in \Z$.
+    Now consider any prime $p \neq 2, 3$ and $(\tilde{x}, \tilde{y}) \in \tilde{E}(\F_p), x, y \in \Z, \tilde{y} \neq 0$.
     Let $f(t) := t^2 - x^3 - 2x - 2$.
     Then
     \begin{equation*}
@@ -192,14 +192,6 @@ This already shows that we do not have to worry to much about the condition $E(\
 My next try was to characterize in which cases there is no $(x, y) \in E(\Z_p)$, $|y|_p = 1$.
 However it turns out that this never happens simultaneously for $p \in \{ 3, 5, 7 \}$ (which was how I understood the question at first).
 On the other hand, I also found the following strengthening of the previous statement that completely finishes the case $p \geq 11$.
-\begin{equation*}
-    n^3 + f_2 n^2 + f_1 n + f_0 \equiv a_1, ..., a_l \mod p
-\end{equation*}
-for all $n \in \Z$ is equivalent to the same condition for $n \in \{ 0, ..., p - 1 \}$.
-Further, each condition is linear
-This seems to indicate that I have indeed misunderstood the task, and we only look for Elliptic Curves $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ such that there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for every $p \neq 3, 5, 7$, and do not require further properties for $E(\Z_3), E(\Z_5)$ and $E(\Z_7)$.
-
-So instead consider a strengthening of the last part of Proposition~\ref{prop:p_adic_points_techniques}.
 \begin{prop}
     \label{prop:points_in_EZp}
     Let $p \geq 11$ be a prime and $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ an Elliptic Curve with $f_0, f_1, f_2 \in \Z$.
@@ -239,7 +231,7 @@ So instead consider a strengthening of the last part of Proposition~\ref{prop:p_
 The above proposition shows that constructing Elliptic Curves $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ such that there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for all primes $p \neq 3, 5, 7$ is indeed quite simple, as almost all curves satisfy this.
 This only case that can fail is $p = 2$, but here, the condition is fulfilled quite often, so we can just try different choices.
 Using a small brute force search then yields the following examples.
-\begin{example}
+\begin{example}[1(iv)]
     Let
     \begin{align*}
         E_1: \ &y^2 = x^3 + 2 x \\
@@ -549,7 +541,7 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
     \end{equation*}
     The third claim follows in the same way, by swapping $\alpha$ and $\beta$.
 \end{proof}
-\begin{example}
+\begin{example}[2(ii) - Additional Examples]
     Let $p$ be a prime.
     Taking the set of ``exhaustive cases'' given by $p(-1) = -p$ similar to the proof of Proposition~\ref{prop:subgroup_mod_every_p}.
     In other words, take $\alpha, \beta \in \Z$ such that $-\alpha, -p\beta$ and $\beta - \alpha$ are squares (in $\Z$).
@@ -569,40 +561,75 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
 \end{example}
 
 \section{Question 3}
-\begin{lemma}
-    \label{prop:relation_y_uv}
-    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
-    Suppose that $E$ has a nontrivial 5-torsion point\footnote{As remarked upon later, focusing on case that the $x$-coordinate is zero is not a real restriction.} $P = (0, \beta) \in E(k)$.
-    Let further $(\alpha_2, \beta_2) = [2](0, \beta)$.
-    Then
-    \begin{equation*}
-        \alpha_2^3 = -4\beta\beta_2
-    \end{equation*}
-\end{lemma}
+First, we first look at some basic transformations we can do to Weierstraß equations.
+This will be our main toolkit for this exercise.
+\begin{prop}[Weierstraß transformations]
+    \label{prop:weierstrass_transformations}
+    Let $E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
+    There are three nice types of transformations
+    \begin{description}
+        \item[Translation] Let $P = (s, t) \in E(k)$ be a point. Then the isomorphism
+        \begin{equation*}
+            E \to E', \quad (x, y) \mapsto (x - s, y - t)
+        \end{equation*}
+        maps $P$ to $(0, 0)$ and the curve $E$ to an Elliptic Curve
+        \begin{equation*}
+            E': y^2 + a_1 x y + (a_3 + 2t + a_1 s) y = x^3 + (a_2 + 3 s) x^2 + (a_4 - 3 s^2 + 2 a_2 s - a_1 t) x
+        \end{equation*}
+        This is very useful to clear $a_6$ and continue working with the point $(0, 0)$.
+        \item[Shearing] Let $r \in k$. Then the isomorphism
+        \begin{equation*}
+            E \to E', \quad (x, y) \mapsto (x, y - r x)
+        \end{equation*}
+        preserves $(0, 0)$ and maps $E$ to an Elliptic Curve
+        \begin{equation*}
+            E': y^2 + (a_1 + 2r) x y + a_3 y = x^3 + (a_2 + r^2 - a_1 r) x^2 + (a_4 - r a_3) x + a_6
+        \end{equation*}
+        This is very useful, as it does not change $a_3$ and $a_6$.
+        \item[Scaling] Let $u \in k^*$. Then the isomorphism
+        \begin{equation*}
+            E \to E', \quad (x, y) \mapsto (u^2 x, y^3 y)
+        \end{equation*}
+        preserves $(0, 0)$ and maps $E$ to an Elliptic Curve
+        \begin{equation*}
+            E': y^2 + \frac {a_1} u x y + \frac {a_3} {u^3} = x^3 + \frac {a_2} {u^2} x^2 + \frac {a_4} {u^4} x + \frac {a_6} {u^6}
+        \end{equation*}
+        This is very useful, as it does not change which of the $a_1, ..., a_4, a_6$ are zero.
+    \end{description}
+\end{prop}
 \begin{proof}
-    Note that the assumptions
-    \begin{align*}
-        (0, \beta) &\in E, \\
-        (\alpha_2, \beta_2) &\in E, \\
-        [2](0, \beta) &= (\alpha_2, \beta_2), \\
-        [2](\alpha_2, \beta_2) &= (0, -\beta)
-    \end{align*}
-    can all be expressed via roots of polynomials, and also the claimed statement is of this form.
-    Hence, the problem reduces to checking that $\alpha_2^3 + 4\beta\beta_2$ is contained in the ideal $I$ generated by the polynomials giving the assumptions (in the polynomial ring $k[a_2, a_4, a_6, \beta, \alpha_2, \beta_2]$).
-    Using Gröbner-basis methods, this can easily be done using a computer.  
-    So consider the following SAGE script:
-    \lstinputlisting[language = python]{./3i_algebra.sage}
-    The output prints \lstinline{True} and so the statement holds for $k = \Q$.
-    Thus, there are $g_1, ..., g_n \in I$ and $s_1, ..., s_n \in \Q[a_2, a_4, a_6, \beta, \alpha_2, \beta_2]$ such that
-    \begin{equation*}
-        \alpha_2^3 + 4\beta\beta_2 = \sum_i g_i s_i
-    \end{equation*}
-    Since the generators of $I$ and $\alpha_2^3 + 4\beta\beta_2$ have coefficients in $\Z$, we can also choose $r_i, s_i$ to have coefficients in $\Z$.
-    Now note that there is a homomorphism $\Z \to k$ for every field $k$, and so the statement holds in an arbitrary field $k$.
+    Just plug the equation of the isomorphism into the equation defining the $E'$, and check that it is zero modulo the equation of $E$.
 \end{proof}
+\begin{corollary}
+    \label{prop:point_normalization}
+    Let $E$ be an Elliptic Curve defined over $k$ with a $k$-rational point $P$ that is not a 2-torsion point.
+    Then there is a linear isomorphism $\psi: E \to E'$ mapping $E$ to an Elliptic Curve of the form
+    \begin{equation*}
+        E': y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2
+    \end{equation*}
+    such that $\psi(P) = (0, 0)$, the tangent at $(0, 0)$ is given by $y = 0$.
+    Furthermore $[2](0, 0) = (-a_2, a_1 a_2 - a_3)$.
+\end{corollary}
+\begin{proof}
+    After a translation by $-P$, we may assume that
+    \begin{equation*}
+        E: y^2 + a'_1 x y + a'_3 y = x^3 + a'_2 x^2 + a'_4 x
+    \end{equation*}
+    and $P = (0, 0)$.
+    Now observe that if $a'_3 = 0$, the line $x = 0$ through $(0, 0)$ and $\O$ meets $E$ in $(0, 0)$ with multiplicity 2, and so $(0, 0) + \O = (0, 0)$, contradicting the assumption that $P$ is not a 2-torsion point.
+    Thus $a'_3 \neq 0$ and a shearing with $r = a'_4 / a'_3$ maps $E$ to
+    \begin{equation*}
+        E': y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2
+    \end{equation*}
+    Note that the tangent at $(0, 0)$ now has slope $0$, i.e. is given by $y = 0$.
+    Furthermore, the third point of intersection of the tangent and $E$ is $(-a_2, 0)$.
+    The line through $\O$ and $(-a_2)$ is given by $x = -a_2$ and its third point of intersection with $E$ is then $(-a_2, a_1a_2 - a_3)$. 
+\end{proof}
+I came up with the next lemma to make my first proof of 3(i) work.
+Since then, I have found a simpler proof that does not require the lemma anymore, but I found it beautiful and did not want to delete it.
 \begin{lemma}
     \label{prop:share_subgroup_equal}
-    Let $E, E'$ be Elliptic Curves, and assume they share a cyclic subgroup of order $n \geq 5$\footnote{Technically, we can also allow infinite order here.}.
+    Let $E, E'$ be Elliptic Curves defined over any field $k$, and assume they share a cyclic subgroup of order $n \geq 5$\footnote{Technically, we can also allow infinite order here.}.
     With this, we mean there is a point $P \in E \cap E'$ of order $n$ such that
     \begin{equation*}
         G := \langle P \rangle_E \subseteq E' \quad \text{and} \quad \restr{+_E}{G} = \restr{+_{E'}}{G}
@@ -619,93 +646,43 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
     So $E$ meets $E'$ in at least 10 points (counting multiplicity), which is greater than the product of their degrees $9 = 3 \cdot 3$.
     By Bezout's theorem, it follows that $E$ and $E'$ share an irreducible component of dimension $\geq 1$, but since both are Elliptic Curves, they are irreducible of dimension $1$ and so $E = E'$.
 \end{proof}
-\begin{prop}
-    \label{prop:characterization_5_torsion}
-    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over a field $k$ of characteristic $\neq 2$.
-    Suppose that $E$ has a nontrivial 5-torsion point $P = (0, \beta) \in E(k)$.
-    Let further $[2]P = (\alpha_2, \beta_2)$ and note that $0 \neq \alpha_2$.
-    Then there exists a birational equivalence $E \to E'$ where $E': y^2 + (1 + v) x y + v y = x^3 + v x^2$ given by
-    \begin{equation*}
-        \psi: E \to E', \quad (x, y) \mapsto (u^2 x, u^3 y + u^2 s x + t)
-    \end{equation*}
-    with
-    \begin{equation*}
-        v = \frac {\beta_2} {\beta}, \quad t = -\frac {\beta_2} {2\beta}, \quad u = -\frac {\alpha_2} {2\beta}, \quad s = \frac {u} {\alpha_2} ( \beta_2 + \beta )
-    \end{equation*}
-\end{prop}
-\begin{proof}
-    First note that the above values are well-defined, as by assumption, $(0, \beta)$ has order 5 (in particular $\neq 2$), thus $\beta \neq 0$.
-    Furthermore, we have that $(\alpha_2, \beta_2) = [2]P \neq \pm P$ (since $P$ has order 5), and since $\pm P = \pm (0, \beta)$ are the only (affine) points on $E$ with $x$-coordinate $0$, we see that $\alpha_2 \neq 0$.
-
-    Clearly $\psi$ maps $E$ to an Elliptic Curve $E''$.
-    Note that by assumption, we have
-    \begin{align*}
-        &[1](0, \beta) = (0, \beta), \quad [2](0, \beta) = (\alpha_2, \beta_2), \\
-        &[3](0, \beta) = -[2](0, \beta) = (\alpha_2, -\beta_2), \quad [4](0, \beta) = -[1](0, \beta) = (0, -\beta)
-    \end{align*}
-    By Lemma~\ref{prop:relation_y_uv} we have that $\alpha_2^3 = -4\beta\beta_2$ and so
-    \begin{equation*}
-        u^3 = \left( -\frac {\alpha_2} {2\beta} \right)^3 = -\frac {\alpha_2^3} {8\beta^3} = \frac {4\beta\beta_2} {8\beta^3} = \frac {\beta_2} {2\beta^2}
-    \end{equation*}
-    Under $\psi$, we now see that
-    \begin{equation*}
-        (0, \ \beta) \mapsto (0, u^3 \beta + t) = \left( 0, \ \frac {\beta} {2\beta_2} - \frac {\beta} {2\beta_2} \right) = (0, 0)
-    \end{equation*}
-    and
-    \begin{align*}
-        (\alpha_2, \ \beta_2) \mapsto (u^2 \alpha_2, \ u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(\frac {\alpha_2^3} {4\beta^2}, \ \frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
-        &= \left( -\frac {\beta_2} {\beta}, \ \frac {\beta_2^2} {\beta^2} \right) = (-v, \ v^2)
-    \end{align*}
-    and
-    \begin{align*}
-        (\alpha_2, -\beta_2) \mapsto (u^2 \alpha_2, \ -u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(\frac {\alpha_2^3} {4\beta^2}, \ -\frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
-        &= ( -\frac {\beta_2} {\beta}, \ 0) = (-v, \ 0)
-    \end{align*}
-    and
-    \begin{align*}
-        (0, \ -\beta) \mapsto (0, -u^3 \beta + t) = \left( 0, \ -\frac {\beta_2} {2\beta} - \frac {\beta_2} {2\beta} \right) = (0, \ -v)
-    \end{align*}
-    and of course $\O \mapsto \O$.
-
-    Now note that in $E'$, we have
-    \begin{equation*}
-        [2](0, 0) = (-v, v^2) = \psi(\alpha_2, \beta_2), \quad [4](0, 0) = [2](-v, v^2) = (0, -v) = \psi(0, -\beta)
-    \end{equation*}
-    and so
-    \begin{equation*}
-        [5](0, 0) = \O = \psi(\O), \quad [3](0, 0) = -[2](0, 0) = (-v, 0) = \psi(\alpha_2, -\beta_2) 
-    \end{equation*}
-    Hence $\psi(E)$ and $E'$ share the subgroup $\{ (0, 0), (-v, v^2), (-v, 0), (0, -v), \O \}$ and must be equal by Lemma~\ref{prop:share_subgroup_equal}.
-\end{proof}
-\begin{corollary}[3(i)]
+\begin{prop}[3(i)]
     Let $E$ be an Elliptic Curve defined over $\Q$.
     Then $E(\Q)$ has a nontrivial 5-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
     \begin{equation*}
         y^2 + (v + 1)x y + v y = x^3 + v x^2
     \end{equation*}
-\end{corollary}
+\end{prop}
 \begin{proof}
-    Note that $E$ is isomorphic (over $\Q$) to an Elliptic Curve defined by a Weierstraß equation, so assume wlog
+    By Corollary~\ref{prop:point_normalization}, we can assume that $E$ is given as
     \begin{equation*}
-        E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6
+        E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2
     \end{equation*}
-    Now let $P = (\alpha, \beta)$ be a nontrivial 5-torsion point.
-    Then $E$ is isomorphic via $(x, y) \mapsto (x - \alpha, \beta)$ to an Elliptic Curve
+    and $(0, 0)$ is a 5-torsion point of $E$ such that the tangent at $(0, 0)$ on $E$ is given by $y = 0$.
+    Further, have $[2](0, 0) = (-a_2, a_1 a_2 - a_3)$.
+    After applying a scaling, assume further that $a_2 = a_3$.
+    Now define $\beta = a_2(a_1 - 1)$.
+    Thus $[2](0, 0) = (-a_2, \beta)$.
+    By computing the third point of intersection between $E$ and the lines $x = 0$ resp. $x = -a_2$ we see that 
     \begin{equation*}
-        E': y^2 = x^3 + a'_2 x^2 + a'_4 x
+        [3](0, 0) = -[2](0, 0) = (-a_2, 0), \quad [4](0, 0) = (0, -a_3)
     \end{equation*}
-    and $(0, \beta)$ is a nontrivial 5-torsion point of $E'$.
-    The claim follows now by Proposition~\ref{prop:characterization_5_torsion}.
-
-    Conversely, assume that
+    Now consider the tangent at $[2](0, 0) = (-a_2, \beta)$.
+    It has slope
+    \begin{align*}
+        \lambda =& \frac {3 a_2^2 - 2 a_2^2 - a_1 \beta} {2\beta - a_1 a_2 + a_3} = \frac {a_2^2 - a_1\beta} \beta = \frac {a_2^2 - a_1a_2(a_1 - 1)} \beta = \frac {(a_2 - a_1(a_1 - 1))a_2} {a_2(a_1 - 1)} \\
+        =& \frac {a_2 - a_1(a_1 - 1)} {a_1 - 1} = \frac {a_2} {a_1 - 1} - a_1
+    \end{align*}
+    Since $[4](-a_2, \beta) = [4](0, 0) = -(0, 0)$, observe that $(0, 0)$ must be a point on the tangent $y = \lambda (x + a_2) + \beta$.
+    Thus $\lambda a_2 + \beta = 0$ and so
     \begin{equation*}
-        E: y^2 + (v + 1) x y + v y = x^3 + v x^2
+        \frac {a_2^2} {a_1 - 1} - a_1 a_2 + a_2(a_1 - 1) = 0
     \end{equation*}
-    As above, find that
+    Clearly $a_2 \neq 0$ and thus
     \begin{equation*}
-        [2](0, 0) = (-v, v^2), \quad [2](-v, v^2) = (0, -v)
+        0 = a_2 - a_1 (a_1 - 1) + (a_1 - 1)^2 = a_2 - a_1 - 1
     \end{equation*}
-    and thus $[4](0, 0) + (0, 0) = \O$, hence $(0, 0)$ has order 5.
+    So $a_1 = a_2 + 1$ and the claim follows with $v = a_2 = a_3$.
 \end{proof}
 In the lecture, it was mentioned that a theorem of Mazur states that the torsion group of an Elliptic Curve $E$ defined over $\Q$ has one of the following forms
 \begin{itemize}
@@ -745,52 +722,14 @@ First, note that the case $N = 2$ is easy.
     Observe that $E''$ is of the described form, and the claim follows. 
 \end{proof}
 The case $N = 3$ is slightly more interesting.
-For this, we first look at some basic transformations we can do to Weierstraß equations.
-\begin{prop}
-    \label{prop:weierstrass_transformations}
-    Let $E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
-    There are three nice types of transformations
-    \begin{description}
-        \item[Translation] Let $P = (s, t) \in E(k)$ be a point. Then the isomorphism
-        \begin{equation*}
-            E \to E', \quad (x, y) \mapsto (x - s, y - t)
-        \end{equation*}
-        maps $P$ to $(0, 0)$ and the curve $E$ to an Elliptic Curve
-        \begin{equation*}
-            E': y^2 + a_1 x y + (a_3 + 2t + a_1 s) y = x^3 + (a_2 + 3 s) x^2 + (a_4 - 3 s^2 + 2 a_2 s - a_1 t) x
-        \end{equation*}
-        This is very useful to clear $a_6$ and continue working with the point $(0, 0)$.
-        \item[Shearing] Let $r \in k$. Then the isomorphism
-        \begin{equation*}
-            E \to E', \quad (x, y) \mapsto (x, y - r x)
-        \end{equation*}
-        preserves $(0, 0)$ and maps $E$ to an Elliptic Curve
-        \begin{equation*}
-            E': y^2 + (a_1 + 2r) x y + a_3 y = x^3 + (a_2 + r^2 - a_1 r) x^2 + (a_4 - r a_3) x + a_6
-        \end{equation*}
-        This is very useful, as it does not change $a_3$ and $a_6$.
-        \item[Scaling] Let $u \in k^*$. Then the isomorphism
-        \begin{equation*}
-            E \to E', \quad (x, y) \mapsto (u^2 x, y^3 y)
-        \end{equation*}
-        preserves $(0, 0)$ and maps $E$ to an Elliptic Curve
-        \begin{equation*}
-            E': y^2 + \frac {a_1} u x y + \frac {a_3} {u^3} = x^3 + \frac {a_2} {u^2} x^2 + \frac {a_4} {u^4} x + \frac {a_6} {u^6}
-        \end{equation*}
-        This is very useful, as it does not change which of the $a_1, ..., a_4, a_6$ are zero.
-    \end{description}
-\end{prop}
-\begin{proof}
-    Just plug the equation of the isomorphism into the equation defining the $E'$, and check that it is zero modulo the equation of $E$.
-\end{proof}
-Now we can find a nice form for Elliptic Curves with a (nontrivial) 3-torsion point by the following step:
+Our approach is as follows:
 \begin{itemize}
-    \item Apply a translation to get an isomorphic curve whose (nontrivial) 3-torsion point is $(0, 0)$.
+    \item Apply a translation to get an isomorphic curve whose (nontrivial) 3-torsion point is $(0, 0)$ and the tangent is given by $y = 0$.
     \item Observe that $(0, 0)$ being a 3-torsion point is equivalent to the fact that the tangent at $E$ through $(0, 0)$ meets $E$ at $(0, 0)$ with multiplicity three.
-    \item Apply clever shearing and scaling to get a nice form. Note that this does not destroy the fact $a_6 = 0$.
+    \item Show that after a scaling, the resulting equation is nice.
 \end{itemize}
 Now we get
-\begin{prop}
+\begin{prop}[3(ii) - 3-torsion points]
     Let $E$ be an Elliptic Curve defined over $\Q$.
     Then $E(\Q)$ has a nontrivial 3-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
     \begin{equation*}
@@ -798,29 +737,24 @@ Now we get
     \end{equation*}
 \end{prop}
 \begin{proof}
-    By Proposition~\ref{prop:weierstrass_transformations} we can assume wlog that
+    By Corollary~\ref{prop:point_normalization} we can assume wlog that
     \begin{equation*}
-        E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x
+        E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2
     \end{equation*}
     and $(0, 0) \in E(\Q)$ is a nontrivial 3-torsion point.
-    Now a shearing with $r = a_4 / a_3$ transforms $E$ into an Elliptic Curve
-    \begin{equation*}
-        E': y^2 + a'_1 x y + a'_3 y = x^3 + a'_2 x^2
-    \end{equation*}
-    Observe that $(0, 0)$ is still a nontrivial 3-torsion point of $E'(\Q)$.
 
-    Now note that the tangent at $(0, 0)$ has slope $m = a'_4/a'_3 = 0$.
-    Hence, since $-[2](0, 0) = (0, 0)$ is the third point of intersection of $E'$ and the tangent, we see that the tangent meets $E'$ at $(0, 0)$ with multiplicity three.
+    Now note that the tangent at $(0, 0)$ has slope $m = 0/a_3 = 0$.
+    Hence, since $-[2](0, 0) = (0, 0)$ is the third point of intersection of $E$ and the tangent, we see that the tangent meets $E$ at $(0, 0)$ with multiplicity three.
     Thus
     \begin{equation*}
-        x^3 + a'_2 x^2 
+        x^3 + a_2 x^2 
     \end{equation*}
-    must already be $x^3$ and thus have $a'_2 = 0$.
-    Finally, apply a scaling with $u = a'_1$ (note that $a'_1 \neq 0$, otherwise the curve would be singular) and find that $E$ is isomorphic to the curve
+    must already be $x^3$ and thus have $a_2 = 0$.
+    Finally, apply a scaling with $u = a_1$ (note that $a_1 \neq 0$, otherwise the curve would be singular) and find that $E$ is isomorphic to the curve
     \begin{equation*}
-        E'': y^2 + x y + v y = x^3
+        E': y^2 + x y + v y = x^3
     \end{equation*}
-    where $v = a'_3 / (a'_1)^3$.
+    where $v = a_3 / (a_1)^3$.
 
     Conversely, assume that $E$ is isomorphic to an Elliptic Curve of the above form, so wlog
     \begin{equation*}
