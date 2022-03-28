@@ -21,6 +21,5 @@ I = ideal(
     -y * l2_den + v * l2_den - u * l2_num, # [2](u,v) = (0,-y)
 )
 
-# the next statement prints:
-# Ideal (u^3 + 4*y*v) of Multivariate Polynomial Ring ...
-print(I.elimination_ideal([a, b, c]))
+test = u^3 + 4 * y * v
+print(test in I) # prints True

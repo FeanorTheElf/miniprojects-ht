@@ -14,6 +14,7 @@
 \usepackage{geometry}
 \usepackage{enumerate}
 \usepackage{tikz}
+\usepackage{thmtools}
 \usepackage{hyperref}
 \usepackage[style=english]{csquotes}
 \usepackage[language=english, backend=biber, style=alphabetic, sorting=nyt]{biblatex}
@@ -75,6 +76,7 @@
 
 \begin{document}
 \maketitle
+\listoftheorems
 
 \section{Question 1}
 
@@ -153,7 +155,7 @@ Note that this is usually not a group anymore, and does not have a lot of nice s
     This clearly shows that $E(\Z_3) = \{ \O \}$ and so $E(\Z) = \{\O\}$.
 \end{proof}
 For the next exercise, we first summarize the techniques we have used above.
-\begin{prop}
+\begin{prop}[Existence of points over $\Z_p$]
     \label{prop:p_adic_points_techniques}
     Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $\Z$.
     Let $p$ be a prime.
@@ -187,44 +189,14 @@ For the next exercise, we first summarize the techniques we have used above.
     The claim now follows by the third part.
 \end{proof}
 This already shows that we do not have to worry to much about the condition $E(\Z_p) \neq \{\O\}$ for $p \neq 2, 3, 5, 7$ prime, as we expect that it is fulfilled quite often.
-This gives the following condition.
-\begin{prop}
-    Let $f_0, f_1, f_2 \in \Z$ and consider the Elliptic Curve $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$.
-    Let $p \in \{3, 5, 7\}$.
-    Then there is no $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ if and only if
-    \begin{align*}
-        p = 3 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 0, 2 \mod 3 \\
-        p = 5 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 0, 2, 3 \mod 5 \\
-        p = 7 \ \Rightarrow \ n^3 + f_2 n^2 + f_1 n + f_0 &\equiv 0, 3, 5, 6 \mod 7
-    \end{align*}
-    for all $n \in \Z$.
-    
-    In particular, this is necessary for $E$ to satisfy the desired properties, i.e. there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ if and only if $p \neq 3, 5, 7$
-    \footnote{I understood the task here to be ``if and only if''. As mentioned later, this interpretation is probably wrong, and I will discuss the other case next.}.
-\end{prop}
-\begin{proof}
-    Let $p \in \{3, 5, 7\}$.
-    Assume there is some $(\tilde{x}, \tilde{y}) \in \tilde{E}(\F_p), x, y \in \Z$ with $\tilde{y} \neq 0$.
-    Then have
-    \begin{equation*}
-        y^2 \equiv x^3 + f_2 x^2 + f_1 x + f_0 \mod p
-    \end{equation*}
-    and so $x^3 + f_2 x^2 + f_1 x + f_0$ is a quadratic residue modulo $p$.
-    
-    By checking all elements in $\F_3$, $\F_5$ and $\F_7$, one finds
-    \begin{align*}
-        \text{$n$ quadratic residue modulo $3$} \ &\Leftrightarrow \ n \equiv 0, 1 \mod 3 \\
-        \text{$n$ quadratic residue modulo $5$} \ &\Leftrightarrow \ n \equiv 0, 1, 4 \mod 5 \\
-        \text{$n$ quadratic residue modulo $7$} \ &\Leftrightarrow \ n \equiv 0, 1, 4, 2 \mod 7
-    \end{align*}
-    Except for $n \equiv 0 \mod p$, these cases have been excluded by assumption.
-    However we assumed that $y \not\equiv 0 \mod p$, so $y^2 \not\equiv 0 \mod p$ and the claim follows.
-
-    The other direction follows by reversing the above computation.
-    The claim now follows from Proposition~\ref{prop:p_adic_points_techniques}.
-\end{proof}
-However, there is one problem here.
-Using a computer, one can easily find (e.g. by trying all possibilities) that there are no $f_0, f_1, f_2 \in \Z$ such that the above conditions are (simultaneously) fulfilled for $3$, $5$ and $7$.
+My next try was to characterize in which cases there is no $(x, y) \in E(\Z_p)$, $|y|_p = 1$.
+However it turns out that this never happens simultaneously for $p \in \{ 3, 5, 7 \}$ (which was how I understood the question at first).
+On the other hand, I also found the following strengthening of the previous statement that completely finishes the case $p \geq 11$.
+\begin{equation*}
+    n^3 + f_2 n^2 + f_1 n + f_0 \equiv a_1, ..., a_l \mod p
+\end{equation*}
+for all $n \in \Z$ is equivalent to the same condition for $n \in \{ 0, ..., p - 1 \}$.
+Further, each condition is linear
 This seems to indicate that I have indeed misunderstood the task, and we only look for Elliptic Curves $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ such that there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for every $p \neq 3, 5, 7$, and do not require further properties for $E(\Z_3), E(\Z_5)$ and $E(\Z_7)$.
 
 So instead consider a strengthening of the last part of Proposition~\ref{prop:p_adic_points_techniques}.
@@ -266,6 +238,7 @@ So instead consider a strengthening of the last part of Proposition~\ref{prop:p_
 \end{proof}
 The above proposition shows that constructing Elliptic Curves $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ such that there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for all primes $p \neq 3, 5, 7$ is indeed quite simple, as almost all curves satisfy this.
 This only case that can fail is $p = 2$, but here, the condition is fulfilled quite often, so we can just try different choices.
+Using a small brute force search then yields the following examples.
 \begin{example}
     Let
     \begin{align*}
@@ -399,7 +372,7 @@ This only case that can fail is $p = 2$, but here, the condition is fulfilled qu
     The only factors of $144$ are $\pm 1, \pm 2, \pm 4, \pm 8, \pm 16, \pm 3, \pm 6, \pm 12, \pm 24, \pm 48, \pm 9, \pm 18, \pm 36, \pm 72, \pm 144$ and none solves $144 = x^3 - 7x^2 - 8x$.
     The only factors of $81$ are $\pm 1, \pm 3, \pm 9, \pm 27, \pm 81$ and none solves $81 = x^3 - 7x^2 - 8x$.
 
-    Note that the usual approach to bound the size of $E_{\mathrm{tors}}(\Q)$ is use to the theorem that this embeds into $\tilde{E}(\F_p)$ whenever $\tilde{E}$ is an Elliptic Curve.
+    Note that the usual approach to bound the size of $E_{\mathrm{tors}}(\Q)$ is to use the theorem that this embeds into $\tilde{E}(\F_p)$ whenever $\tilde{E}$ is an Elliptic Curve.
     However, for this example, this was not sufficient, as we could not find a prime such that the group $\Z/4\Z \oplus \Z/2\Z$ does not embed into $\tilde{E}(\F_p)$.
     In the next part, we want to study this phenomenon more carefully and indeed see that there is no such prime, i.e. it is impossible to show that $\#E_{\mathrm{tors}}(\Q) \neq 8$ by just considering the reductions modulo $p$.
 \end{example}
@@ -414,9 +387,25 @@ First, it is convenient to have a closed formula for the $x$-coordinate of $[2]P
     \end{equation*}  
 \end{prop}
 \begin{proof}
-    TODO
+    Consider the tangent at $P = (a, b)$.
+    Differentiating the equation of $E$ gives
+    \begin{equation*}
+        2y\frac {dy} {dx} = 3x^2 + 2a_2x + a_4
+    \end{equation*}
+    so it has slope
+    \begin{equation*}
+        \lambda = \frac {3a^2 + 2a_2a + a_4} {2b}
+    \end{equation*}
+    and the equation $y = \lambda (x - a) + b$.
+    Note that after plugging this into the equation for $E$, the quadratic term has the coefficient $a_2 - \lambda^2$, so
+    \begin{align*}
+        x([2]P) &= \lambda^2 - a_2 - 2 x(P) = \frac {(3x(P)^2 + 2a_2x(P) + a_4)^2} {4b^2} - a_2 - 2 x(P) \\
+        &= \frac {(3x(P)^2 + 2a_2x(P) + a_4)^2} {4(x(P)^3 + a_2 x(P)^2 + a_4 x(P) + a_6)} - a_2 - 2 x(P)
+    \end{align*}
+    Expanding this yields the claimed expression.
 \end{proof}
-\begin{prop}
+\begin{prop}[Reductions mod $p$ are not enough]
+    \label{prop:subgroup_mod_every_p}
     Let $E: y^2 = x(x + 1)(x - 8)$ be the Elliptic Curve from the previous example.
     The for each prime $p \geq 5$, have that $\Z/4\Z \oplus \Z/2\Z$ is a subgroup of $\tilde{E}(\F_p)$.
 \end{prop}
@@ -479,11 +468,14 @@ So consider an Elliptic Curve
 with 3 nontrivial torsion points $(\alpha, 0), (\beta, 0), (0, 0)$ over $\Q$.
 We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
 \begin{lemma}
+    \label{prop:condition_z4_subgroup_mod_p}
     Let $E: y^2 = x(x - \alpha)(x - \beta)$ be an Elliptic Curve over a field $k$ of characteristic $\neq 2$.
-    Then there exists $P \in E(k)$ of order 4 if and only if $k$ has a root of the polynomial $F(T)$ given by
-    \begin{equation*}
-        \left(T^4 + 2(\alpha + \beta)T^2 + (\alpha - \beta)^2\right)\left(T^4 + (2\beta - 4\alpha)T^2 + \beta^2\right)\left(T^4 + (2\alpha - 4\beta)T^2 + \alpha^2\right)
-    \end{equation*}
+    Then there exists $P \in E(k)$ of order 4 if and only if at least one of the following is true
+    \begin{itemize}
+        \item there is $\gamma \in k$ with $\gamma^2 = \alpha\beta$ and $2\gamma - \alpha - \beta$ is square in $k$
+        \item there is $\gamma \in k$ with $\gamma^2 = \alpha(\alpha - \beta)$ and $2\gamma + 2\alpha - \beta$ is square in $k$
+        \item there is $\gamma \in k$ with $\gamma^2 = \beta(\beta - \alpha)$ and $2\gamma + 2\beta - \alpha$ is square in $k$
+    \end{itemize}
 \end{lemma}
 \begin{proof}
     The duplication formula for $E$ gives with $x = x(P)$ that
@@ -491,9 +483,7 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
         x([2]P) = d(x) := \frac {x^4 - 2 \alpha \beta x^2 + \alpha^2 \beta^2} {4x^3 - 4(\alpha + \beta) x^2 + 4 \alpha \beta x}
     \end{equation*}
 
-    \paragraph{Case 1} If there is $\mu \in \F_p$ with $\mu^4 + 2(\alpha + \beta)\mu^2 + (\alpha - \beta)^2 = 0$.
-
-    Then note that there is $\gamma := \frac 1 2 (\mu^2 - \alpha - \beta)$ such that $\gamma^2 = \alpha\beta$.
+    \paragraph{Case 1} By assumption, there is $\gamma, \mu \in k$ with $\gamma^2 = \alpha\beta$ and $\mu^2 = 2\gamma + \alpha + \beta$.
     Thus
     \begin{equation*}
         d(\gamma) = \frac {\gamma^4 - 2\alpha\beta\gamma^2 + \alpha^2\beta^2} {4\gamma^3 - 4(\alpha + \beta) \gamma^2 + 4 \alpha \beta \gamma} = \frac 0 {4\gamma^3 - 4(\alpha + \beta) \gamma^2 + 4 \alpha \beta \gamma} = 0
@@ -502,12 +492,11 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
     \begin{equation*}
         \gamma^3 - (\alpha + \beta)\gamma^2 + \alpha\beta\gamma = 2\alpha\beta\gamma - \alpha\beta(\alpha + \beta) = \alpha\beta(2\gamma - \alpha - \beta) = \gamma^2 \mu^2
     \end{equation*}
-    since $\mu^2 = 2\gamma - \alpha - \beta$.
     So there is a point $(\gamma, \gamma\mu) \in E(k)$ with $[2](\gamma, \mu) = (0, 0)$.
 
-    \paragraph{Case 2} If there is $\mu \in k$ with $\mu^4 + (2\beta - 4\alpha)\mu^2 + \beta^2 = 0$.
-
-    Then note that there is $\gamma := \frac 1 2 (\mu^2 + \beta)$ such that $\gamma^2 - 2\alpha\gamma + \alpha\beta = 0$.
+    \paragraph{Case 2} By assumption, there is $\gamma_0, \mu \in k$ with $\gamma_0^2 = \alpha(\alpha - \beta)$ and $\mu^2 = 2\gamma_0 + 2\alpha - \beta$.
+    Let $\gamma := \alpha + \gamma_0$.
+    Then note that $\gamma^2 - 2\alpha\gamma + \alpha\beta = 0$.
     Thus
     \begin{align*}
         &\gamma^4 - 2 \alpha \beta \gamma^2 + \alpha^2 \beta^2 = 4\alpha \gamma^3 - 4\alpha(\alpha + \beta) \gamma^2 + 4 \alpha^2 \beta \gamma \\
@@ -532,30 +521,58 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
         =& \alpha(\alpha - \beta)(2\gamma - \beta) \\
         =& (\gamma - \alpha)^2\mu^2
     \end{align*}
-    as $\mu^2 = 2\gamma - \beta$ and $(\gamma - \alpha)^2 = 2\alpha\gamma - \alpha\beta - 2\gamma\alpha + \alpha^2 = \alpha(\alpha - \beta)$.
     So there is a point $(\gamma, (\gamma - \alpha)\mu) \in E(k)$ with $[2](\gamma, (\gamma - \alpha)\mu) = (\alpha, 0)$.
 
-    \paragraph{Case 3} Similarly, if there is $\mu \in k$ with $\mu^4 + (2\alpha - 4\beta)\mu^2 + \alpha^2 = 0$, then there is a point $P \in E(k)$ with $[2]P = (\beta, 0)$
+    \paragraph{Case 3} Exactly as in the previous case, by swapping $\alpha$ and $\beta$.
+
+    The direction $\Leftarrow$ follows by distinguishing the cases $[2]P = (0, 0)$, $[2]P = (\alpha, 0)$ and $[2]P = (\beta, 0)$ and then reversing the above computation.
 \end{proof}
-Hence, we just have to find $\alpha, \beta \in \Q$ such that the polynomial $F$ has no root in $\Q$ and a root in every $\F_p$ (where $p$ is a prime of good reduction).
-First, note that $F(T) = G(T^2)$ where
-\begin{equation*}
-    G(T) = \left( T^2 + 2(\alpha + \beta)T + (\alpha - \beta)^2 \right)\left( T^2 + (2\beta - 4\alpha)T + \beta^2 \right)\left( T^2 + (2\alpha - \beta)T + \alpha^2 \right)
-\end{equation*}
-Since the cases where this has a root in $\Q$ are clearly a Zariski-closed condition on $(\alpha, \beta)$, we see that ``most'' value of $\alpha, \beta$ will result in no root of $F(T)$.
-Hence, we focus on finding $\alpha, \beta \in \Z$ such that $F(T)$ has a root modulo any prime $p$ (of good reduction).
-A necessary condition for that is that $G(T)$ has a root modulo any prime $p$, which in turn is equivalent that any of the discriminants (scaled by squares)
-\begin{equation*}
-    \alpha\beta, \ (\alpha - 3\beta)(\alpha - \beta), \ (\beta - 3\alpha)(\beta - \alpha)
-\end{equation*}
-is a quadratic residue modulo $p$, for any prime $p$.
+\begin{lemma}
+    \label{prop:condition_double_square}
+    Let $k$ be a field of characteristic $\neq 2$ and $\alpha, \beta \in k$.
+    \begin{itemize}
+        \item there is $\gamma \in k$ with $\gamma = \alpha\beta$ and $2\gamma - \alpha - \beta$ square in $k$ if $-\alpha$ and $-\beta$ are squares in $k$.
+        \item there is $\gamma \in k$ with $\gamma = \alpha(\alpha - \beta)$ and $2\gamma + 2\alpha - \beta$ square in $k$ if $\alpha$ and $\alpha - \beta$ are squares in $k$.
+        \item there is $\gamma \in k$ with $\gamma = \beta(\beta - \alpha)$ and $2\gamma + 2\beta - \alpha$ square in $k$ if $\beta$ and $\beta - \alpha$ are squares in $k$.
+    \end{itemize}
+\end{lemma}
+\begin{proof}
+    Consider $\mu, \rho \in k$ with $\mu^2 = -\alpha$ and $\rho^2 = -\beta$.
+    Then $\gamma := \mu\rho$ satisfies $\gamma^2 = \alpha\beta$ and
+    \begin{equation*}
+        (\mu + \rho)^2 = \mu^2 + 2\mu\rho + \rho^2 = 2\gamma -\alpha - \beta
+    \end{equation*}
+    Consider now $\mu, \rho \in k$ with $\mu^2 = \alpha$ and $\rho^2 = \alpha - \beta$.
+    Then $\gamma := \mu\rho$ satisfies $\gamma^2 = \alpha(\alpha - \beta)$ and
+    \begin{equation*}
+        (\mu + \rho)^2 = \mu^2 + 2\mu\rho + \rho^2 = 2\gamma + 2\alpha - \beta
+    \end{equation*}
+    The third claim follows in the same way, by swapping $\alpha$ and $\beta$.
+\end{proof}
+\begin{example}
+    Let $p$ be a prime.
+    Taking the set of ``exhaustive cases'' given by $p(-1) = -p$ similar to the proof of Proposition~\ref{prop:subgroup_mod_every_p}.
+    In other words, take $\alpha, \beta \in \Z$ such that $-\alpha, -p\beta$ and $\beta - \alpha$ are squares (in $\Z$).
+    Then we find for any prime $q$
+    \begin{itemize}
+        \item If $p$ is a quadratic residue mod $q$, then $-\alpha$ and $-\beta$ are
+        \item If $-1$ is a quadratic residue mod $q$, then $\alpha$ and $\alpha - \beta$ are
+        \item If $-p$ is a quadratic residue mod $q$, then $\beta$ and $\beta - \alpha$ are
+    \end{itemize}
+    Hence, by Lemma~\ref{prop:condition_z4_subgroup_mod_p} and Lemma~\ref{prop:condition_double_square}, we see that every reduction $\tilde{E}(\F_q)$ of the Elliptic Curve $E: y^2 = x(x - \alpha)(x - \beta)$ (where $q$ is a prime of good reduction) contains a point of order 4.
+    Thus $\Z/4\Z \times \Z/2\Z \hookrightarrow \tilde{E}(\F_q)$.
+\end{example}
+\begin{example}
+    Consider the Elliptic Curve $E: y^2 = x(x + 4)(x + 3)$.
+    Then $-(-4)$, $(-3)(-3)$ and $-3 - (-4) = 1$ are square, thus $\Z/4\Z \times \Z/2\Z \hookrightarrow \tilde{E}(\F_p)$ for every prime $p$ of good reduction.
+    Furthermore, $E(\Q)$ does not have a point of order $4$ by Lemma~\ref{prop:condition_z4_subgroup_mod_p}, since $(-3)(-4) = 12$ and $(-3)(-3 - (-4)) = 3$ are no squares and also $2\gamma + 2(-4) - (-3) = -5 \pm 2 \cdot 2$ is not a square, where $\gamma^2 = (-4)(-4 - (-3)) = 4$.
+\end{example}
 
 \section{Question 3}
 \begin{lemma}
     \label{prop:relation_y_uv}
     Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
-    Suppose that $E$ has a nontrivial 5-torsion point $P = (\alpha_1, \beta_1) \in E(k)$.
-    wlog $\alpha_1 = 0$.
+    Suppose that $E$ has a nontrivial 5-torsion point\footnote{As remarked upon later, focusing on case that the $x$-coordinate is zero is not a real restriction.} $P = (0, \beta) \in E(k)$.
     Let further $(\alpha_2, \beta_2) = [2](0, \beta)$.
     Then
     \begin{equation*}
@@ -563,62 +580,48 @@ is a quadratic residue modulo $p$, for any prime $p$.
     \end{equation*}
 \end{lemma}
 \begin{proof}
-    Consider the following SAGE script:
-    \lstinputlisting[language = python]{./3i_algebra.sage}
-    The output shows that $\alpha_2^3 = -4 \beta \beta_2$ already follows from the facts
+    Note that the assumptions
     \begin{align*}
-        &(0, \beta) \in E, \\
-        &(\alpha_2, \beta_2) \in E, \\
-        &[2](0, \beta) = (\alpha_2, \beta_2), \\
-        &[2](\alpha_2, \beta_2) = (0, -\beta)
+        (0, \beta) &\in E, \\
+        (\alpha_2, \beta_2) &\in E, \\
+        [2](0, \beta) &= (\alpha_2, \beta_2), \\
+        [2](\alpha_2, \beta_2) &= (0, -\beta)
     \end{align*}
-    which hold by assumption that $(0, \beta)$ has order $5$.
-    The claim follows.
+    can all be expressed via roots of polynomials, and also the claimed statement is of this form.
+    Hence, the problem reduces to checking that $\alpha_2^3 + 4\beta\beta_2$ is contained in the ideal $I$ generated by the polynomials giving the assumptions (in the polynomial ring $k[a_2, a_4, a_6, \beta, \alpha_2, \beta_2]$).
+    Using Gröbner-basis methods, this can easily be done using a computer.  
+    So consider the following SAGE script:
+    \lstinputlisting[language = python]{./3i_algebra.sage}
+    The output prints \lstinline{True} and so the statement holds for $k = \Q$.
+    Thus, there are $g_1, ..., g_n \in I$ and $s_1, ..., s_n \in \Q[a_2, a_4, a_6, \beta, \alpha_2, \beta_2]$ such that
+    \begin{equation*}
+        \alpha_2^3 + 4\beta\beta_2 = \sum_i g_i s_i
+    \end{equation*}
+    Since the generators of $I$ and $\alpha_2^3 + 4\beta\beta_2$ have coefficients in $\Z$, we can also choose $r_i, s_i$ to have coefficients in $\Z$.
+    Now note that there is a homomorphism $\Z \to k$ for every field $k$, and so the statement holds in an arbitrary field $k$.
 \end{proof}
 \begin{lemma}
-    TODO
-
-    Let
+    \label{prop:share_subgroup_equal}
+    Let $E, E'$ be Elliptic Curves, and assume they share a cyclic subgroup of order $n \geq 5$\footnote{Technically, we can also allow infinite order here.}.
+    With this, we mean there is a point $P \in E \cap E'$ of order $n$ such that
     \begin{equation*}
-        E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6    
+        G := \langle P \rangle_E \subseteq E' \quad \text{and} \quad \restr{+_E}{G} = \restr{+_{E'}}{G}
     \end{equation*}
-    and
-    \begin{equation*}
-        E': y^2 + a'_1 x y + a'_3 y = x^3 + a'_2 x^2 + a'_4 x + a'_6    
-    \end{equation*}
-    be Elliptic Curves.
-    If there are five distinct points $P_1, ..., P_5 \in E \cap E'$ in ``sufficiently independent position'', then $E = E'$ (meaning $a_i = a'_i$).
-
-    To be completely precise, there is a fixed 1-dimensional algebraic curve $C \subseteq \mathbb{A}^{10}$ (that does not depend on $E$, $E'$ or $P_1, ..., P_5$) of degree $6$ such that if there are five points $P_1 = (x_1, y_1), ..., P_5 = (x_5, y_5) \in E \cap E'$ with
-    \begin{equation*}
-        (x_1, ..., x_5, y_1, ..., y_5) \notin C
-    \end{equation*}
-    then $E = E'$.
+    Then $E = E'$ (in the sense that they have the same defining equation).
 \end{lemma}
 \begin{proof}
-    Consider the matrix $A = (a_{ij}) \in k[x_1, ..., x_5, y_1, ..., y_5]^{5 \times 5}$ given by
-    \begin{equation*}
-        a_{ij} = \begin{cases}
-            x_i^{j - 1} & \text{if $j \leq 3$} \\
-            -x_iy_i & \text{if $j = 4$} \\
-            -y_i & \text{if $j = 5$}
-        \end{cases}
-    \end{equation*}
-    Let $C = \V(\det(A))$ and assume there are five points $P_1 = (x_1, y_1), ..., P_5(x_5, y_5) \in E \cap E'$.
-    Then the matrix $A_P := A(x_1, ..., x_5, y_1, ..., y_5) \in k^{5 \times 5}$ is regular.
-    Since $P_1, ..., P_5 \in E \cap E'$, see that
-    \begin{equation*}
-        A_P (a_6 \ \ a_4 \ \ a_2 \ \ a_1 \ \ a_3)^T = (y_1^2 x_1^3 \ \ ... \ \ y_5^2 x_5^3)^T
-    \end{equation*}
-    and
-    \begin{equation*}
-        A_P (a'_6 \ \ a'_4 \ \ a'_2 \ \ a'_1 \ \ a'_3)^T = (y_1^2 x_1^3 \ \ ... \ \ y_5^2 x_5^3)^T
-    \end{equation*}
-    Thus by linear algebra, find that $E = E'$.
+    Consider some point $[i] P = (a, b) \in E \cap E'$.
+    With $P' = (a', b') := -[2i] P \in E \cap E'$ we see that $P + P + P' = \O$ and so $P, P, P'$ are colinear\footnote{We mean that the line through $P$ and $P'$ meets $E$ resp. $E'$ at $P$ with multiplicity 2.}.
+    In particular, the tangent on $E$ resp. on $E'$ at $P \in E \cap E'$ both have the slope $(b - b')/(a - a')$\footnote{Or infinity if $a = a'$, but importantly, the slopes are equal.}.
+
+    Since $P$ has order at least 5, observe that $P, [2]P, [3]P, [4]P$ and $[5]P$ are all different.
+    Furthermore, since $E$ and $E'$ have the same tangent slope at each $[i] P$, note that $E$ meets $E'$ in $[i] P$ with multiplicity 2.
+    So $E$ meets $E'$ in at least 10 points (counting multiplicity), which is greater than the product of their degrees $9 = 3 \cdot 3$.
+    By Bezout's theorem, it follows that $E$ and $E'$ share an irreducible component of dimension $\geq 1$, but since both are Elliptic Curves, they are irreducible of dimension $1$ and so $E = E'$.
 \end{proof}
 \begin{prop}
     \label{prop:characterization_5_torsion}
-    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $k$.
+    Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over a field $k$ of characteristic $\neq 2$.
     Suppose that $E$ has a nontrivial 5-torsion point $P = (0, \beta) \in E(k)$.
     Let further $[2]P = (\alpha_2, \beta_2)$ and note that $0 \neq \alpha_2$.
     Then there exists a birational equivalence $E \to E'$ where $E': y^2 + (1 + v) x y + v y = x^3 + v x^2$ given by
@@ -631,21 +634,8 @@ is a quadratic residue modulo $p$, for any prime $p$.
     \end{equation*}
 \end{prop}
 \begin{proof}
-    Everything we have to show is that $\psi$ maps into $E'$.
-    Have
-    \begin{align*}
-        \psi_y^2 + (v + 1)& \psi_y \psi_x + v \psi_y - \psi_3^3 - v \psi_x^2 \\
-        =& (u^3 y + u^2 s x + t)^2 + (v + 1) (u^3 y + u^2 s x + t) (u^2 x) \\
-            & + v (u^3 y + u^2 s x + t) - (u^2 x)^3 - v (u^2 x)^2 \\
-        =& u^6 y^2 + u^4 s^2 x^2 + t^2 + 2 u^5 s x y + 2 u^3 y t + 2 u^2 s t x \\
-            & + (v + 1) u^5 x y + (v + 1) u^4 x^2 + (v + 1) u^2 x t \\
-            & + v u^3 y + v u^2 s x + v t - u^6 x^3 - v u^4 x^2 \\
-        =& u^6 \Bigl( y^2 + \frac 1 u ( 2 s + 1 + v ) x y + \frac 1 {u^3} (2t + v) y \\
-            & - x^3 - \frac 1 {u^2} ()
-         \Bigr)
-    \end{align*}
-
-    TODO
+    First note that the above values are well-defined, as by assumption, $(0, \beta)$ has order 5 (in particular $\neq 2$), thus $\beta \neq 0$.
+    Furthermore, we have that $(\alpha_2, \beta_2) = [2]P \neq \pm P$ (since $P$ has order 5), and since $\pm P = \pm (0, \beta)$ are the only (affine) points on $E$ with $x$-coordinate $0$, we see that $\alpha_2 \neq 0$.
 
     Clearly $\psi$ maps $E$ to an Elliptic Curve $E''$.
     Note that by assumption, we have
@@ -657,27 +647,35 @@ is a quadratic residue modulo $p$, for any prime $p$.
     \begin{equation*}
         u^3 = \left( -\frac {\alpha_2} {2\beta} \right)^3 = -\frac {\alpha_2^3} {8\beta^3} = \frac {4\beta\beta_2} {8\beta^3} = \frac {\beta_2} {2\beta^2}
     \end{equation*}
-
     Under $\psi$, we now see that
     \begin{equation*}
-        (0, \ \beta) \mapsto (0, u^3 \beta + t) = \left( 0, \ \frac {\beta} {2\beta_2} - \frac {\beta} {2\beta_2} \right) = (0, 0) \in E'
+        (0, \ \beta) \mapsto (0, u^3 \beta + t) = \left( 0, \ \frac {\beta} {2\beta_2} - \frac {\beta} {2\beta_2} \right) = (0, 0)
     \end{equation*}
     and
     \begin{align*}
         (\alpha_2, \ \beta_2) \mapsto (u^2 \alpha_2, \ u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(\frac {\alpha_2^3} {4\beta^2}, \ \frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
-        &= \left( -\frac {\beta_2} {\beta}, \ \frac {\beta_2^2} {\beta^2} \right) = (-v, \ v^2) \in E'
+        &= \left( -\frac {\beta_2} {\beta}, \ \frac {\beta_2^2} {\beta^2} \right) = (-v, \ v^2)
     \end{align*}
     and
     \begin{align*}
-        (\alpha_2, \beta_2) \mapsto (u^2 \alpha_2, \ -u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(\frac {\alpha_2^3} {4\beta^2}, \ -\frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
-        &= ( -\frac {\beta_2} {\beta}, \ 0) = (-v, \ 0) \in E'
+        (\alpha_2, -\beta_2) \mapsto (u^2 \alpha_2, \ -u^3 \beta_2 + u^2 s \alpha_2 + t) &= \left(\frac {\alpha_2^3} {4\beta^2}, \ -\frac {\beta_2^2} {2\beta^2} + \frac {\beta_2} {2\beta} \left( \frac {\beta_2} {\beta} + 1 \right) - \frac {\beta_2} {2\beta} \right) \\
+        &= ( -\frac {\beta_2} {\beta}, \ 0) = (-v, \ 0)
     \end{align*}
     and
     \begin{align*}
-        (0, \ -\beta) \mapsto (0, -u^3 \beta + t) = \left( 0, \ -\frac {\beta_2} {2\beta} - \frac {\beta_2} {2\beta} \right) = (0, \ -v) \in E'
+        (0, \ -\beta) \mapsto (0, -u^3 \beta + t) = \left( 0, \ -\frac {\beta_2} {2\beta} - \frac {\beta_2} {2\beta} \right) = (0, \ -v)
     \end{align*}
     and of course $\O \mapsto \O$.
-    Hence we have $\#(E' \cap E'') \geq 5$ and by the previous proposition we see that $E' = E''$.
+
+    Now note that in $E'$, we have
+    \begin{equation*}
+        [2](0, 0) = (-v, v^2) = \psi(\alpha_2, \beta_2), \quad [4](0, 0) = [2](-v, v^2) = (0, -v) = \psi(0, -\beta)
+    \end{equation*}
+    and so
+    \begin{equation*}
+        [5](0, 0) = \O = \psi(\O), \quad [3](0, 0) = -[2](0, 0) = (-v, 0) = \psi(\alpha_2, -\beta_2) 
+    \end{equation*}
+    Hence $\psi(E)$ and $E'$ share the subgroup $\{ (0, 0), (-v, v^2), (-v, 0), (0, -v), \O \}$ and must be equal by Lemma~\ref{prop:share_subgroup_equal}.
 \end{proof}
 \begin{corollary}[3(i)]
     Let $E$ be an Elliptic Curve defined over $\Q$.
@@ -703,7 +701,7 @@ is a quadratic residue modulo $p$, for any prime $p$.
     \begin{equation*}
         E: y^2 + (v + 1) x y + v y = x^3 + v x^2
     \end{equation*}
-    For example by the duplication formula~\ref{prop:duplication_formula} find that
+    As above, find that
     \begin{equation*}
         [2](0, 0) = (-v, v^2), \quad [2](-v, v^2) = (0, -v)
     \end{equation*}
@@ -714,9 +712,9 @@ In the lecture, it was mentioned that a theorem of Mazur states that the torsion
     \item $\Z/n\Z$ for $n \in \{ 1, ..., 10, 12 \}$
     \item $\Z/n\Z \oplus \Z/2\Z$ for $n \in \{ 2, 4, 6, 8 \}$
 \end{itemize}
-Hence, we are quite limited for $N$ a similar idea can work.
+Hence, there are not many $N$ for which a similar idea can work.
 First, note that the case $N = 2$ is easy.
-\begin{prop}[3(ii)]
+\begin{prop}[3(ii) - $2$-torsion points]
     Let $E$ be an Elliptic Curve defined over $\Q$.
     Then $E(\Q)$ has a nontrivial 2-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
     \begin{equation*}
@@ -783,7 +781,7 @@ For this, we first look at some basic transformations we can do to Weierstraß e
     \end{description}
 \end{prop}
 \begin{proof}
-    TODO
+    Just plug the equation of the isomorphism into the equation defining the $E'$, and check that it is zero modulo the equation of $E$.
 \end{proof}
 Now we can find a nice form for Elliptic Curves with a (nontrivial) 3-torsion point by the following step:
 \begin{itemize}
