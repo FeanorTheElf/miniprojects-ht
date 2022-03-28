@@ -39,14 +39,18 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {prop}{\numberline {3.6}Proposition\thmtformatoptarg {3(ii) - 3-torsion points}}{15}{prop.3.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {4.1}Example\thmtformatoptarg {4(i)}}{16}{example.4.1}%
+\contentsline {prop}{\numberline {3.7}Proposition}{16}{prop.3.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {4.2}Example}{17}{example.4.2}%
+\contentsline {lemma}{\numberline {3.8}Lemma}{16}{lemma.3.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {4.3}Example\thmtformatoptarg {4(ii)}}{18}{example.4.3}%
+\contentsline {example}{\numberline {4.1}Example\thmtformatoptarg {4(i)}}{17}{example.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {prop}{\numberline {4.4}Proposition\thmtformatoptarg {4(iii)}}{19}{prop.4.4}%
+\contentsline {example}{\numberline {4.2}Example}{18}{example.4.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {4.5}Example}{21}{example.4.5}%
+\contentsline {example}{\numberline {4.3}Example\thmtformatoptarg {4(ii)}}{20}{example.4.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {4.6}Example}{22}{example.4.6}%
+\contentsline {prop}{\numberline {4.4}Proposition\thmtformatoptarg {4(iii)}}{21}{prop.4.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {example}{\numberline {4.5}Example}{23}{example.4.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {example}{\numberline {4.6}Example}{23}{example.4.6}%

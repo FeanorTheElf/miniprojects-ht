@@ -603,12 +603,13 @@ This will be our main toolkit for this exercise.
 \begin{corollary}
     \label{prop:point_normalization}
     Let $E$ be an Elliptic Curve defined over $k$ with a $k$-rational point $P$ that is not a 2-torsion point.
-    Then there is a linear isomorphism $\psi: E \to E'$ mapping $E$ to an Elliptic Curve of the form
+    Then there is an Elliptic Curve $E'$ and a linear isomorphism $\psi: E \to E'$ such that $P \mapsto (0, 0)$ and the tangent at $(0, 0)$ on $E'$ is given by the equation $y = 0$.
+    
+    Furthermore $E'$ is given by an equation of the form
     \begin{equation*}
         E': y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2
     \end{equation*}
-    such that $\psi(P) = (0, 0)$, the tangent at $(0, 0)$ is given by $y = 0$.
-    Furthermore $[2](0, 0) = (-a_2, a_1 a_2 - a_3)$.
+    and $[2](0, 0) = (-a_2, a_1 a_2 - a_3)$.
 \end{corollary}
 \begin{proof}
     After a translation by $-P$, we may assume that
@@ -768,9 +769,93 @@ Now we get
     Plugging this in yields $y^2 + v y = 0$ and so the third point of intersection is $(0, -v)$.
     Now note that $(0, 0)$, $(0, -v)$ and $\O$ are colinear, so $(0, 0) + (0, -v) + \O = \O$, hence $(0, 0) = -[2](0, 0)$ has order 3.
 \end{proof}
+A similar approach works also for 4-torsion points.
+\begin{prop}(3(ii) - 4-torsion points)
+    Let $E$ be an Elliptic Curve defined over $\Q$.
+    Then $E(\Q)$ has a nontrivial 4-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
+    \begin{equation*}
+        y^2 + x y + v y = x^3 + v x^2
+    \end{equation*}
+\end{prop}
+\begin{proof}
+    Again, by Corollary~\ref{prop:point_normalization}, assume wlog that
+    \begin{equation*}
+        E: y^2 + a_1 x y + a_3 y = x^3 + a_2 x^2
+    \end{equation*}
+    and $(0, 0) \in E(\Q)$ is a nontrivial 4-torsion point.
+    Find that $[2](0, 0) = (-a_2, \beta)$ where $\beta = a_1 a_2 - a_3$.
+    The tangent at $(-a_2, \beta)$ must have the equation $x = -a_2$ since $(-a_2, \beta)$ is 2-torsion by assumption.
+    Thus
+    \begin{equation*}
+        0 = 2\beta - a_1a_2 + a_3 = \beta
+    \end{equation*}
+    and so $a_1a_2 = a_3$.
+    By scaling with $a_1$ (which is nonzero, otherwise $a_3 = 0$ and the curve is singular), observe that $E$ is isomorphic to the curve
+    \begin{equation*}
+        E': y^2 + x y + v y = x^3 + v x^2
+    \end{equation*}
+    where $v = a_3 / a_1^3 = a_2 / a_1^2$.
+
+    Conversely, assume that $E$ is isomorphic to an Elliptic Curve of the above form, so wlog
+    \begin{equation*}
+        E: y^2 + x y + v y = x^3 + v x^2
+    \end{equation*}
+    We show that $(0, 0) \in E(\Q)$ has order $4$.
+    The tangent has slope $0$, so is given by the line $y = 0$.
+    The third point of intersection with $E$ is now $(-v, 0)$.
+    Note that the line through $(-v, 0)$ and $\O$ has the equation $x = -v$ and meets $E$ at $(-v, 0)$ with multiplicity 2.
+    It follows that $(-v, 0)$ is a 2-torsion point, and so $E(\Q)$ has the point $(0, 0)$ of order 4.
+\end{proof}
+Now we strengthen Corollary~\ref{prop:point_normalization} somewhat more.
+\begin{lemma}
+    Let $E$ be an Elliptic Curve defined over $\Q$ with a $\Q$-rational point $P$ that is not a 2-torsion point.
+    Then there exists a unique Elliptic Curve $E'$ and a linear isomorphism\footnote{the isomorphism is only unique up to composition with an automorphism of $E'$.} $\psi: E \to E'$ such that $P \mapsto (0, 0)$ and $E'$ is given by an equation of the form
+    \begin{equation*}
+        E': y^2 + x y + a_3 y = x^3 + a_2 x^2
+    \end{equation*}
+
+    In this case have that the tangent at $(0, 0)$ is given by $y = 0$ and $[2](0, 0) = (-a_2, a_1 a_2 - a_3)$.
+\end{lemma}
+\begin{proof}
+    Existence holds by Corollary~\ref{prop:point_normalization} and applying a scaling by $u = a_1$ (note that this is $\neq 0$, otherwise the curve would be singular).
+
+    So we have to show uniqueness.
+    Assume there is a second curve
+    \begin{equation*}
+        E'': y^2 + x y + a'_3 = x^3 + a'_2 x^2
+    \end{equation*}
+    and a linear isomorphism $\psi': E \to E''$ mapping $P \to (0, 0)$.
+    Then we find a linear isomorphism
+    \begin{equation*}
+        E' \to E'', \quad (x, y) \mapsto (u^2 x + r, u^3 y + u^2 s x + t)
+    \end{equation*}
+    Note that it must map $(0, 0) \mapsto (0, 0)$, thus $r = t = 0$.
+    Plugging this into the equation of $E''$, we get
+    \begin{equation*}
+        G := -u^6 x^3 + u^4 s^2 x^2 + 2 u^5 s x y + u^6 y^2 + u^4 s x^2 - u^4 a'_2 x^2 + u^5 x y + u^2 a'_3 s x + u^3 a'_3 y
+    \end{equation*}
+    This must be zero modulo $F = y^2 + x y + a_3 y - x^3 - a_2 x^2$.
+    By a simple degree argument, observe that $G - u^6F$ must already be zero in $\Q[x, y]$.
+    Grouping coefficients of $G - u^6F$, we see that
+    \begin{align*}
+        &u^2 a'_3 s = 0 \\
+        &u^6 a_2 + u^4 s^2 + u^4 s - u^4 a'_2 = 0 \\
+        -&u^6 a_3 + u^3 a'_3 = 0 \\
+        -&u^6 + 2 u^5 s + u^5 = 0
+    \end{align*}
+    Note that $u \neq 0$, so $a'_3 s = 0$.
+    Note that $s \neq 0$, otherwise the isomorphism is just a scaling, and in this case, it must already be the identity.
+    Thus $s = 0$ and we find
+    \begin{align*}
+        &u^2 a_2 - a'_2 = 0 \\
+        -&u^3 a_3 + a'_3 = 0 \\
+        -&u + 1 = 0
+    \end{align*}
+    So $u = 1$ and $a_2 = a'_2$, $a_3 = a'_3$.
+    This shows that $E' = E''$ and then the isomorphisms $\psi, \psi'$ must be equal up to composition with an automorphism in $E'$.
+\end{proof}
 
 \section{Question 4}
-
 Let $S = \{ x^2 \ | \ x \in \Q^* \}$.
 \begin{example}[4(i)]
     \label{ex:4i}
