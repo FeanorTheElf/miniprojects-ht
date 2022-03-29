@@ -30,7 +30,7 @@
 \addbibresource{bibliography.bib}
 
 \title{Miniproject - Elliptic Curves}
-\author{Simon Pohmann}
+\author{Candidate Number: 1059926}
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -92,12 +92,11 @@
         x_2 = -\frac 1 2 - \frac {1/4 + 6} {-1} = \frac {25} 4 - \frac 1 2 = \frac {23} 4
     \end{align*}
     and indeed, $|(23/4)^2 + 6|_5 = |625/16|_5 = 5^{-4}$.
-    Since the valuation $|\cdot|_5$ is non-Archimedian, observe that $|x^2 + 6|_5 < 5^{-3}$ holds for all $x \in \Q$ with $|x - 32/4|_5 = |4x - 32|_5 < 5^{-3}$.
+    Since the valuation $|\cdot|_5$ is non-Archimedean, observe that $|x^2 + 6|_5 < 5^{-3}$ holds for all $x \in \Q$ with $|x - 32/4|_5 = |4x - 32|_5 < 5^{-3}$.
     Hence, we look for $x \in \Z$ such that $5^4 \divides 4x + 23$.
     In other words, find $k \in \Z$ with $4 \divides k 5^4 - 23$, i.e. $k - 3 \equiv 0 \mod 4$.
     We find $k = 3$ and so $x = 463$.
 \end{example}
-
 \begin{example}[1(ii)]
     Let
     \begin{equation*}
@@ -117,8 +116,10 @@ For the next exercises, we will slightly abuse notation and write
     E(R) := \{ (x, y) \in E(\bar{k}) \ | \ x, y \in R \} \cup \{\O\}
 \end{equation*}
 for an Elliptic Curve $E$ defined over $k$ and any ring $R$ contained in the algebraic closure $\bar{k}$.
-Note that this is usually not a group anymore, and does not have a lot of nice structure.
+Note that this is in general not a group.
+However, it gives us a way to nicely phrase the next statements.
 \begin{prop}[1(iii)]
+    \label{prop:1iii}
     Consider the Elliptic Curve $E: y^2 = x^3 + 2x + 2$ defined over $\Z$.
     Then $E(\Z) = \{ \O \}$ and
     \begin{equation*}
@@ -165,7 +166,9 @@ Note that this is usually not a group anymore, and does not have a lot of nice s
     The only remaining case is $p = 3$, and a trying all 9 points in $\F_3^2$ shows that $\tilde{E}(\F_3) = \{\O\}$.
     This clearly shows that $E(\Z_3) = \{ \O \}$ and so $E(\Z) = \{\O\}$.
 \end{proof}
-For the next exercise, we first summarize the techniques we have used above.
+Note that the Hasse bound already yields the statement for all but finitely many primes $p$.
+So instead of arguing with Quadratic Reciprocity, we could just explicitly compute $\tilde{E}(\F_p)$ for the remaining $p$.
+For general Elliptic Curves, exactly this approach is summarized in the next proposition.
 \begin{prop}[Existence of points over $\Z_p$]
     \label{prop:p_adic_points_techniques}
     Let $E: y^2 = x^3 + a_2 x^2 + a_4 x + a_6$ be an Elliptic Curve defined over $\Z$.
@@ -241,31 +244,77 @@ On the other hand, I also found the following strengthening of the previous stat
 \end{proof}
 The above proposition shows that constructing Elliptic Curves $E: y^2 = x^3 + f_2 x^2 + f_1 x + f_0$ such that there is $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for all primes $p \neq 3, 5, 7$ is indeed quite simple, as almost all curves satisfy this.
 This only case that can fail is $p = 2$, but here, the condition is fulfilled quite often, so we can just try different choices.
-Using a small brute force search then yields the following examples.
-\begin{example}[1(iv)]
-    Let
-    \begin{align*}
-        E_1: \ &y^2 = x^3 + 2 x \\
-        E_2: \ &y^2 = x^3 + 2 x^2 + 6 x + 5\\
-        E_3: \ &y^2 = x^3 + 6x + 1
-    \end{align*}
-    Note that
+If we additionally want no points $(x, y) \in \tilde{E}(\F_p)$ with $y \neq 0$, then we can for example use a little bit of linear algebra.
+\begin{example}[1(iv) - first example]
+    Assume we want to find a curve $E: y^2 = f(x) := x^3 + A x + B$ such that $\tilde{E}(\F_3)$ contains no point $(x, y)$ with $y \neq 0$.
+    Then have
+    \begin{equation*}
+        f(0) = B \equiv 0, 2  \quad \text{and} \quad f(1) = 1 + A + B \equiv 0, 2
+    \end{equation*}
+    since $1$ is the only square in $\F_3^*$.
+    For example the case $B \equiv 0$ and $1 + A + B \equiv 0$ yields the solution $B = 0$, $A = 2$ which indeed does yield a curve $E$ with $\tilde{E}(\F_3) = \{ \O \}$.
+    Indeed, have that
+    \begin{equation*}
+        \tilde{E}(\F_3) = \{ (0, 0), (1, 0), (2, 0), \O \}
+    \end{equation*}
+    Furthermore, we see that
+    \begin{equation*}
+        \tilde{E}(\F_5) = \{ (0, 0), \O \}
+    \end{equation*}
+    On the other hand, note that
     \begin{align*}
         1^2 &\equiv 3^3 + 2 \cdot 3 = 33 \mod 8 \\
-        1^2 &\equiv 2^3 + 2 \cdot 2^2 + 6 \cdot 2 + 5 = 33 \mod 8 \\
-        1^2 &\equiv 4^3 + 6 \cdot 4 + 1 = 89 \mod 8
+        3^2 &\equiv 4^3 + 2 \cdot 4 = 72 \mod 7
     \end{align*}
-    so Hensel's Lemma yields \cite[Thm 1.15]{lecture} points $(x, y) \in E_i(\Z_2)$ with $|y|_2 = 1$ for $i \in \{1, 2, 3\}$.
-    By Proposition~\ref{prop:points_in_EZp}, we have points $(x, y) \in E(\Z_p)$ with $|y|_p = 1$ for all $p \geq 11$.
+    so Hensel's Lemma yields \cite[Thm 1.15]{lecture} points $(x, y) \in E(\Z_2)$ with $|y|_2 = 1$ and $(x', y') \in E(\Z_7)$ with $|y'|_7 = 1$.
 
-    Finally, note that trying all points shows
-    \begin{align*}
-        \tilde{E}_1(\F_3) &= \{ (0, 0), (1, 0), (2, 0), \O \} \\
-        \tilde{E}_1(\F_5) &= \{ (0, 0), \O \} \\
-        \tilde{E}_2(\F_7) &= \{ (1, 0), (5, 0), (6, 0), \O \}
-    \end{align*}
-    so there is no point $(x, y) \in E_i(\Z_p)$ with $|y|_p = 1$ for $p \in \{3, 5, 7\}$ and a suitable $i$. 
+    Interestingly, if we want a curve $E$ such that $\tilde{E}(\F_3) = \{ \O \}$, then we require
+    \begin{equation*}
+        f(0) = B \equiv 2  \quad \text{and} \quad f(1) = 1 + A + B \equiv 2
+    \end{equation*}
+    and this has the only solution $A \equiv B \equiv 2$, which indeed works out (this is the curve from Proposition~\ref{prop:1iii}).
 \end{example}
+This also works for $p = 7$, as the next example shows.
+\begin{example}[1(iv) - second example]
+    Assume we want to find a curve $E: y^2 = f(x) := x^3 + a_2 x^2 + a_4 x + a_6$ such that $\tilde{E}(\F_7)$ contains no point $(x, y)$ with $y \neq 0$.
+    By considering a scaling isomorphism of the form
+    \begin{equation*}
+        E \to E', \quad (x, y) \mapsto (u^2 x, u^3 y)
+    \end{equation*}
+    we can assume wlog that $a_2 \equiv 0, 1, 2 \mod 7$ (as each element in $\F_7$ is congruent to $0, 1$ or $2$ modulo the squares $\{ x^2 \ | \ x \in \F_7 \}$).
+    Furthermore have
+    \begin{equation*}
+        f(0) = a_6 \equiv 0, 3, 5, 6, \quad f(1) = 1 + a_2 + a_4 + a_6 \equiv 0, 3, 5, 6
+    \end{equation*}
+    since $1, 4, 2$ are the squares in $\F_7^*$.
+    We find 48 possible solutions, and for example $a_2 \equiv 2, a_4 \equiv 6, a_6 \equiv 5$ works.
+    Indeed, have that
+    \begin{equation*}
+        \tilde{E}(\F_7) = \{ (1, 0), (5, 0), (6, 0), \O \}
+    \end{equation*}
+    Furthermore, note that
+    \begin{align*}
+        1^2 &\equiv 2^3 + 2 \cdot 2^2 + 6 \cdot 2 + 5 = 33 \mod 8 \\
+        1^2 &\equiv 2^3 + 2 \cdot 2^2 + 6 \cdot 2 + 5 = 33 \mod 3 \\
+        2^2 &\equiv 1^3 + 2 \cdot 1^2 + 6 \cdot 1 + 5 = 14 \mod 5
+    \end{align*}
+    so Hensel's Lemma yields \cite[Thm 1.15]{lecture} points $(x, y) \in E(\Z_2)$ with $|y|_2 = 1$ and $(x', y') \in E(\Z_3)$ with $|y'|_3 = 1$ and $(x'', y'') \in E(\Z_5)$ with $|y''|_5 = 1$.
+\end{example}
+\begin{example}[(iv) - third example]
+    The cubic polynomial $f = x^3 + x$ has roots $0$ and $1$ modulo 2.
+    Thus the Elliptic Curve $E: y^2 = x^3 + x$ clearly has no points $(x, y) \in E(\Z_2)$ with $|y|_2 = 1$, as all points $(x, y) \in \tilde{E}(\F_2)$ satisfy $y = 0$.
+    Furthermore, see that
+    \begin{equation*}
+        \tilde{E}(\F_5) = \{ (0, 0), (2, 0), (3, 0), \O \}
+    \end{equation*}
+    and
+    \begin{align*}
+        1^2 &\equiv 2^3 + 2 = 10 \mod 3 \\
+        3^2 &\equiv 1^3 + 1 = 2 \mod 7
+    \end{align*}
+    so Hensel's Lemma yields \cite[Thm 1.15]{lecture} points $(x, y) \in E(\Z_3)$ with $|y|_3 = 1$ and $(x', y') \in E(\Z_7)$ with $|y'|_7 = 1$.
+\end{example}
+Note also that those three examples show that the bound $p \geq 11$ in Proposition~\ref{prop:points_in_EZp} is sharp.
 
 \section{Question 2}
 \begin{example}[2(i)]
@@ -357,11 +406,11 @@ Using a small brute force search then yields the following examples.
     The only factors of $64$ are $\pm 1, \pm 2, \pm 4, \pm 8, \pm 16, \pm 32, \pm 64$ and none solves $64 = x^3 - 7x^2 - 8x$.
     The only factors of $144$ are $\pm 1, \pm 2, \pm 4, \pm 8, \pm 16, \pm 3, \pm 6, \pm 12, \pm 24, \pm 48, \pm 9, \pm 18, \pm 36, \pm 72, \pm 144$ and none solves $144 = x^3 - 7x^2 - 8x$.
     The only factors of $81$ are $\pm 1, \pm 3, \pm 9, \pm 27, \pm 81$ and none solves $81 = x^3 - 7x^2 - 8x$.
-
-    Note that the usual approach to bound the size of $E_{\mathrm{tors}}(\Q)$ is to use the theorem that this embeds into $\tilde{E}(\F_p)$ whenever $\tilde{E}$ is an Elliptic Curve.
-    However, for this example, this was not sufficient, as we could not find a prime such that the group $\Z/4\Z \oplus \Z/2\Z$ does not embed into $\tilde{E}(\F_p)$.
-    In the next part, we want to study this phenomenon more carefully and indeed see that there is no such prime, i.e. it is impossible to show that $\#E_{\mathrm{tors}}(\Q) \neq 8$ by just considering the reductions modulo $p$.
 \end{example}
+Note that the usual approach to bound the size of $E_{\mathrm{tors}}(\Q)$ is to use the theorem that this embeds into $\tilde{E}(\F_p)$ whenever $\tilde{E}$ is an Elliptic Curve.
+However, for this example, this was not sufficient, as we could not find a prime such that the group $\Z/4\Z \oplus \Z/2\Z$ does not embed into $\tilde{E}(\F_p)$.
+In the next part, we want to study this phenomenon more carefully and indeed see that there is no such prime, i.e. it is impossible to show that $\#E_{\mathrm{tors}}(\Q) \neq 8$ by just considering the reductions modulo $p$.
+
 First, it is convenient to have a closed formula for the $x$-coordinate of $[2]P$ for a point $P$ on an Elliptic Curve.
 \begin{prop}[Duplication Formula]
     \label{prop:duplication_formula}
@@ -390,6 +439,7 @@ First, it is convenient to have a closed formula for the $x$-coordinate of $[2]P
     \end{align*}
     Expanding this yields the claimed expression.
 \end{proof}
+Here now comes the promised statement.
 \begin{prop}[Reductions mod $p$ are not enough]
     \label{prop:subgroup_mod_every_p}
     Let $E: y^2 = x(x + 1)(x - 8)$ be the Elliptic Curve from the previous example.
@@ -513,6 +563,7 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
 
     The direction $\Leftarrow$ follows by distinguishing the cases $[2]P = (0, 0)$, $[2]P = (\alpha, 0)$ and $[2]P = (\beta, 0)$ and then reversing the above computation.
 \end{proof}
+As it turns out, we can phrase each of those nested square condition by a condition that two fixed values are squares, which is much nicer to work with.
 \begin{lemma}
     \label{prop:condition_double_square}
     Let $k$ be a field of characteristic $\neq 2$ and $\alpha, \beta \in k$.
@@ -535,6 +586,7 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
     \end{equation*}
     The third claim follows in the same way, by swapping $\alpha$ and $\beta$.
 \end{proof}
+Combining these two lemmas, it is quite easy to generate more examples.
 \begin{example}
     Let $p$ be a prime.
     Taking the set of ``exhaustive cases'' given by $p(-1) = -p$ similar to the proof of Proposition~\ref{prop:subgroup_mod_every_p}.
@@ -594,6 +646,7 @@ This will be our main toolkit for this exercise.
 \begin{proof}
     Just plug the equation of the isomorphism into the equation defining the $E'$, and check that it is zero modulo the equation of $E$.
 \end{proof}
+The next corollary will give us a ``base form'' for equations of Elliptic Curves with special torsion points. 
 \begin{corollary}
     \label{prop:point_normalization}
     Let $E$ be an Elliptic Curve defined over $k$ with a $k$-rational point $P$ that is not a 2-torsion point.
@@ -641,6 +694,7 @@ Since then, I have found a simpler proof that does not require the lemma anymore
     So $E$ meets $E'$ in at least 10 points (counting multiplicity), which is greater than the product of their degrees $9 = 3 \cdot 3$.
     By Bezout's theorem \cite[Corollary I.7.8]{hartshorne}, it follows that $E$ and $E'$ share an irreducible component of dimension $\geq 1$, but since both are Elliptic Curves, they are irreducible of dimension $1$ and so $E = E'$.
 \end{proof}
+Finally we can proof the statement on 5-torsion points.
 \begin{prop}[3(i)]
     Let $E$ be an Elliptic Curve defined over $\Q$.
     Then $E(\Q)$ has a nontrivial 5-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
@@ -679,13 +733,9 @@ Since then, I have found a simpler proof that does not require the lemma anymore
     \end{equation*}
     So $a_1 = a_2 + 1$ and the claim follows with $v = a_2 = a_3$.
 \end{proof}
-In the lecture, it was mentioned that a theorem of Mazur states that the torsion group of an Elliptic Curve $E$ defined over $\Q$ has one of the following forms
-\begin{itemize}
-    \item $\Z/n\Z$ for $n \in \{ 1, ..., 10, 12 \}$
-    \item $\Z/n\Z \oplus \Z/2\Z$ for $n \in \{ 2, 4, 6, 8 \}$
-\end{itemize}
-Hence, there are not many $N$ for which a similar idea can work.
-First, note that the case $N = 2$ is easy.
+More or less the same approach works for other $n \neq 5$.
+However, the case of 2-torsion points is special (but nevertheless quite easy).
+The following is IMO the nicest form for curves with a nontrivial 2-torsion point, even though there are still 2 parameters (and not just one).
 \begin{prop}[3(ii) - $2$-torsion points]
     Let $E$ be an Elliptic Curve defined over $\Q$.
     Then $E(\Q)$ has a nontrivial 2-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
@@ -695,7 +745,7 @@ First, note that the case $N = 2$ is easy.
 \end{prop}
 \begin{proof}
     Assume $E: y^2 = x^3 + a_2 x^2 + a_4 x$ is an Elliptic Curve.
-    Then clearly $(0, 0) \in E(\Q)$ and $(0, 0) = -(0, 0)$, so $(0, 0)$ is nontrival 2-torsion point.
+    Then clearly $(0, 0) \in E(\Q)$ and $(0, 0) = -(0, 0)$, so $(0, 0)$ is nontrivial 2-torsion point.
     Hence, there is a nontrivial 2-torsion point in $E'(\Q)$ for all Elliptic Curves $E'$ that are isomorphic (over $\Q$) to $E$.
 
     Conversely, let $E$ be an Elliptic Curve with a nontrivial 2-torsion point in $E(\Q)$.
@@ -704,7 +754,7 @@ First, note that the case $N = 2$ is easy.
         E': y^2 = x^3 + a_2 x^2 + a_4 x + a_6
     \end{equation*}
     as this holds for every Elliptic Curve.
-    Now let $(\alpha, \beta) \in E'(\Q)$ be a nontrival 2-torsion point.
+    Now let $(\alpha, \beta) \in E'(\Q)$ be a nontrivial 2-torsion point.
     Thus $-(\alpha, \beta) = (\alpha, \beta)$, so $\beta = 0$ and $\alpha^3 + a_2 \alpha^2 + a_4 \alpha + a_6 = 0$.
     Now consider the isomorphism
     \begin{equation*}
@@ -800,13 +850,30 @@ A similar approach works also for 4-torsion points.
     Note that the line through $(-v, 0)$ and $\O$ has the equation $x = -v$ and meets $E$ at $(-v, 0)$ with multiplicity 2.
     It follows that $(-v, 0)$ is a 2-torsion point, and so $E(\Q)$ has the point $(0, 0)$ of order 4.
 \end{proof}
-\begin{example}[3(ii) - Additional Examples]
+It looks like we could continue in a similar way for e.g. 6-or 7-torsion points, but the algebra becomes more and more convoluted. 
+\begin{example}[3(ii) - first example]
     Consider the Elliptic Curve
     \begin{equation*}
         E: y^2 + x y + y = x^3
     \end{equation*}
     defined over $\Q$.
-    Note that the reduction $\tilde{E}$ modulo $3$ is still an Elliptic Curve (If $3x^2 + y = 2y + 1 + x = 0$ then $y^2 - y - 1 = 0$, so $y = -1$ and $x = 1$. However $(1, -1) \notin \tilde{E}(\F_3)$).
+    Note that the reduction $\tilde{E}$ modulo $3$ is still an Elliptic Curve (If $3x^2 - y = 2y + 1 + x \equiv 0$ then $y \equiv 0$ and $x \equiv -1$, but $(-1, 0) \notin \tilde{E}(\F_3)$).
+    Trying all values in $\F_3^2$, we find
+    \begin{equation*}
+        \tilde{E}(\F_3) = \{ (0, 0), (0, 2), \O \} 
+    \end{equation*}
+    Clearly $E(\Q)$ has the 3-torsion point $(0, 0)$, and since $E_{\mathrm{tors}}(\Q) \hookrightarrow \tilde{E}(\F_3)$ we see that
+    \begin{equation*}
+        E_{\mathrm{tors}}(\Q) = \{ (0, 0), (0, -1), \O \}
+    \end{equation*}
+\end{example}
+\begin{example}[3(ii) - second example]
+    Consider the Elliptic Curve
+    \begin{equation*}
+        E: y^2 + x y + 2 y = x^3 + 2 x^2
+    \end{equation*}
+    defined over $\Q$.
+    Note that the reduction $\tilde{E}$ modulo $5$ is still an Elliptic Curve (If $3x^2 + y = 2y + 1 + x = 0$ then $y^2 - y - 1 = 0$, so $y = -1$ and $x = 1$. However $(1, -1) \notin \tilde{E}(\F_3)$).
     Trying all values in $\F_3^2$, we find
     \begin{equation*}
         \tilde{E}(\F_3) = \{ (0, 0), (0, 2), \O \} 
@@ -875,7 +942,7 @@ Let $S = \{ x^2 \ | \ x \in \Q^* \}$.
 \end{proof}
 To find an example with rank two, it seems like a good way to take a curve with many rational points.
 Further requiring those points to be non-integral increases our chance, as that way, they cannot be torsion points.
-However, playing around with this method did not yield a nice curve where we can compute the rank.
+However, playing around with this method did not yield a nice curve for which we can easily compute the rank.
 So lets fall back to brute force, which works quite well here as this condition is very easy to test via a computer.
 \begin{example}[4(ii)]
     \label{ex:special_curve}

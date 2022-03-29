@@ -17,7 +17,7 @@ def can_prove_has_sol(r, a, b):
     return False
 
 def can_prove_has_no_sol(r, a, b):
-    for q in [90, 82, 110]:
+    for q in [64, 81, 25, 49]:
         squares = { x**2 % q for x in range(q) }
         sol_count_mod_q =  len([(l, m) 
             for l in range(q) 
@@ -54,10 +54,8 @@ def is_curve_nice(a, b):
             return False
     return True
 
-exit()
-
 for a in range(100):
     for b in range(100):
         if a**2 - 4 * b != 0 and len(sqrfree_factors(b)) >= 14:
             if is_curve_nice(a, b):
-                print(a, b, len(squarefree_factors(b)))
+                print(a, b, len(sqrfree_factors(b)))
