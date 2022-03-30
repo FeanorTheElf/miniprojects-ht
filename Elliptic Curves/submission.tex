@@ -942,17 +942,24 @@ Let $S = \{ x^2 \ | \ x \in \Q^* \}$.
     Now observe that $[2](-1, 2) = (0, 0)$ and $[2](0, 0) = \O$.
     Hence $E(\Q) = E_{\mathrm{tors}}(\Q)$ and the rank is 0 as claimed.
 \end{proof}
+First of all, note that it is trivial to find an example where $b$ has at least 3 different prime factors and the rank of $E$ is easy to compute.
+\begin{example}[4(ii) - trivial example]
+    Consider the Elliptic Curve $E: y^2 = x(x^2 + 6 \cdot 30^2 x + 30^4)$.
+    Clearly $30^4 = 2^4 \cdot 3^4 \cdot 5^4$ has at least three different prime factors.
+    To compute the rank of $E$, note that $E$ is isomorphic to $E': y^2 = x(x^2 + 6x + 1)$ (over $\Q$), and so $\mathrm{rank}(E) = \mathrm{rank}(E')$.
+    By Example~\ref{ex:4i}, we thus see that $E$ has rank 0.
+\end{example}
 To find an example with rank two, it seems like a good way to take a curve with many rational points.
 Further requiring those points to be non-integral increases our chance, as that way, they cannot be torsion points.
 However, playing around with this method did not yield a nice curve for which we can easily compute the rank.
 So lets fall back to brute force, which works quite well here as this condition is very easy to test via a computer.
-\begin{example}[4(ii)]
+\begin{example}[4(ii) - main example]
     \label{ex:special_curve}
     Consider the curve
     \begin{equation*}
         E: y^2 = x(x^2 + 47 x + 30)
     \end{equation*}
-    Clearly $30 = 2 \cdot 3 \cdot 5$ has at least 3 different prime factors.
+    Note that $30 = 2 \cdot 3 \cdot 5$ has at least 3 different prime factors.
     We want to compute the rank of $E$.
     As always, have
     \begin{equation*}
@@ -1074,7 +1081,7 @@ Note that the computer also found other, similarly special curves, given by equa
     \begin{equation*}
         E(\Q)/[2]E(\Q) \cong E_{\mathrm{tors}}(\Q)/[2]E(\Q) \oplus (\Z/2\Z)^{\mathrm{rank}(E)}
     \end{equation*}
-    and thus $\Z/2\Z \hookrightarrow E_{\mathrm{tors}}(\Q)/[2]E(\Z)$ (there is the nontrivial 2-torsion point $(0, 0)$)
+    and $\Z/2\Z \hookrightarrow E_{\mathrm{tors}}(\Q)/[2]E(\Z)$ (there is the nontrivial 2-torsion point $(0, 0)$)
     This yields
     \begin{equation*}
         \mathrm{rank}(E) \leq \log_2(\#(E(\Z)/[2]E(\Q)) / 2) \leq \log_2(2^{l + m}) = l + m \leq 2k
