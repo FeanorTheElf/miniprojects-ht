@@ -857,7 +857,8 @@ It looks like we could continue in a similar way for e.g. 6-or 7-torsion points,
         E: y^2 + x y + y = x^3
     \end{equation*}
     defined over $\Q$.
-    Note that the reduction $\tilde{E}$ modulo $3$ is still an Elliptic Curve (If $3x^2 - y = 2y + 1 + x \equiv 0$ then $y \equiv 0$ and $x \equiv -1$, but $(-1, 0) \notin \tilde{E}(\F_3)$).
+    Note that the reduction $\tilde{E}$ modulo $3$ is still an Elliptic Curve 
+    (if $3x^2 - y \equiv 2y + 1 + x \equiv 0$ then $y \equiv 0$ and $x \equiv -1$, but $(-1, 0) \notin \tilde{E}(\F_3)$).
     Trying all values in $\F_3^2$, we find
     \begin{equation*}
         \tilde{E}(\F_3) = \{ (0, 0), (0, 2), \O \} 
@@ -873,14 +874,15 @@ It looks like we could continue in a similar way for e.g. 6-or 7-torsion points,
         E: y^2 + x y + 2 y = x^3 + 2 x^2
     \end{equation*}
     defined over $\Q$.
-    Note that the reduction $\tilde{E}$ modulo $5$ is still an Elliptic Curve (If $3x^2 + y = 2y + 1 + x = 0$ then $y^2 - y - 1 = 0$, so $y = -1$ and $x = 1$. However $(1, -1) \notin \tilde{E}(\F_3)$).
+    Note that the reduction $\tilde{E}$ modulo $3$ is still an Elliptic Curve
+    (if $3x^2 + 4x - y \equiv 2y + x + 2 \equiv 0$ then $x - y \equiv x - y - 1 \equiv 0$, a contradiction).
     Trying all values in $\F_3^2$, we find
     \begin{equation*}
-        \tilde{E}(\F_3) = \{ (0, 0), (0, 2), \O \} 
+        \tilde{E}(\F_3) = \{ (0, 0), (0, 1), (1, 0), \O \} 
     \end{equation*}
-    Clearly $E(\Q)$ has the 3-torsion point $(0, 0)$, and since $E_{\mathrm{tors}}(\Q) \hookrightarrow \tilde{E}(\F_3)$ we see that
+    Now note that $E(\Q)$ has the 4-torsion point $(0, 0)$ and since $E_{\mathrm{tors}}(\Q) \hookrightarrow \tilde{E}(\F_5)$ we already see that
     \begin{equation*}
-        E_{\mathrm{tors}}(\Q) = \{ (0, 0), (0, -1), \O \}
+        E_{\mathrm{tors}}(\Q) = \{ (0, 0), (-2, 0), (0, -2), \O \}
     \end{equation*}
 \end{example}
 
