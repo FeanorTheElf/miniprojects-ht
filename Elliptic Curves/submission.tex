@@ -116,7 +116,7 @@ For the next exercises, we will slightly abuse notation and write
     E(R) := \{ (x, y) \in E(\bar{k}) \ | \ x, y \in R \} \cup \{\O\}
 \end{equation*}
 for an Elliptic Curve $E$ defined over $k$ and any ring $R$ contained in the algebraic closure $\bar{k}$.
-Note that this is in general not a group.
+Note that in general this is not a group.
 However, it gives us a way to nicely phrase the next statements.
 \begin{prop}[1(iii)]
     \label{prop:1iii}
@@ -155,7 +155,7 @@ However, it gives us a way to nicely phrase the next statements.
     \begin{equation*}
         |f(y)|_p \leq p^{-1} \quad \text{and} \quad |f'(y)|_p = |y|_p = 1
     \end{equation*}
-    Thus $|f(y)|_p < |f'(y)|_p^2$ and Hensel's Lemma yields a root $\gamma \in \Z_p$ with $(x, \gamma) \in E(\Z_p)$.
+    Thus $|f(y)|_p < |f'(y)|_p^2$ and Hensel's Lemma \cite[Thm 2.14]{lecture} yields a root $\gamma \in \Z_p$ with $(x, \gamma) \in E(\Z_p)$.
 
     In the case $p = 2$, note that $f(t) := t^2 - 5^3 - 2 \cdot 5 - 2 = t^2 - 137$ satisfies
     \begin{equation*}
@@ -188,7 +188,7 @@ For general Elliptic Curves, exactly this approach is summarized in the next pro
     \begin{equation*}
         |y^2 - x^3 - a_2 x^2 - a_4 x - a_6|_p \leq p^{-1} < 1 = 1^2 = |2y|_p
     \end{equation*}
-    Hensel's Lemma now \cite[Thm 2.14]{lecture} shows that there is $\gamma \in \Z_p$ such that $\gamma^2 = x^3 + a_2 x^2 + a_4 x + a_6$ and so $(x, \gamma) \in E(\Z_p)$.
+    Hensel's Lemma \cite[Thm 2.14]{lecture} now shows that there is $\gamma \in \Z_p$ such that $\gamma^2 = x^3 + a_2 x^2 + a_4 x + a_6$ and so $(x, \gamma) \in E(\Z_p)$.
     Since $|y|_p = 1$ clearly also $|\gamma|_p = 1$.
     The other direction is obvious and follows directly by taking the reduction modulo $p$.
 
@@ -219,9 +219,9 @@ On the other hand, I also found the following strengthening of the previous stat
         x^3 + \tilde{f}_2 x^2 + \tilde{f}_1 x + \tilde{f}_0 \equiv (x - \alpha)^2(x - \beta)
     \end{equation*}
     with $\alpha, \beta \in \bar{\F}_p$.
-    However, note that $\F_p$ is perfect, so $(x - \alpha)^2(x - \beta)$ cannot be irreducible over $\F_p$, otherwise $\F_p[x] / \langle(x - \alpha)^2(x - \beta)\rangle$ would be a non-separable field extension of $\F_p$.
+    However, note that $\F_p$ is perfect, so $(x - \alpha)^2(x - \beta)$ cannot be irreducible over $\F_p$, otherwise $\F_p[x] / \langle(x - \alpha)^2(x - \beta)\rangle$ would be a non-separable finite field extension of $\F_p$.
     Thus, either $\alpha \in \F_p$ or $\beta \in \F_p$.
-    If $\alpha \in \F_p$, then clearly also $\beta = -2\alpha - \tilde{f}_2 \in \F_p$.
+    If $\alpha \in \F_p$, then clearly also $\beta = 2\alpha - \tilde{f}_2 \in \F_p$.
     If $\beta \in \F_p$, then also $(x - \alpha)^2 \in \F_p[x]$ and again by perfectness of $\F_p$, note that $\alpha \in \F_p$.
     So $\alpha, \beta \in \F_p$.
 
@@ -276,29 +276,41 @@ If we additionally want no points $(x, y) \in \tilde{E}(\F_p)$ with $y \neq 0$, 
 \end{example}
 This also works for $p = 7$, as the next example shows.
 \begin{example}[1(iv) - second example]
-    Assume we want to find a curve $E: y^2 = f(x) := x^3 + a_2 x^2 + a_4 x + a_6$ such that $\tilde{E}(\F_7)$ contains no point $(x, y)$ with $y \neq 0$.
+    Assume we want to find a curve $E: y^2 = f(x) := x^3 + A x + B$ such that $\tilde{E}(\F_7)$ contains no point $(x, y)$ with $y \neq 0$.
     By considering a scaling isomorphism of the form
     \begin{equation*}
         E \to E', \quad (x, y) \mapsto (u^2 x, u^3 y)
     \end{equation*}
-    we can assume wlog that $a_2 \equiv 0, 1, 2 \mod 7$ (as each element in $\F_7$ is congruent to $0, 1$ or $2$ modulo the squares $\{ x^2 \ | \ x \in \F_7 \}$).
+    we can assume wlog that $A \equiv 0, 1, 3 \mod 7$ (as the fourth powers in $\F_7^*$ are $1, 4, 2$).
     Furthermore have
     \begin{equation*}
-        f(0) = a_6 \equiv 0, 3, 5, 6, \quad f(1) = 1 + a_2 + a_4 + a_6 \equiv 0, 3, 5, 6
+        f(0) = B \equiv 0, 3, 5, 6, \quad f(1) = 1 + A + B \equiv 0, 3, 5, 6
     \end{equation*}
     since $1, 4, 2$ are the squares in $\F_7^*$.
-    We find 48 possible solutions, and for example $a_2 \equiv 2, a_4 \equiv 6, a_6 \equiv 5$ works.
+    So we have the possibilities
+    \begin{equation*}
+        A \equiv 0, \quad B \equiv 5, 6
+    \end{equation*}
+    and
+    \begin{equation*}
+        A \equiv 1, \quad B \equiv 3, 5
+    \end{equation*}
+    and
+    \begin{equation*}
+        A \equiv 3, \quad B \equiv 3, 6
+    \end{equation*}
+    Trying all of them, we find that the only solution such that there is no $(x, y) \in \tilde{E}(\F_7)$ with $y \neq 0$ is $A \equiv 0, B \equiv 6$.
     Indeed, have that
     \begin{equation*}
-        \tilde{E}(\F_7) = \{ (1, 0), (5, 0), (6, 0), \O \}
+        \tilde{E}(\F_7) = \{ (1, 0), (2, 0), (4, 0), \O \}
     \end{equation*}
     Furthermore, note that
     \begin{align*}
-        1^2 &\equiv 2^3 + 2 \cdot 2^2 + 6 \cdot 2 + 5 = 33 \mod 8 \\
-        1^2 &\equiv 2^3 + 2 \cdot 2^2 + 6 \cdot 2 + 5 = 33 \mod 3 \\
-        2^2 &\equiv 1^3 + 2 \cdot 1^2 + 6 \cdot 1 + 5 = 14 \mod 5
+        2^2 &\equiv 3^3 + 6 = 28 \mod 8 \\
+        1^2 &\equiv 1^3 + 6 = 7 \mod 3 \\
+        2^2 &\equiv 2^3 + 6 = 14 \mod 5
     \end{align*}
-    so Hensel's Lemma yields \cite[Thm 1.15]{lecture} points $(x, y) \in E(\Z_2)$ with $|y|_2 = 1$ and $(x', y') \in E(\Z_3)$ with $|y'|_3 = 1$ and $(x'', y'') \in E(\Z_5)$ with $|y''|_5 = 1$.
+    so Hensel's Lemma \cite[Thm 1.15]{lecture} yields points $(x, y) \in E(\Z_2)$ with $|y|_2 = 1$ and $(x', y') \in E(\Z_3)$ with $|y'|_3 = 1$ and $(x'', y'') \in E(\Z_5)$ with $|y''|_5 = 1$.
 \end{example}
 \begin{example}[(iv) - third example]
     The cubic polynomial $f = x^3 + x$ has roots $0$ and $1$ modulo 2.
