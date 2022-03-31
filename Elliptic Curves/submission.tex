@@ -679,28 +679,7 @@ The next corollary will give us a ``base form'' for equations of Elliptic Curves
     Furthermore, the third point of intersection of the tangent and $E$ is $(-a_2, 0)$.
     The line through $\O$ and $(-a_2, 0)$ is given by $x = -a_2$ and its third point of intersection with $E$ is then $(-a_2, a_1a_2 - a_3)$. 
 \end{proof}
-I came up with the next lemma to make my first proof of 3(i) work.
-Since then, I have found a simpler proof that does not require the lemma anymore, but I found it beautiful and did not want to delete it.
-\begin{lemma}
-    \label{prop:share_subgroup_equal}
-    Let $E, E'$ be Elliptic Curves defined over any field $k$, and assume they share a cyclic subgroup of order $n \geq 5$\footnote{Technically, we can also allow infinite order here.}.
-    With this, we mean there is a point $P \in E \cap E'$ of order $n$ such that
-    \begin{equation*}
-        G := \langle P \rangle_E \subseteq E' \quad \text{and} \quad \restr{+_E}{G \times G} = \restr{+_{E'}}{G \times G}
-    \end{equation*}
-    Then $E = E'$ (in the sense that they have the same defining equation).
-\end{lemma}
-\begin{proof}
-    Consider some point $[i] P = (a, b) \in E \cap E'$.
-    With $P' = (a', b') := -[2i] P \in E \cap E'$ we see that $P + P + P' = \O$ and so $P, P, P'$ are colinear\footnote{We mean that the line through $P$ and $P'$ meets $E$ resp. $E'$ at $P$ with multiplicity 2.}.
-    In particular, the tangent on $E$ resp. on $E'$ at $P \in E \cap E'$ both have the slope $(b - b')/(a - a')$\footnote{Or infinity if $a = a'$, but importantly, the slopes are equal.}.
-
-    Since $P$ has order at least 5, observe that $P, [2]P, [3]P, [4]P$ and $[5]P$ are all different.
-    Furthermore, since $E$ and $E'$ have the same tangent slope at each $[i] P$, note that $E$ meets $E'$ in $[i] P$ with multiplicity 2.
-    So $E$ meets $E'$ in at least 10 points (counting multiplicity), which is greater than the product of their degrees $9 = 3 \cdot 3$.
-    By Bezout's theorem \cite[Corollary I.7.8]{hartshorne}, it follows that $E$ and $E'$ share an irreducible component of dimension $\geq 1$, but since both are Elliptic Curves, they are irreducible of dimension $1$, so we find $E = E'$.
-\end{proof}
-Finally we can proof the statement on 5-torsion points.
+Now we can proof the statement on 5-torsion points.
 \begin{prop}[3(i)]
     Let $E$ be an Elliptic Curve defined over $\Q$.
     Then $E(\Q)$ has a nontrivial 5-torsion point if and only if $E$ is isomorphic (over $\Q$) to an Elliptic Curve given by an equation of the form
