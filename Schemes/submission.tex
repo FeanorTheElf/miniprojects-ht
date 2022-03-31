@@ -85,7 +85,18 @@
 \begin{document}
 \maketitle
 
-\tableofcontents
+In this miniproject, we want to study the $\Proj$-construction in the theory of schemes, that can be used to associate a scheme given a graded ring.
+In particular, it is very closely related to projective space (hence the name).
+
+We begin the work by defining the scheme $\Proj(S)$ for a graded ring $S$, and showing that it is well-defined.
+Furthermore, we study some very basic properties.
+Then we focus on the case that our graded ring $S$ is an $R$-algebra, in particular, we are interested in the case of the polynomial ring $R[x_0, ..., x_n]$.
+This case is important, since it yields the projective space $\P_R^n$.
+
+Finally, we use the theory developed in the work to prove the main result, namely that projective space is a proper scheme.
+We present two proofs of this, one relatively short and concrete (but complicated) one, relying on commutative algebra.
+The other proof is the standard proof, as presented in works like \cite{hartshorne}.
+For the sake of brevity, we will only present parts of this proof, but try to give a little bit of intuition.
 
 \section{Definition of $\Proj$}
 
@@ -202,10 +213,6 @@ This is also the definition used in \citestacks{01M6}.
     \label{prop:basic_set_inclusion_divisibility}
     If $\D{g} \subseteq \D{f}$ with $f, g \in S_+$, then there is a homogeneous $h \in S$ such that $g^n = fh$ for some $n \in \N$.
 \end{corollary}
-\begin{proof}
-    By assumption, $\D{f}$ covers $\D{g}$, thus by the Covering Trick (Lemma~\ref{prop:covering_trick}), observe that $g^n \in \langle f \rangle$ for some $n \in \N$.
-    The claim follows.
-\end{proof}
 \begin{prop}
     Let $B = \{ \D{f} \ | \ \text{$f \in S_+$ homogeneous}\}$.
     The functor\footnote{The map on arrows is well-defined by Corollary~\ref{prop:basic_set_inclusion_divisibility}.}
@@ -215,68 +222,11 @@ This is also the definition used in \citestacks{01M6}.
     \end{align*}
     is a B-sheaf on $B$ (here $\Top(X)$ is the category given by the open sets of $X$ and their inclusion, as defined in the lecture).
 \end{prop}
-\begin{proof}\footnote{I guess I have included the proof mostly for the sake of completeness - apart from presentational issues, it is just copied from the lecture notes.}
-    Clearly, $\mathcal{F}$ is a functor and thus a presheaf.
-    Hence, we have to show the local-to-global property.
-
-    Let $\D{f} = \bigcup_{i \in I} \D{g_if}$ be a cover and $s_i \in \mathcal{F}(\D{g_if})$ such that
-    \begin{equation*}
-        \forall x \in \D{g_if} \cap \D{g_jf} \ \exists V \in B: \ V \subseteq \D{g_if} \cap \D{g_jf}, \ x \in V, \ \frac {s_i} 1 = \frac {s_j} 1 \in \mathcal{F}(V)
-    \end{equation*}
-    We show that the $s_i$ glue to a unique $s \in \mathcal{F}(\D{f})$.
-    To show uniqueness, assume there are $\alpha/f^N, \beta/f^N \in \D{f}$ with
-    \begin{equation*}
-        \restr{\frac {\alpha} {f^N}}{\D{g_if}} = \restr{\frac {\beta} {f^N}}{\D{g_if}} \quad \text{for all $i$}
-    \end{equation*}
-    Therefore there is $n_i \in \N$ such that
-    \begin{equation*}
-        (f g_i)^{n_i} (\alpha f^N + \beta f^N) = 0
-    \end{equation*}
-
-    wlog there are only finitely many $i$ (by the Covering Trick, Lemma~\ref{prop:covering_trick}).
-
-    wlog $N$ is sufficiently large (we can always increase $N$), and so $(fg_i)^N(\alpha - \beta) = 0$.
-
-    Since $\bigcup_i \D{(fg_i)^N} = \bigcup_i \D{fg_i} = \D{f}$ it follows that $f^n \in \langle (fg_i)^N \ | \ i \rangle$ for some $n \in \N$ (again the Covering Trick, Lemma~\ref{prop:covering_trick}).
-    Therefore we find
-    \begin{equation*}
-        f^n(\alpha - \beta) \in \langle (f g_i)^N \ | \ i \rangle (\alpha - \beta) = \langle (f g_i)^N (\alpha - \beta) \ | \ i \rangle = \{ 0 \}
-    \end{equation*}
-    and so $\alpha = \beta \in S_f$.
-
-    Now we show existence.
-    By the uniqueness above, it follows that
-    \begin{equation*}
-        \restr{s_i}{\D{fg_ig_j}} = \restr{s_i}{\D{fg_i} \cap \D{fg_j}} = \restr{s_j}{\D{fg_i} \cap \D{fg_j}} = \restr{s_j}{\D{fg_ig_j}}
-    \end{equation*}
-    wlog have again a finite cover, i.e. only finitely many $g_i$.
-    Hence find an $N \in \N$ such that each $s_i = s'_i / (fg_i)^N$ with $s'_i \in S$ homogeneous.
-    By possibly replacing $N$ with a bigger $N$, we can now assume that
-    \begin{equation*}
-        (f^2g_ig_j)^N \left( s'_i (f g_j)^N - s'_j (f g_i)^N \right) = 0 \quad \text{as $\restr{s_i}{\D{fg_ig_j}} = \restr{s_j}{\D{fg_ig_j}}$}
-    \end{equation*}
-    Now note that
-    \begin{equation*}
-        s_i = \frac {a_i} {b_i} \quad \text{with}\ a_i = s'_i(f g_i)^N, \ b_i = (f g_i)^{2N}
-    \end{equation*}
-    and
-    \begin{equation*}
-        a_i b_j - a_j b_i = s'_i (f g_i)^N (f g_j)^{2N} - s'_j (f g_j)^N (f g_i)^{2N} = \underbrace{(f^2g_ig_j)^N \left(s'_i (fg_j)^N - s'_j (fg_i)^N \right)}_{= 0}
-    \end{equation*}
-    Now observe that $\D{b_i} = \D{fg_i}$ and so $f^n \in \langle b_i \ | \ i \rangle$ for some $n$ (once again the Covering Trick, Lemma~\ref{prop:covering_trick}).
-    Let $f^n = \sum_i r_i b_i$ and get
-    \begin{equation*}
-        a_i f^n = \sum_l r_l b_l a_i = \sum_l r_l a_l b_i = b_i \sum_l r_l a_l
-    \end{equation*}
-    Note that $a_i, b_i, f$ are homogeneous, and so we can also choose $r_i$ to be homogeneous.
-    Then find that $0 = \deg(s_i) = \deg(a_i) - \deg(b_i) = \deg(\sum r_l a_l) - n\deg(f)$.
-
-    Thus
-    \begin{equation*}
-        s_i = s := \frac {\sum_l r_l a_l} {f^n} \in S_f
-    \end{equation*}
-    and since $\deg(\sum r_l a_l) = n\deg(f)$ we find that $s \in (S_f)_0 = \mathcal{F}(\D{f})$.
-    Clearly $\restr{s}{\D{fg_i}} = s_i$ and the claim follows.
+\begin{proof}
+    This is exactly the proof from the lecture, Section 1.12.
+    Note that we have all necessary ingredients, in particular the Covering Trick~\ref{prop:covering_trick}.
+    Hence, the only thing to note is that the gluing produces a homogeneous global section if one starts with homogeneous local sections.
+    It is easy to check that this is indeed the case.
 \end{proof}
 Now the B-sheaf extension theorem from the lecture (from Section 1.11) yields the following corollary.
 \begin{corollary}
@@ -643,7 +593,7 @@ It seems to be the kind of characterization I would expect to find in most textb
     commutes, and so the restrictions of $\phi_i$ resp. $\phi_j$ to $\D{x_ix_j}$ are both induced by the homomorphism $\iota_{x_ix_j}$, hence they are equal.
     The claim follows.
 \end{proof}
-This lemma also justifies the usual definition of projective $n$-space over a scheme $B$ as
+This lemma also justifies the usual definition of \emph{projective $n$-space over a scheme $B$} as
 \begin{equation*}
     \P_B^n := B \times_{\Spec(\Z)} \P_\Z^n
 \end{equation*}
@@ -876,5 +826,23 @@ We will omit the proof here, but present the statement as it can give more geome
 \end{proof}
 Note that in some way, this is the same proof as before.
 The core idea - namely the choice of the smallest element $g_{k0}$ (w.r.t. divisibility by $R$) - more or less achieves the same effect as the more complicated ideal argument from Lemma~\ref{prop:adding_coeff_ideal_does_not_introduce_irrelevant_ideal}.
+
+\section*{Conclusion}
+In this work, we have seen how to construct the scheme $\Proj(S)$ given a graded ring $S$.
+Furthermore, we have peeked into its properties, and used it to prove an important statement about projective space.
+Additionally, we have tried to explain a little bit what is going on in the proof, and compared two different versions of proof.
+The first proof is my own work\footnote{Meaning I could find it nowhere online. However, I do not believe that it is original, and in some sense, it relies on the same idea as the standard proof.}, while the second proof is the standard proof found in many textbooks.
+
+If one continues that line of thought, the next step would probably be to study \emph{projective morphisms}, i.e. morphisms that factor through projective space via a closed immersion, and show that they are always proper.
+After that, it seems like an interesting idea to examine the phenomenon of properness closer.
+For example \cite{hartshorne} mentioned that not all proper morphisms are projective, so it might be instructive to find examples for that and study in which other situations one gets a projective morphism.
+
+Finally, another line of continuing the work would be to study the cohomology of $\Proj(S)$, and how it relates to the ring $S$.
+From the lecture, we already know that projective space $\P_\Z^n$ has a first \v{C}ech-cohomology group isomorphic to $\Z$.
+Starting from that, it would be interesting to see what the cohomology group of $\Proj(S)$ for other graded rings $S$ is.
+A natural first step would be to consider $S = R[x_0, ..., x_n]/\a$ for a homogeneous ideal $\a$, i.e. study the cohomology of closed subschemes of $\P_R^n$.
+This can already become quite complicated, as for example the case of Elliptic Curves shows.
+In the end, it will be interesting if the representation of a scheme as $\Proj(S)$ gives us better access to computing cohomology as the standard way to cover it by affine opens. 
+
 \printbibliography
 \end{document}
