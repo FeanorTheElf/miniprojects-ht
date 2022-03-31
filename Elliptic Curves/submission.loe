@@ -3,9 +3,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {example}{\numberline {1.2}Example\thmtformatoptarg {1(ii)}}{2}{example.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {prop}{\numberline {1.3}Proposition\thmtformatoptarg {1(iii)}}{2}{prop.1.3}%
+\contentsline {prop}{\numberline {1.3}Proposition\thmtformatoptarg {1(iii)}}{3}{prop.1.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {prop}{\numberline {1.4}Proposition\thmtformatoptarg {Existence of points over $\mathbb {Z}_p$}}{3}{prop.1.4}%
+\contentsline {prop}{\numberline {1.4}Proposition\thmtformatoptarg {Existence of points over $\mathbb {Z}_p$}}{4}{prop.1.4}%
 \defcounter {refsection}{0}\relax 
 \contentsline {prop}{\numberline {1.5}Proposition}{4}{prop.1.5}%
 \defcounter {refsection}{0}\relax 
@@ -13,13 +13,13 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {example}{\numberline {1.7}Example\thmtformatoptarg {1(iv) - second example}}{6}{example.1.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {1.8}Example\thmtformatoptarg {(iv) - third example}}{6}{example.1.8}%
+\contentsline {example}{\numberline {1.8}Example\thmtformatoptarg {(iv) - third example}}{7}{example.1.8}%
 \defcounter {refsection}{0}\relax 
 \contentsline {example}{\numberline {2.1}Example\thmtformatoptarg {2(i)}}{7}{example.2.1}%
 \defcounter {refsection}{0}\relax 
 \contentsline {example}{\numberline {2.2}Example\thmtformatoptarg {2(ii)}}{7}{example.2.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {prop}{\numberline {2.3}Proposition\thmtformatoptarg {Duplication Formula}}{8}{prop.2.3}%
+\contentsline {prop}{\numberline {2.3}Proposition\thmtformatoptarg {Duplication Formula}}{9}{prop.2.3}%
 \defcounter {refsection}{0}\relax 
 \contentsline {prop}{\numberline {2.4}Proposition\thmtformatoptarg {Reductions mod $p$ are not enough}}{9}{prop.2.4}%
 \defcounter {refsection}{0}\relax 
@@ -37,7 +37,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {prop}{\numberline {3.3}Proposition\thmtformatoptarg {3(i)}}{14}{prop.3.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {prop}{\numberline {3.4}Proposition\thmtformatoptarg {3(ii) - $2$-torsion points}}{14}{prop.3.4}%
+\contentsline {prop}{\numberline {3.4}Proposition\thmtformatoptarg {3(ii) - $2$-torsion points}}{15}{prop.3.4}%
 \defcounter {refsection}{0}\relax 
 \contentsline {prop}{\numberline {3.5}Proposition\thmtformatoptarg {3(ii) - 3-torsion points}}{15}{prop.3.5}%
 \defcounter {refsection}{0}\relax 
@@ -47,9 +47,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {example}{\numberline {3.8}Example\thmtformatoptarg {3(ii) - second example}}{17}{example.3.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {4.1}Example\thmtformatoptarg {4(i)}}{17}{example.4.1}%
+\contentsline {example}{\numberline {4.1}Example\thmtformatoptarg {4(i)}}{18}{example.4.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {4.2}Example\thmtformatoptarg {4(ii) - trivial example}}{18}{example.4.2}%
+\contentsline {example}{\numberline {4.2}Example\thmtformatoptarg {4(ii) - trivial example}}{19}{example.4.2}%
 \defcounter {refsection}{0}\relax 
 \contentsline {example}{\numberline {4.3}Example\thmtformatoptarg {4(ii) - main example}}{19}{example.4.3}%
 \defcounter {refsection}{0}\relax 
@@ -57,4 +57,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {example}{\numberline {4.5}Example}{22}{example.4.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {example}{\numberline {4.6}Example}{22}{example.4.6}%
+\contentsline {example}{\numberline {4.6}Example}{23}{example.4.6}%

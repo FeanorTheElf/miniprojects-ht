@@ -78,6 +78,15 @@
 \maketitle
 \listoftheorems
 
+\section*{Introduction}
+In this Miniproject, we study several phenomena that can occur when computing the group of rational points $E(\Q)$ of an Elliptic Curve $E$.
+In particular, we look at the two most important tools for studying this group that were introduced in the lecture. 
+Firstly, this is the fact that the reduction modulo a prime is injective on torsion points, and thus provides a good way to find the torsion part of $E(\Q)$.
+The second tool is the 2-descent method, which can be used to find the rank (i.e. the dimension of the free part of $E(\Q)$).
+
+When applying these methods, there are some exceptional (and therefore interesting) situations that can occur.
+We want to present some of these phenomena by giving examples, and analyze what conditions must be satisfied for them to occur.
+
 \section{Question 1}
 
 \begin{example}[1(i)]
@@ -1191,6 +1200,29 @@ The next example shows that also part (i) of Proposition~\ref{prop:rank_bound} i
     Note that the square of the $y$-coordinate $3^2 = 9$ does not divide $\Delta(E) = 4 \cdot 8^3 = 2^{11}$ and so $(1, 3)$ is not torsion by the Nagell-Lutz theorem \cite[Thm 5.4]{lecture}.
     So it is of infinite order, and we have indeed that $\mathrm{rank}(E) = 1$.
 \end{example}
+
+\section*{Conclusion}
+In this work, we have seen a lot of examples of Elliptic Curves with interesting behavior.
+The first question dealt with cases in which there are (almost) no points with coordinates in $\Z_p$ on the curve, for certain $p$.
+By Hensel's Lemma, this is very closely related to the $\F_p$-rational points of the reduction of $E$ modulo $p$, and we have seen that this only exhibits special behavior for small primes.
+
+In the second question, we continued to study the reduction modulo $p$ and looked for situations where the group of $\F_p$ rational points in the reduction is strictly larger than the torsion group of $E(\Q)$.
+These cases are interesting, as they complicate the computation of the torsion group using the standard techniques.
+
+The third question continued to deal with rational torsion points, but now we wanted to find Elliptic Curves with torsion points of specified order.
+As it turns out, in some cases we have found a family of defining equations that completely characterize these Elliptic Curves.
+Together, we note that when it comes to the torsion group, we find a lot of nice connections and can make definite statements about its structure.
+All in all, we understand the torsion part of $E(\Q)$ quite well.
+
+The last question however deals with the free part of $E(\Q)$ (in particular the rank of $E$), which is much more mysterious.
+Our main obstacle is that the naive 2-descent method from the lecture only works in a few cases, and in other cases, it is extremely difficult to compute the rank.
+We also could not find nice characterizations of whenever the method works.
+However, working around this obstacle, we still could find some interesting examples and find their rank.
+Furthermore, we present a sharp bound on the rank, which only depends on the coefficients of the Elliptic Curve in a simple way.
+
+Of course, when it comes to the rank, there are still a lot of open questions, and we just touched the topic on the surface.
+For example, I would find it interesting to study whether the fact that isogenies preserve the rank allows to prove more statements or compute the rank in more cases.
+Finally, this line of thought also leads into current research, and is even connected to one of the Millenium Problems, namely the Birch and Swinnerton-Dyer Conjecture.
 
 \section{Appendix}
 The curves from Example~\ref{ex:special_curve} were found by the following python script.
