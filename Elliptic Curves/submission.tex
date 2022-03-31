@@ -306,7 +306,7 @@ This also works for $p = 7$, as the next example shows.
     \end{equation*}
     Furthermore, note that
     \begin{align*}
-        2^2 &\equiv 3^3 + 6 = 28 \mod 8 \\
+        1^2 &\equiv 3^3 + 6 = 33 \mod 8 \\
         1^2 &\equiv 1^3 + 6 = 7 \mod 3 \\
         2^2 &\equiv 2^3 + 6 = 14 \mod 5
     \end{align*}
@@ -358,26 +358,20 @@ Note also that those three examples show that the bound $p \geq 11$ in Propositi
 \begin{example}[2(ii)]
     \label{ex:2ii}
     Consider the Elliptic Curve $E: y^2 = x(x + 1)(x - 8)$.
-    Note that we have an isomorphism
-    \begin{equation*}
-        \psi: E \to E', \quad (x, y) \mapsto \left( x - \frac 7 3, y \right)
-    \end{equation*}
-    to the Elliptic Curve $E': y^2 = x^3 - \frac {73} 3 x - \frac {1190} {27}$ defined over $\Q$.
     Have that
     \begin{equation*}
-        \Delta(E) = -72^2 = -5184 = \Delta(E')
+        \Delta(E) = -(-1 - 0)^2(8 - 0)^2(8 - (-1))^2 = -72^2 = -5184
     \end{equation*}
     Note that this has only the prime factors $2$ and $3$.
-    As before, this shows that all the results from the lecture on the reduction modulo $p \neq 2, 3$ are also valid for the curve $E$, even though it is not defined by an equation of the form $y^2 = x^3 + Ax + B$.
-    We see that
+    So the reduction $\tilde{E}$ modulo 7 is an Elliptic Curve with
     \begin{equation*}
         \tilde{E}(\F_7) = \{ (0, 0), (1, 0), (4, 2), (4, 5), (5, 1), (5, 6), (6, 0), \O \}
     \end{equation*}
-    and thus has order 8.
-    As before, we this only leaves two possible cases, either the obvious 2-torsion points are all torsion points (i.e. $\#E_{\mathrm{tors}}(\Q) = 4$) or each of the points $\tilde{E}(\F_5)$ lifts to a torsion point (i.e. $\#E_{\mathrm{tors}}(\Q) = 8$).
+    Since $E_{\mathrm{tors}}(\Q) \hookrightarrow \tilde{E}(\F_7)$, this leaves only two cases.
+    Either the obvious 2-torsion points are all torsion points (i.e. $\#E_{\mathrm{tors}}(\Q) = 4$) or each of the points $\tilde{E}(\F_7)$ lifts to a torsion point (i.e. $\#E_{\mathrm{tors}}(\Q) = 8$).
 
     Unlike the previous example however, this time the former is the case.
-    To see this, we use the Nagell-Lutz theorem \cite[5.4]{lecture}.
+    To see this, we use the Nagell-Lutz theorem \cite[Thm 5.4]{lecture}.
     Assume $(x, y) \in E_{\mathrm{tors}}(\Q)$ with $y \neq 0$.
     Then it yields that $y^2 \divides \Delta(E) = -72^2$ and so $y \divides 72$.
     So
@@ -530,7 +524,7 @@ We study in which cases there is some $P \in \tilde{E}(\F_p)$ of order 4.
     \begin{equation*}
         x([2]P) = d(x) := \frac {x^4 - 2 \alpha \beta x^2 + \alpha^2 \beta^2} {4x^3 - 4(\alpha + \beta) x^2 + 4 \alpha \beta x}
     \end{equation*}
-
+    First consider the direction $\Leftarrow$.
     \paragraph{Case 1} By assumption, there is $\gamma, \mu \in k$ with $\gamma^2 = \alpha\beta$ and $\mu^2 = 2\gamma + \alpha + \beta$.
     Thus
     \begin{equation*}
@@ -601,7 +595,7 @@ As it turns out, we can phrase each of those nested square condition by a condit
 Combining these two lemmas, it is quite easy to generate more examples.
 \begin{example}
     Let $p$ be a prime.
-    Taking the set of ``exhaustive cases'' given by $p(-1) = -p$ similar to the proof of Proposition~\ref{prop:subgroup_mod_every_p}.
+    We can find an example by taking the set of ``exhaustive cases'' given by $p(-1) = -p$, similar to the proof of Proposition~\ref{prop:subgroup_mod_every_p}.
     In other words, take $\alpha, \beta \in \Z$ such that $-\alpha, -p\beta$ and $\beta - \alpha$ are squares (in $\Z$).
     Then we find for any prime $q$
     \begin{itemize}
@@ -683,7 +677,7 @@ The next corollary will give us a ``base form'' for equations of Elliptic Curves
     \end{equation*}
     Note that the tangent at $(0, 0)$ now has slope $0$, i.e. is given by $y = 0$.
     Furthermore, the third point of intersection of the tangent and $E$ is $(-a_2, 0)$.
-    The line through $\O$ and $(-a_2)$ is given by $x = -a_2$ and its third point of intersection with $E$ is then $(-a_2, a_1a_2 - a_3)$. 
+    The line through $\O$ and $(-a_2, 0)$ is given by $x = -a_2$ and its third point of intersection with $E$ is then $(-a_2, a_1a_2 - a_3)$. 
 \end{proof}
 I came up with the next lemma to make my first proof of 3(i) work.
 Since then, I have found a simpler proof that does not require the lemma anymore, but I found it beautiful and did not want to delete it.
@@ -704,7 +698,7 @@ Since then, I have found a simpler proof that does not require the lemma anymore
     Since $P$ has order at least 5, observe that $P, [2]P, [3]P, [4]P$ and $[5]P$ are all different.
     Furthermore, since $E$ and $E'$ have the same tangent slope at each $[i] P$, note that $E$ meets $E'$ in $[i] P$ with multiplicity 2.
     So $E$ meets $E'$ in at least 10 points (counting multiplicity), which is greater than the product of their degrees $9 = 3 \cdot 3$.
-    By Bezout's theorem \cite[Corollary I.7.8]{hartshorne}, it follows that $E$ and $E'$ share an irreducible component of dimension $\geq 1$, but since both are Elliptic Curves, they are irreducible of dimension $1$ and so $E = E'$.
+    By Bezout's theorem \cite[Corollary I.7.8]{hartshorne}, it follows that $E$ and $E'$ share an irreducible component of dimension $\geq 1$, but since both are Elliptic Curves, they are irreducible of dimension $1$, so we find $E = E'$.
 \end{proof}
 Finally we can proof the statement on 5-torsion points.
 \begin{prop}[3(i)]
@@ -781,7 +775,7 @@ The following is IMO the nicest form for curves with a nontrivial 2-torsion poin
 The case $N = 3$ is slightly more interesting.
 Our approach is as follows:
 \begin{itemize}
-    \item Apply a translation to get an isomorphic curve whose (nontrivial) 3-torsion point is $(0, 0)$ and the tangent is given by $y = 0$.
+    \item Apply Corollary~\ref{prop:point_normalization} to get an isomorphic curve whose (nontrivial) 3-torsion point is $(0, 0)$ and the tangent is given by $y = 0$.
     \item Observe that $(0, 0)$ being a 3-torsion point is equivalent to the fact that the tangent at $E$ through $(0, 0)$ meets $E$ at $(0, 0)$ with multiplicity three.
     \item Show that after a scaling, the resulting equation is nice.
 \end{itemize}
@@ -964,7 +958,12 @@ First of all, note that it is trivial to find an example where $b$ has at least 
 To find an example with rank two, it seems like a good way to take a curve with many rational points.
 Further requiring those points to be non-integral increases our chance, as that way, they cannot be torsion points.
 However, playing around with this method did not yield a nice curve for which we can easily compute the rank.
-So lets fall back to brute force, which works quite well here as this condition is very easy to test via a computer.
+In other words, we want to find curves $E: y^2 = x(x^2 + ax + b)$ such that the equations
+\begin{equation*}
+    r l^4 + a l^2 m^2 + \frac b r m^4 = n^2 \quad \text{and} \quad r l^4 + a_1 l^2 m^2 + \frac {b_1} r m^4 = n^2
+\end{equation*}
+obviously have or have no solution.
+This condition is quite easy to check with a computer, so let's just use a brute-force approach to find nice curves.
 \begin{example}[4(ii) - main example]
     \label{ex:special_curve}
     Consider the curve
@@ -1050,16 +1049,16 @@ Note that the computer also found other, similarly special curves, given by equa
     Then $\mathrm{rank}(E) \leq 2k$.
     Furthermore, we have
     \begin{itemize}
-        \item If $a \leq 0, b \geq 0$, then $\mathrm{rank}(E) \leq 2k - 1$
+        \item If $a \leq 0 \leq b$, then $\mathrm{rank}(E) \leq 2k - 1$
         \item If $a \perp b$ are coprime, then $\mathrm{rank}(E) \leq k$
-        \item If $a \perp b$ and $a \leq 0, b \geq 0$, then $\mathrm{rank}(E) \leq k - 1$
+        \item If $a \perp b$ and $a \leq 0 \leq b$, then $\mathrm{rank}(E) \leq k - 1$
     \end{itemize}
     Note that if one of the additional conditions is fulfilled for $a_1, b_1$, then we get the corresponding bound for $\mathrm{rank}(E') = \mathrm{rank}(E)$ 
     (isogenous curves have the same rank, as isogenies are group homomorphisms with finite kernel, see \cite[Thm III.4.8]{silverman} and \cite[Corollary III.4.9]{silverman}).
 \end{prop}
 \begin{proof}
     Use $a_1, b_1, E', \phi, \hat{\phi}, q, \hat{q}$ as in the lecture.
-    Let $l$ denote the number of distinct prime factors of $a^2 - 4b = b_1$ and $m$ denote the number of distinct prime factors of $b$.
+    Let $v$ denote the number of distinct prime factors of $a^2 - 4b = b_1$ and $w$ denote the number of distinct prime factors of $b$.
     As shown in the lecture, have that $E'(\Q)/\phi(E(\Q)) \cong \im(q)$ and if $\overline{r} \in \im(q)$ with $r \in \Z$ square-free, then $r \divides b_1$.
     Thus
     \begin{equation*}
@@ -1071,15 +1070,15 @@ Note that the computer also found other, similarly special curves, given by equa
     \end{equation*}
     and so
     \begin{equation*}
-        \#(E'(\Q)/\phi(E(\Q))) \leq 2^{l + 1}
+        \#(E'(\Q)/\phi(E(\Q))) \leq 2^{v + 1}
     \end{equation*}
     Note that the map $\hat{\phi}$ is a group homomorphism with kernel of size 2, and therefore we find
     \begin{equation*}
-        \#(\hat{\phi}(E'(\Q))/[2]E(\Q)) \leq 2^l
+        \#(\hat{\phi}(E'(\Q))/[2]E(\Q)) \leq 2^v
     \end{equation*}
     Similarly, find
     \begin{equation*}
-        \#(E(\Q)/\hat{\phi}(E'(\Q))) \leq 2^{m + 1}
+        \#(E(\Q)/\hat{\phi}(E'(\Q))) \leq 2^{w + 1}
     \end{equation*}
     Since there is a surjection
     \begin{equation*}
@@ -1087,7 +1086,7 @@ Note that the computer also found other, similarly special curves, given by equa
     \end{equation*}
     we see that
     \begin{equation}
-        \#(E(\Q)/[2]E(\Q)) \leq 2^l \cdot 2^{m + 1} = 2^{l + m + 1} \label{eq:general_bound}
+        \#(E(\Q)/[2]E(\Q)) \leq 2^v \cdot 2^{w + 1} = 2^{v + w + 1} \label{eq:general_bound}
     \end{equation}
     Finally, note that
     \begin{equation*}
@@ -1096,10 +1095,10 @@ Note that the computer also found other, similarly special curves, given by equa
     and $\Z/2\Z \hookrightarrow E_{\mathrm{tors}}(\Q)/[2]E(\Z)$ (there is the nontrivial 2-torsion point $(0, 0)$)
     This yields
     \begin{equation*}
-        \mathrm{rank}(E) \leq \log_2(\#(E(\Z)/[2]E(\Q)) / 2) \leq \log_2(2^{l + m}) = l + m \leq 2k
+        \mathrm{rank}(E) \leq \log_2(\#(E(\Z)/[2]E(\Q)) / 2) \leq \log_2(2^{v + w}) = v + w \leq 2k
     \end{equation*}
 
-    \paragraph{Assume $a \leq 0, b \geq 0$} Then the equation
+    \paragraph{Assume $a \leq 0 \leq b$} Then the equation
     \begin{equation*}
         r l^4 + a l^2 m^2 + \frac b r = n^2
     \end{equation*}
@@ -1114,40 +1113,40 @@ Note that the computer also found other, similarly special curves, given by equa
     \end{equation*}
     Thus
     \begin{equation*}
-        \#(E(\Q)/\hat{\phi}(E'(\Q))) \leq 2^m
+        \#(E(\Q)/\hat{\phi}(E'(\Q))) \leq 2^w
     \end{equation*}
     As before find then (since $\hat{\phi}$ has a kernel of size 2)
     \begin{equation}
-        \#(E(\Q)/[2]E(\Q)) \leq 2^l \cdot 2^m \label{eq:sign_bound}
+        \#(E(\Q)/[2]E(\Q)) \leq 2^v \cdot 2^w \label{eq:sign_bound}
     \end{equation}
     and again as before
     \begin{equation*}
-        \mathrm{rank}(E) \leq \log_2(2^l \cdot 2^m / 2) = l + m - 1 \leq 2k - 1
+        \mathrm{rank}(E) \leq \log_2(2^v \cdot 2^w / 2) = v + w - 1 \leq 2k - 1
     \end{equation*}
 
-    \paragraph{Assume $a \perp b$} Then have that $b_1 = (a^2 - 4b) \perp b$ and thus we find that $l + m = k$.
+    \paragraph{Assume $a \perp b$} Then have that $b_1 = (a^2 - 4b) \perp b$ and thus we find that $v + w = k$.
     Equation~\ref{eq:general_bound} is
     \begin{equation*}
-        \#(E(\Q)/[2]E(\Q)) \leq 2^l \cdot 2^{m + 1} = 2^{l + m + 1}
+        \#(E(\Q)/[2]E(\Q)) \leq 2^v \cdot 2^{w + 1} = 2^{v + w + 1}
     \end{equation*}
     and so it follows
     \begin{equation*}
-        \mathrm{rank}(E) \leq \log_2(2^{l + m + 1} / 2) = l + m = k
+        \mathrm{rank}(E) \leq \log_2(2^{v + w + 1} / 2) = v + w = k
     \end{equation*}
 
-    \paragraph{Assume $a \perp b$ and $a \leq 0, b \geq 0$} Now have both Equation~\ref{eq:sign_bound}
+    \paragraph{Assume $a \perp b$ and $a \leq 0 \leq b$} Now have both Equation~\ref{eq:sign_bound}
     \begin{equation*}
-        \#(E(\Q)/[2]E(\Q)) \leq 2^l \cdot 2^m = 2^{m + l}
+        \#(E(\Q)/[2]E(\Q)) \leq 2^v \cdot 2^w = 2^{v + w}
     \end{equation*}
-    and $m + l = k$.
+    and $v + w = k$.
     As before, it follows
     \begin{equation*}
-        \mathrm{rank}(E) \leq \log_2(2^{m + l} / 2) = m + l - 1 = k - 1
+        \mathrm{rank}(E) \leq \log_2(2^{v + w} / 2) = v + w - 1 = k - 1
     \end{equation*}
 \end{proof}
 Now we want to examine if the above inequalities are sharp.
 \begin{example}
-    Consider the curve $E: y^2 = x(x^2 - 6x + 1)$, which satisfies $a \leq 0, b \geq 0$ and $a \perp b$.
+    Consider the curve $E: y^2 = x(x^2 - 6x + 1)$, which satisfies $a \leq 0 \leq b$ and $a \perp b$.
     Furthermore, $b_1 = 6^2 - 4 = 32 = 2^5$ has only one prime factor.
     Thus Proposition~\ref{prop:rank_bound} yields that $\mathrm{rank}(E) \leq 0$, so $\mathrm{rank}(E) = 0$.
 \end{example}
@@ -1155,7 +1154,7 @@ Note that also Example~\ref{ex:special_curve} gives an example for the sharpness
 \begin{equation*}
     E': y^2 = x(x - 92 x + 2089)
 \end{equation*}
-satisfies $a \leq 0, b \geq 0$ and $a \perp b$, and indeed its rank is $\mathrm{rank}(E') = 3 = 4 - 1$ (note that $2089 \cdot 30$ has exactly $4$ prime factors).
+satisfies $a \leq 0 \leq b$ and $a \perp b$, and indeed its rank is $\mathrm{rank}(E') = 3 = 4 - 1$ (note that $2089 \cdot 30$ has exactly $4$ prime factors).
 
 The next example shows that also part (i) of Proposition~\ref{prop:rank_bound} is sharp.
 \begin{example}
